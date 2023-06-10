@@ -1,0 +1,10 @@
+{
+  "recommendations": [
+    "ms-vscode-remote.remote-containers",
+    "dbaeumer.vscode-eslint",
+    "wix.glean",
+    "esbenp.prettier-vscode",
+    "amimaro.remix-run-snippets",
+    "bradlc.vscode-tailwindcss"
+  ]
+}

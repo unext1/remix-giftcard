@@ -1,0 +1,14 @@
+.cache
+build
+public/build
+
+node_modules
+
+hasura
+Dockerfile
+
+.dockerignore
+.gitignore
+.eslintrc.js
+.prettierrc
+.env

@@ -1,0 +1,3 @@
+- "!include public_user.yaml"
+- "!include public_workplace.yaml"
+- "!include public_workplace_member.yaml"
