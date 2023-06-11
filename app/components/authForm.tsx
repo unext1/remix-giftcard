@@ -6,7 +6,7 @@ import { LoaderIcon } from 'lucide-react';
 import { Button } from '~/components/ui/button';
 import { Input } from '~/components/ui/input';
 import { Label } from '~/components/ui/label';
-import { cn } from '~/lib/utils';
+import { cc } from '~/lib/utils';
 
 interface UserAuthFormProps extends HTMLAttributes<HTMLDivElement> {}
 
@@ -15,7 +15,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
 
   const submitting = navigation.state === 'submitting' || navigation.state === 'loading';
   return (
-    <div className={cn('grid gap-6', className)} {...props}>
+    <div className={cc('grid gap-6', className)} {...props}>
       <Form method="post">
         <div className="grid gap-2">
           <div className="grid gap-1">

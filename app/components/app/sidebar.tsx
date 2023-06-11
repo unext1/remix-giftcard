@@ -2,6 +2,7 @@ import { Form, NavLink } from '@remix-run/react';
 import cc from 'classcat';
 import { GiftIcon, LayoutDashboard } from 'lucide-react';
 import { type ReactNode } from 'react';
+import { WorkplaceSwitcher } from './workplace-switcher';
 
 const navLinks = [
   { icon: LayoutDashboard, label: 'Overview', href: '' },
@@ -10,14 +11,24 @@ const navLinks = [
 
 export const Navigation = () => {
   return (
-    <nav className="overflow-auto flex-1 px-3">
+    <nav className="overflow-auto flex-1 px-4 ">
       <div className="flex flex-col justify-between h-full">
         <div>
           <h2 className="text-neutral-50 font-bold text-xl pt-3 pb-8">
             <span className="text-primary">Chat</span> App
           </h2>
 
-          <ul className=" rounded-box space-y-1.5">
+          <WorkplaceSwitcher
+            workplaces={[
+              { id: 'asdads', name: 'yo' },
+              { id: 'ebeadad', name: 'y3312o' }
+            ]}
+            memberOfWorkplaces={[
+              { id: 'easdg', name: 'yo33' },
+              { id: 'basdg312', name: 'ddd' }
+            ]}
+          />
+          <ul className=" rounded-box space-y-1.5 mt-4">
             <li className="text-gray-300 font-semibold mb-4 text-xs uppercase">
               <span>Dashboard</span>
             </li>
@@ -45,14 +56,14 @@ export const Navigation = () => {
 
 const NavigationItem = ({ href, children, end = false }: { href: string; children?: ReactNode; end?: boolean }) => {
   return (
-    <li className="group">
+    <li className="group ">
       <NavLink
         to={href}
         end={end}
         className={({ isActive }) =>
           cc({
-            'focus:ring-1 ring-offset-0 ring-neutral flex py-2 rounded-xl pl-3 text-sm': true,
-            'bg-neutral text-neutral-content': isActive
+            'focus:ring-1 ring-offset-0 ring-neutral hover:bg-neutral flex py-2 pl-3 text-sm': true,
+            'bg-neutral text-neutral-content border-l-2 border-primary': isActive
           })
         }
       >
