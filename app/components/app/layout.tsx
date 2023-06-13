@@ -2,20 +2,21 @@ import { Dialog, Transition } from '@headlessui/react';
 import { MenuIcon, XIcon } from 'lucide-react';
 import { Fragment, useState, type ReactNode } from 'react';
 
+import { type UserType } from '~/services/auth.server';
 import { Navigation } from './sidebar';
 
-export const AppLayout = ({ children }: { children: React.ReactNode }) => {
+export const AppLayout = ({ children, user }: { children: React.ReactNode; user: UserType }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
     <div className="flex flex-col h-screen-safe md:flex-row">
       <MobileSidebar isOpen={sidebarOpen} onClose={setSidebarOpen} setClose={() => setSidebarOpen(false)}>
-        <Navigation />
+        <Navigation user={user} />
       </MobileSidebar>
 
       {/* Static sidebar for desktop */}
       <div className="hidden flex-col space-y-4 border-r border-neutral py-4 w-60  md:flex">
-        <Navigation />
+        <Navigation user={user} />
       </div>
 
       <main className="flex flex-1 flex-col overflow-y-scroll rounded-md max-w-none bg-neutral container mx-auto p-5">

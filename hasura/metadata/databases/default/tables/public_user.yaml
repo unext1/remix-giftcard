@@ -2,12 +2,19 @@ table:
   name: user
   schema: public
 array_relationships:
-  - name: member_of_workplaces
+  - name: memberOfWorkplaces
     using:
       foreign_key_constraint_on:
         column: user_id
         table:
           name: workplace_member
+          schema: public
+  - name: ownerOfWorkplaces
+    using:
+      foreign_key_constraint_on:
+        column: owner_id
+        table:
+          name: workplace
           schema: public
 select_permissions:
   - role: user

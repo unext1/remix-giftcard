@@ -1,15 +1,16 @@
+// https://www.radix-ui.com/docs/primitives/components/avatar
 import * as AvatarPrimitive from '@radix-ui/react-avatar';
 import { forwardRef, type ComponentPropsWithoutRef, type ElementRef } from 'react';
 
 import { cc } from '~/lib/utils';
 
 const getInitials = (name: string) => {
-  const parts = name.split(' ');
+  const parts = name.replace('@', '').split(' ');
   return (parts.length === 1 ? parts[0].slice(0, 2) : parts[0].slice(0, 1) + parts[1].slice(0, 1)).toLocaleUpperCase();
 };
 
 const Initials = ({ name, delayMs }: { name: string; delayMs?: number }) => (
-  <AvatarFallback delayMs={delayMs} className="flex h-full w-full items-center justify-center rounded bg-neutral">
+  <AvatarFallback delayMs={delayMs} className="flex h-full w-full items-center justify-center rounded-full bg-neutral">
     <span className="text-sm font-medium uppercase text-neutral-content">{getInitials(name)}</span>
   </AvatarFallback>
 );
@@ -30,7 +31,7 @@ export const Avatar = ({ isOnline, name, imageSrc, className }: AvatarProps) => 
       )}
       {imageSrc ? (
         <>
-          <AvatarImage src={imageSrc} alt={name} className="rounded shadow" />
+          <AvatarImage src={imageSrc} alt={name} className="rounded-full shadow" />
           <Initials name={name} />
         </>
       ) : (

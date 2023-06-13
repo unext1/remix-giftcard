@@ -1,8 +1,12 @@
 table:
   name: workplace
   schema: public
+object_relationships:
+  - name: owner
+    using:
+      foreign_key_constraint_on: owner_id
 array_relationships:
-  - name: workplace_members
+  - name: workplaceMembers
     using:
       foreign_key_constraint_on:
         column: workplace_id
@@ -30,7 +34,7 @@ select_permissions:
         _or:
           - owner_id:
               _eq: X-Hasura-User-Id
-          - workplace_members:
+          - workplaceMembers:
               user_id:
                 _eq: X-Hasura-User-Id
 update_permissions:

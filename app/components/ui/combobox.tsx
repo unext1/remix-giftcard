@@ -182,7 +182,7 @@ export const ComboboxWithAction = <T,>({ combobox, dialog, form, children }: Com
               <Button type="button" className="btn-outline" onClick={() => setShowDialog(false)}>
                 Cancel
               </Button>
-              <Button type="submit" className="btn-neutral">
+              <Button type="submit" className="btn-primary">
                 Continue
               </Button>
             </DialogFooter>

@@ -1,28 +1,72 @@
-import type { V2_MetaFunction } from '@remix-run/node';
+import { redirect, type ActionArgs, type LoaderArgs, type V2_MetaFunction } from '@remix-run/node';
+import { Form } from '@remix-run/react';
+import { route } from 'routes-gen';
+import { z } from 'zod';
+import { zx } from 'zodix';
+import { Button } from '~/components/ui/button';
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '~/components/ui/dialog';
+import { Input } from '~/components/ui/input';
+import { Label } from '~/components/ui/label';
+import { authenticator, requireUser } from '~/services/auth.server';
+import { createWorkplace } from '~/services/workplace.server';
 
 export const meta: V2_MetaFunction = () => {
   return [{ title: 'New Remix App' }, { name: 'description', content: 'Welcome to Remix!' }];
 };
 
+export async function loader({ request, params }: LoaderArgs) {
+  await authenticator.isAuthenticated(request, { failureRedirect: '/login' });
+  return {};
+}
+
+export async function action({ request, params }: ActionArgs) {
+  const user = await requireUser({ request, params, noRedirect: true });
+  const { title, _action } = await zx.parseForm(request, {
+    title: z.string().optional(),
+    _action: z.enum(['create'])
+  });
+
+  switch (_action) {
+    case 'create':
+      if (title) {
+        const workplace = await createWorkplace({ sessionUser: user, title });
+
+        return redirect(route('/app/:workplaceId', { workplaceId: workplace?.[0].id }));
+      }
+      break;
+  }
+
+  return {};
+}
+
 export default function AppIndex() {
   return (
-    <div className="space-y-4 container mx-auto space-x-4">
-      <div className="card w-96 bg-base-100 shadow-xl">
-        <figure>
-          <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDYgjtV5OfaMxyjJ3NFSvZvi2d0OkOOnHXWA&usqp=CAU"
-            alt="Shoes"
-            className="w-full object-cover"
-          />
-        </figure>
-        <div className="card-body">
-          <h2 className="card-title">Shoes!</h2>
-          <p>If a dog chews shoes whose shoes does he choose?</p>
-          <div className="card-actions justify-end">
-            <button className="btn btn-primary btn-sm">Buy Now</button>
-          </div>
-        </div>
-      </div>
+    <div className="bg-neutral w-full h-screen-safe">
+      <Dialog>
+        <DialogTrigger asChild>
+          <Button className="mt-6" variant="destructive">
+            Create Workplace
+          </Button>
+        </DialogTrigger>
+        <DialogContent>
+          <Form method="post">
+            <DialogHeader>
+              <DialogTitle>Create New Workplace</DialogTitle>
+            </DialogHeader>
+            <div className="space-x-4 flex mt-4">
+              <Label htmlFor="title" className="my-auto">
+                Name
+              </Label>
+              <Input name="title" />
+            </div>
+            <DialogFooter>
+              <Button name="_action" value="create" type="submit" variant="destructive">
+                Confirm
+              </Button>
+            </DialogFooter>
+          </Form>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

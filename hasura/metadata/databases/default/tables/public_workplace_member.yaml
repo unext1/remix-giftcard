@@ -27,14 +27,14 @@ select_permissions:
       filter:
         _or:
           - user:
-              member_of_workplaces:
+              memberOfWorkplaces:
                 user_id:
                   _eq: X-Hasura-User-Id
           - workplace:
               owner_id:
                 _eq: X-Hasura-User-Id
           - workplace:
-              workplace_members:
+              workplaceMembers:
                 user_id:
                   _eq: X-Hasura-User-Id
 delete_permissions:

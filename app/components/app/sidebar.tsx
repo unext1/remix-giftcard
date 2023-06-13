@@ -1,32 +1,30 @@
-import { Form, NavLink } from '@remix-run/react';
+import { Form, Link, NavLink } from '@remix-run/react';
 import cc from 'classcat';
 import { GiftIcon, LayoutDashboard } from 'lucide-react';
 import { type ReactNode } from 'react';
+import { type UserType } from '~/services/auth.server';
 import { WorkplaceSwitcher } from './workplace-switcher';
 
 const navLinks = [
   { icon: LayoutDashboard, label: 'Overview', href: '' },
-  { icon: GiftIcon, label: 'Gift Cards', href: '/gift' }
+  { icon: GiftIcon, label: 'Gift Cards', href: 'gift' },
+  { icon: GiftIcon, label: 'Settings', href: 'settings' }
 ];
 
-export const Navigation = () => {
+export const Navigation = ({ user }: { user: UserType }) => {
   return (
     <nav className="overflow-auto flex-1 px-4 ">
       <div className="flex flex-col justify-between h-full">
         <div>
-          <h2 className="text-neutral-50 font-bold text-xl pt-3 pb-8">
-            <span className="text-primary">Chat</span> App
-          </h2>
+          <Link to="/app">
+            <h2 className="text-neutral-50 font-bold text-xl pt-3 pb-8">
+              <span className="text-primary">Q</span>Pong
+            </h2>
+          </Link>
 
           <WorkplaceSwitcher
-            workplaces={[
-              { id: 'asdads', name: 'yo' },
-              { id: 'ebeadad', name: 'y3312o' }
-            ]}
-            memberOfWorkplaces={[
-              { id: 'easdg', name: 'yo33' },
-              { id: 'basdg312', name: 'ddd' }
-            ]}
+            workplaces={user?.ownerOfWorkplaces?.map(({ id, title }) => ({ id, title })) || []}
+            memberOfWorkplaces={user?.memberOfWorkplaces?.map(({ workplace: { id, title } }) => ({ id, title })) || []}
           />
           <ul className=" rounded-box space-y-1.5 mt-4">
             <li className="text-gray-300 font-semibold mb-4 text-xs uppercase">
@@ -62,8 +60,8 @@ const NavigationItem = ({ href, children, end = false }: { href: string; childre
         end={end}
         className={({ isActive }) =>
           cc({
-            'focus:ring-1 ring-offset-0 ring-neutral hover:bg-neutral flex py-2 pl-3 text-sm': true,
-            'bg-neutral text-neutral-content border-l-2 border-primary': isActive
+            'focus:ring-1 ring-offset-0 ring-neutral hover:bg-neutral flex py-2 rounded-md pl-3 text-sm': true,
+            'bg-neutral text-neutral-content border-l-4 border-primary': isActive
           })
         }
       >

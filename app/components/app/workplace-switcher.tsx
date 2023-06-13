@@ -10,8 +10,8 @@ export const WorkplaceSwitcher = ({
   workplaces,
   memberOfWorkplaces
 }: {
-  workplaces: { id: string; name: string }[];
-  memberOfWorkplaces: { id: string; name: string }[];
+  workplaces: { id: string; title: string }[];
+  memberOfWorkplaces: { id: string; title: string }[];
 }) => {
   const params = useParams();
   const navigate = useNavigate();
@@ -21,17 +21,17 @@ export const WorkplaceSwitcher = ({
       {
         title: 'Owner',
         items: workplaces.map((item) => ({
-          label: item.name,
+          label: item.title,
           value: item.id,
-          onSelect: () => navigate(route('/:workplaceId', { workplaceId: item.id }))
+          onSelect: () => navigate(route('/app/:workplaceId', { workplaceId: item.id }))
         }))
       },
       {
         title: 'Member',
         items: memberOfWorkplaces.map((item) => ({
-          label: item.name,
+          label: item.title,
           value: item.id,
-          onSelect: () => navigate(route('/:workplaceId', { workplaceId: item.id }))
+          onSelect: () => navigate(route('/app/:workplaceId', { workplaceId: item.id }))
         }))
       }
     ],

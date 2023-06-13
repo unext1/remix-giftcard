@@ -1,6 +1,11 @@
+import { redirect } from '@remix-run/node';
+import { Params } from '@remix-run/react';
 import { Authenticator } from 'remix-auth';
 import { GoogleStrategy } from 'remix-auth-google';
 import { unauthorized } from 'remix-utils';
+import { route } from 'routes-gen';
+import { z } from 'zod';
+import { zx } from 'zodix';
 import { graphql } from '~/_gql';
 import { sessionStore } from '~/services/session.server';
 import { env } from './env.server';
@@ -32,22 +37,56 @@ const CREATEORUPDATEUSER = graphql(`
 const GETUSERBYID = graphql(`
   query GetUserById($userId: uuid!) {
     user: userByPk(id: $userId) {
-      id
       createdAt
-      updatedAt
-      name
       email
       imageUrl
+      id
+      name
+      ownerOfWorkplaces {
+        id
+        title
+        updatedAt
+        ownerId
+        createdAt
+      }
+      memberOfWorkplaces(where: { workplace: { ownerId: { _neq: $userId } } }) {
+        workplace {
+          createdAt
+          id
+          ownerId
+          title
+          updatedAt
+        }
+      }
     }
   }
 `);
 
+const UPDATEUSERNAME = graphql(`
+  mutation UpdateUserName($id: uuid!, $name: String!) {
+    updateUserByPk(pk_columns: { id: $id }, _set: { name: $name }) {
+      name
+    }
+  }
+`);
+
+export const updateUserName = async ({ user, name }: { user: UserType; name: string }) => {
+  return await hasuraClient({ token: user.token }).request(UPDATEUSERNAME, { id: user.id, name });
+};
+
 export type UserType = Awaited<ReturnType<typeof requireUser>>;
 
-export const requireUser = async (request: Request) => {
+export const requireUser = async ({
+  request,
+  params,
+  noRedirect
+}: {
+  request: Request;
+  params: Params<string>;
+  noRedirect?: boolean;
+}) => {
   try {
     const sessionUser = await authenticator.isAuthenticated(request);
-
     if (!sessionUser || !sessionUser.id) {
       throw unauthorized({ messege: 'Unauthorized' });
     }
@@ -59,8 +98,27 @@ export const requireUser = async (request: Request) => {
     if (user === undefined || !user || !user?.id) {
       throw unauthorized({ messege: 'Unauthorized' });
     }
+
+    if (!noRedirect) {
+      const { workplaceId } = zx.parseParams(params, {
+        workplaceId: z.string().optional()
+      });
+      const workplaceIds = [
+        ...user.ownerOfWorkplaces.map((i) => i.id),
+        ...user.memberOfWorkplaces.map((i) => i.workplace.id)
+      ];
+      if (workplaceIds.length <= 0) {
+        throw redirect(route('/app'));
+      }
+      if (workplaceId && !workplaceIds.includes(workplaceId)) {
+        throw redirect(route('/app/:workplaceId', { workplaceId: workplaceIds[0] }));
+      }
+    }
     return { ...user, token: sessionUser.token };
   } catch (error) {
+    if (error instanceof Response) {
+      throw error;
+    }
     await authenticator.logout(request, { redirectTo: '/' });
     throw error;
   }
