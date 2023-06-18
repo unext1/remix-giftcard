@@ -1,1 +1,0 @@
-CREATE TABLE "public"."workplace_member" ("user_id" uuid NOT NULL, "workplace_id" uuid NOT NULL, PRIMARY KEY ("user_id","workplace_id") , FOREIGN KEY ("user_id") REFERENCES "public"."user"("id") ON UPDATE restrict ON DELETE restrict, FOREIGN KEY ("workplace_id") REFERENCES "public"."workplace"("id") ON UPDATE restrict ON DELETE restrict);
