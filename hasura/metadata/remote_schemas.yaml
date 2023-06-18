@@ -4,6 +4,10 @@
     timeout_seconds: 60
     customization:
       root_fields_namespace: stripe
+      type_names:
+        mapping: {}
+        prefix: stripe_
+  comment: ""
   permissions:
     - role: user
       definition:

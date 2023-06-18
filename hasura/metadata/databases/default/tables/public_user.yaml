@@ -9,6 +9,13 @@ array_relationships:
         table:
           name: workplace_member
           schema: public
+  - name: organizations
+    using:
+      foreign_key_constraint_on:
+        column: owner_id
+        table:
+          name: organization
+          schema: public
   - name: ownerOfWorkplaces
     using:
       foreign_key_constraint_on:
@@ -16,16 +23,6 @@ array_relationships:
         table:
           name: workplace
           schema: public
-remote_relationships:
-  - definition:
-      hasura_fields:
-        - stripe_account_id
-      remote_field:
-        GetAccountsAccount:
-          arguments:
-            account: $stripe_account_id
-      remote_schema: stripe
-    name: stripeAccount
 select_permissions:
   - role: user
     permission:
@@ -35,8 +32,6 @@ select_permissions:
         - id
         - image_url
         - name
-        - stripe_account_id
-        - stripe_customer_id
         - updated_at
       filter:
         _or:
@@ -52,8 +47,6 @@ update_permissions:
     permission:
       columns:
         - name
-        - stripe_account_id
-        - stripe_customer_id
       filter:
         id:
           _eq: X-Hasura-User-Id

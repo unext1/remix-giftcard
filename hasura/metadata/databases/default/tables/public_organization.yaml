@@ -1,27 +1,20 @@
 table:
-  name: workplace
+  name: organization
   schema: public
 object_relationships:
-  - name: organization
+  - name: address
     using:
-      foreign_key_constraint_on: organization_id
+      foreign_key_constraint_on: address_id
   - name: owner
     using:
       foreign_key_constraint_on: owner_id
 array_relationships:
-  - name: workplaceInvitations
+  - name: workplaces
     using:
       foreign_key_constraint_on:
-        column: workplace_id
+        column: organization_id
         table:
-          name: workplace_invitation
-          schema: public
-  - name: workplaceMembers
-    using:
-      foreign_key_constraint_on:
-        column: workplace_id
-        table:
-          name: workplace_member
+          name: workplace
           schema: public
 insert_permissions:
   - role: user
@@ -30,34 +23,44 @@ insert_permissions:
       set:
         owner_id: x-hasura-User-Id
       columns:
-        - title
+        - address_id
+        - name
 select_permissions:
   - role: user
     permission:
       columns:
-        - id
+        - name
+        - stripe_account_id
+        - stripe_customer_id
+        - stripe_subscription_id
+        - stripe_subscription_status
         - created_at
         - updated_at
-        - title
+        - address_id
+        - id
         - owner_id
       filter:
         _or:
           - owner_id:
               _eq: X-Hasura-User-Id
-          - workplaceMembers:
-              user_id:
-                _eq: X-Hasura-User-Id
+          - workplaces:
+              workplaceMembers:
+                user_id:
+                  _eq: X-Hasura-User-Id
 update_permissions:
   - role: user
     permission:
       columns:
-        - title
+        - address_id
+        - name
+        - stripe_account_id
+        - stripe_customer_id
+        - stripe_subscription_id
+        - stripe_subscription_status
       filter:
         owner_id:
           _eq: X-Hasura-User-Id
-      check:
-        owner_id:
-          _eq: X-Hasura-User-Id
+      check: null
 delete_permissions:
   - role: user
     permission:
