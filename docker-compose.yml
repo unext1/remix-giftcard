@@ -1,0 +1,105 @@
+version: '3.4'
+services:
+  app:
+    image: lauva/couponapp:20230618-1428
+    container_name: app
+    depends_on:
+      - hasura
+    restart: unless-stopped
+    environment:
+      SITE_URL: ${SITE_URL}
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY}
+
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
+      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
+
+      HASURA_GRAPHQL_URL: ${HASURA_GRAPHQL_URL}
+      HASURA_GRAPHQL_ADMIN_SECRET: ${HASURA_GRAPHQL_ADMIN_SECRET}
+      HASURA_GRAPHQL_JWT_SECRET: ${HASURA_GRAPHQL_JWT_SECRET}
+
+      STRIPE_SECRET_KEY: ${STRIPE_SECRET_KEY}
+      STRIPE_WEBHOOK_SECRET: ${STRIPE_WEBHOOK_SECRET}
+    networks:
+      - proxy
+
+  hasura:
+    image: hasura/graphql-engine:v2.16.0
+    container_name: hasura-engine
+    ports:
+      - 8080:8080
+    depends_on:
+      - db
+      - stripe
+    environment:
+      ## postgres database to store Hasura metadata
+      HASURA_GRAPHQL_METADATA_DATABASE_URL: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}
+      ## this env var can be used to add the above postgres database to Hasura as a data source. this can be removed/updated based on your needs
+      PG_DATABASE_URL: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}
+      ## enable the console served by server
+      HASURA_GRAPHQL_ENABLE_CONSOLE: 'true' # set to "false" to disable console
+      ## enable debugging mode. It is recommended to disable this in production
+      HASURA_GRAPHQL_DEV_MODE: 'true'
+      HASURA_GRAPHQL_ENABLE_REMOTE_SCHEMA_PERMISSIONS: 'true'
+      HASURA_GRAPHQL_ENABLED_LOG_TYPES: startup, http-log, webhook-log, websocket-log, query-log
+      ## uncomment next line to run console offline (i.e load console assets from server instead of CDN)
+      HASURA_GRAPHQL_CONSOLE_ASSETS_DIR: /srv/console-assets
+      HASURA_GRAPHQL_WEBHOOK_URL: ${HASURA_GRAPHQL_WEBHOOK_URL}
+      HASURA_GRAPHQL_ADMIN_SECRET: ${HASURA_GRAPHQL_ADMIN_SECRET}
+      HASURA_GRAPHQL_JWT_SECRET: ${HASURA_GRAPHQL_JWT_SECRET}
+      HASURA_GRAPHQL_UNAUTHORIZED_ROLE: public
+      HASURA_GRAPHQL_EXPERIMENTAL_FEATURES: 'naming_convention'
+    networks:
+      - dbnet
+      - stripenet
+
+  db:
+    image: postgres:15
+    container_name: db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - dbdata:/var/lib/postgresql/data
+    networks:
+      - dbnet
+
+  stripe:
+    image: wbms/stripe-graphql:20230428-1540
+    container_name: stripe
+    ports:
+      - 4000:4000
+    environment:
+      STRIPE_SECRET_KEY: ${STRIPE_SECRET_KEY}
+    volumes:
+      - stripe_data:/app/.mesh
+    networks:
+      - stripenet
+
+  caddy:
+    image: wbms/caddy-cloudflare
+    container_name: caddy
+    depends_on:
+      - app
+    restart: unless-stopped
+    environment:
+      CLOUDFLARE_API_TOKEN: ${CLOUDFLARE_API_TOKEN}
+    ports:
+      - '443:443'
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_config:/config
+      - caddy_data:/data
+    networks:
+      - proxy
+
+volumes:
+  dbdata:
+  stripe_data:
+  caddy_config:
+  caddy_data:
+
+networks:
+  proxy:
+  dbnet:
+  stripenet:

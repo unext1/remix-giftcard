@@ -1,6 +1,7 @@
 import type { ActionArgs } from '@remix-run/node';
 import { json, type LoaderArgs } from '@remix-run/node';
 import { Form, useLoaderData } from '@remix-run/react';
+import { namedAction } from 'remix-utils';
 import { z } from 'zod';
 import { zx } from 'zodix';
 
@@ -17,7 +18,7 @@ import {
 } from '~/components/ui/dialog';
 import { Input } from '~/components/ui/input';
 import { Label } from '~/components/ui/label';
-import { requireUser, updateUserName } from '~/services/auth.server';
+import { deleteUser, requireUser, updateUserName } from '~/services/auth.server';
 
 export async function loader({ request, params }: LoaderArgs) {
   const user = await requireUser({ request, params });
@@ -27,43 +28,47 @@ export async function loader({ request, params }: LoaderArgs) {
 
 export async function action({ request, params }: ActionArgs) {
   const user = await requireUser({ request, params });
-  const { name, _action } = await zx.parseForm(request, {
-    name: z.string().optional(),
-    _action: z.enum(['change', 'delete'])
+
+  return namedAction(request, {
+    async change() {
+      const { name } = await zx.parseForm(request, {
+        name: z.string()
+      });
+      await updateUserName({ user, name });
+      return json({ message: 'success' });
+    },
+    async delete() {
+      await deleteUser({ user, request });
+      return json({ message: 'success' });
+    }
   });
-
-  switch (_action) {
-    case 'change':
-      if (name) {
-        await updateUserName({ user, name });
-      }
-      break;
-    case 'delete':
-      console.log('deleted');
-      break;
-  }
-
-  return {};
 }
 
 const Settings = () => {
   const user = useLoaderData<typeof loader>();
   return (
-    <>
-      <h1 className="mb-5">Settings</h1>
+    <div>
+      <h1 className="mb-5">Profile</h1>
 
-      <div className="flex space-x-2 py-5">
-        <Avatar imageSrc="https://thispersondoesnotexist.com" name={user.name} isOnline />
+      <div className="flex space-x-2 pb-5">
+        <Avatar imageSrc="https://thispersondoesnotexist.com" name={user.name} isOnline className="h-16 w-16" />
         <div className="flex flex-col justify-center">
           <div className="font-semibold capitalize">{user.name}</div>
           <div className="uppercase text-xs">{user.email}</div>
         </div>
       </div>
+
       <div className="space-y-4 ">
         <Form method="post">
           <Label htmlFor="name">Name</Label>
           <div className="flex w-full max-w-sm items-center space-x-2">
-            <Input type="name" name="name" placeholder="Name" className="bg-neutral w-fit" defaultValue={user.name} />
+            <Input
+              type="name"
+              name="name"
+              placeholder="Name"
+              className="bg-background text-base-content w-fit"
+              defaultValue={user.name}
+            />
             <Button name="_action" value="change" type="submit" size="sm">
               Change Name
             </Button>
@@ -72,9 +77,10 @@ const Settings = () => {
         <div>
           <Label htmlFor="name">Email</Label>
 
-          <Input type="email" className="bg-neutral w-fit" disabled value={user.email} />
+          <Input type="email" className="bg-background text-base-content w-fit" disabled value={user.email} />
         </div>
       </div>
+
       <Dialog>
         <DialogTrigger asChild>
           <Button className="mt-6" variant="destructive">
@@ -98,7 +104,7 @@ const Settings = () => {
           </DialogFooter>
         </DialogContent>
       </Dialog>
-    </>
+    </div>
   );
 };
 

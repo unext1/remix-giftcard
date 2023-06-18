@@ -6,7 +6,7 @@
   "editor.autoIndent": "advanced",
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.codeActionsOnSave": {
-    "source.organizeImports": true
+    // "source.organizeImports": true
     // "source.fixAll.eslint": true
   },
   "eslint.codeActionsOnSave.mode": "problems",

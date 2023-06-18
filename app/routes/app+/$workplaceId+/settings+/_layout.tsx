@@ -25,7 +25,7 @@ const SettingsLayout = () => {
   ];
   return (
     <>
-      <div className="tabs tabs-boxed bg-background space-x-4 p-2 w-fit">
+      <div className="tabs tabs-boxed bg-neutral space-x-4 p-2 w-fit mb-6">
         {navigation.map((tab) => (
           <NavLink
             key={tab.label}
@@ -37,7 +37,7 @@ const SettingsLayout = () => {
           </NavLink>
         ))}
       </div>
-      <main className="mt-6 bg-background rounded-md p-5">
+      <main className="p-5 rounded-xl bg-neutral text-neutral-content">
         <Outlet />
       </main>
     </>

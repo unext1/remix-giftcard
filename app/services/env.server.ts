@@ -19,7 +19,10 @@ const environmentSchema = z.object({
   JWT_SECRET_KEY: z.string().min(1).trim(),
   // GOOGLE
   GOOGLE_CLIENT_ID: z.string().min(1).trim(),
-  GOOGLE_CLIENT_SECRET: z.string().min(1).trim()
+  GOOGLE_CLIENT_SECRET: z.string().min(1).trim(),
+  // STRIPE
+  STRIPE_SECRET_KEY: z.string().min(1).trim(),
+  STRIPE_WEBHOOK_SECRET: z.string().min(1).trim()
 });
 
 export const env = environmentSchema.parse(process.env);

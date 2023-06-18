@@ -1,0 +1,31 @@
+{
+    admin off
+    email info@lauva.dev
+}
+
+(custom-headers) {
+    header X-Real-IP {remote_host}
+    header X-Forwarded-Host {host}
+
+    header ~ ^/[^/]+/assets/.+$ Cache-Control max-age=31536000
+    header ~ ^/[^/]+/static/.+$ Cache-Control max-age=31536000
+    header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
+    header X-Frame-Options "SAMEORIGIN" always;
+    header X-Xss-Protection "1; mode=block" always;
+    header X-Content-Type-Options "nosniff" always;
+    header Content-Security-Policy "default-src https: data: 'unsafe-inline' 'unsafe-eval'; frame-ancestors 'self'" always;
+    header Referrer-Policy "same-origin" always;
+    header Set-Cookie "Path=/; HttpOnly; Secure";
+
+    header -Server
+}
+
+*.lauva.dev {
+    reverse_proxy http://app:3000
+    tls {
+        dns cloudflare {env.CLOUDFLARE_API_TOKEN}
+    }
+
+    import custom-headers
+    encode zstd gzip
+}

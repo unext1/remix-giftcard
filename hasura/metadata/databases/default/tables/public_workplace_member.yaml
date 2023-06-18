@@ -12,9 +12,15 @@ insert_permissions:
   - role: user
     permission:
       check:
-        workplace:
-          owner_id:
-            _eq: X-Hasura-User-Id
+        _or:
+          - workplace:
+              owner_id:
+                _eq: X-Hasura-User-Id
+          - workplace:
+              workplaceInvitations:
+                user:
+                  id:
+                    _eq: X-Hasura-User-Id
       columns:
         - user_id
         - workplace_id

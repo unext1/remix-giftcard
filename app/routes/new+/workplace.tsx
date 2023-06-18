@@ -15,7 +15,7 @@ export async function loader({ request, params }: LoaderArgs) {
     throw redirect(route('/app/:workplaceId', { workplaceId: user.memberOfWorkplaces[0].workplace.id }));
   }
 
-  return {};
+  return redirect('/app');
 }
 
 export async function action({ request, params }: ActionArgs) {

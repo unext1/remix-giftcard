@@ -1,5 +1,5 @@
 import { redirect } from '@remix-run/node';
-import { Params } from '@remix-run/react';
+import { type Params } from '@remix-run/react';
 import { Authenticator } from 'remix-auth';
 import { GoogleStrategy } from 'remix-auth-google';
 import { unauthorized } from 'remix-utils';
@@ -23,7 +23,7 @@ const CREATEORUPDATEUSER = graphql(`
   mutation AddUser($email: String, $name: String, $image: String) {
     insertUser(
       objects: { email: $email, name: $name, imageUrl: $image }
-      onConflict: { constraint: user_email_key, update_columns: [name, imageUrl] }
+      onConflict: { constraint: user_email_key, update_columns: [imageUrl] }
     ) {
       returning {
         id
@@ -42,6 +42,8 @@ const GETUSERBYID = graphql(`
       imageUrl
       id
       name
+      stripeAccountId
+      stripeCustomerId
       ownerOfWorkplaces {
         id
         title
@@ -69,6 +71,25 @@ const UPDATEUSERNAME = graphql(`
     }
   }
 `);
+
+const DELETEUSER = graphql(`
+  mutation DeleteUser($userId: uuid!) {
+    deleteUserByPk(id: $userId) {
+      id
+    }
+  }
+`);
+
+export const deleteUser = async ({ user, request }: { user: UserType; request: Request }) => {
+  const deletedUser = await hasuraClient({ token: user.token }).request(DELETEUSER, { userId: user.id });
+
+  if (deletedUser.deleteUserByPk?.id) {
+    await authenticator.logout(request, { redirectTo: '/' });
+
+    return deletedUser.deleteUserByPk?.id;
+  }
+  return { error: 'Error' };
+};
 
 export const updateUserName = async ({ user, name }: { user: UserType; name: string }) => {
   return await hasuraClient({ token: user.token }).request(UPDATEUSERNAME, { id: user.id, name });

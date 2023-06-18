@@ -16,25 +16,51 @@ array_relationships:
         table:
           name: workplace
           schema: public
+remote_relationships:
+  - definition:
+      hasura_fields:
+        - stripe_account_id
+      remote_field:
+        GetAccountsAccount:
+          arguments:
+            account: $stripe_account_id
+      remote_schema: stripe
+    name: stripeAccount
 select_permissions:
   - role: user
     permission:
       columns:
+        - created_at
         - email
+        - id
         - image_url
         - name
-        - created_at
+        - stripe_account_id
+        - stripe_customer_id
         - updated_at
-        - id
       filter:
-        id:
-          _eq: X-Hasura-User-Id
+        _or:
+          - id:
+              _eq: X-Hasura-User-Id
+          - memberOfWorkplaces:
+              workplace:
+                workplaceMembers:
+                  user_id:
+                    _eq: X-Hasura-User-Id
 update_permissions:
   - role: user
     permission:
       columns:
         - name
+        - stripe_account_id
+        - stripe_customer_id
       filter:
         id:
           _eq: X-Hasura-User-Id
       check: null
+delete_permissions:
+  - role: user
+    permission:
+      filter:
+        id:
+          _eq: X-Hasura-User-Id

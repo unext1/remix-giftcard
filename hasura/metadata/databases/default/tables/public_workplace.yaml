@@ -6,6 +6,13 @@ object_relationships:
     using:
       foreign_key_constraint_on: owner_id
 array_relationships:
+  - name: workplaceInvitations
+    using:
+      foreign_key_constraint_on:
+        column: workplace_id
+        table:
+          name: workplace_invitation
+          schema: public
   - name: workplaceMembers
     using:
       foreign_key_constraint_on:

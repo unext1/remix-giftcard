@@ -19,7 +19,7 @@ export const AppLayout = ({ children, user }: { children: React.ReactNode; user:
         <Navigation user={user} />
       </div>
 
-      <main className="flex flex-1 flex-col overflow-y-scroll rounded-md max-w-none bg-neutral container mx-auto p-5">
+      <main className="flex flex-1 flex-col overflow-y-scroll rounded-md max-w-none container mx-auto p-5">
         {children}
       </main>
       <MobileMenu openSidebar={() => setSidebarOpen(true)} />
