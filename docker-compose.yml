@@ -21,6 +21,7 @@ services:
       STRIPE_WEBHOOK_SECRET: ${STRIPE_WEBHOOK_SECRET}
     networks:
       - proxy
+      - apphasura
 
   hasura:
     image: hasura/graphql-engine:v2.16.0
@@ -51,6 +52,7 @@ services:
     networks:
       - dbnet
       - stripenet
+      - apphasura
 
   db:
     image: postgres:15
@@ -103,3 +105,4 @@ networks:
   proxy:
   dbnet:
   stripenet:
+  apphasura:
