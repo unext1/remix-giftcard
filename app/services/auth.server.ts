@@ -42,8 +42,17 @@ const GETUSERBYID = graphql(`
       imageUrl
       id
       name
-      stripeAccountId
-      stripeCustomerId
+      organizations {
+        id
+        createdAt
+        updatedAt
+        name
+        ownerId
+        stripeAccountId
+        stripeCustomerId
+        stripeSubscriptionId
+        stripeSubscriptionStatus
+      }
       ownerOfWorkplaces {
         id
         title
@@ -128,9 +137,9 @@ export const requireUser = async ({
         ...user.ownerOfWorkplaces.map((i) => i.id),
         ...user.memberOfWorkplaces.map((i) => i.workplace.id)
       ];
-      if (workplaceIds.length <= 0) {
-        throw redirect(route('/app'));
-      }
+      // if (workplaceIds.length <= 0 ) {
+      //   throw redirect(route('/app'));
+      // }
       if (workplaceId && !workplaceIds.includes(workplaceId)) {
         throw redirect(route('/app/:workplaceId', { workplaceId: workplaceIds[0] }));
       }

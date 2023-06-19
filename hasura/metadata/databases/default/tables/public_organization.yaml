@@ -16,6 +16,34 @@ array_relationships:
         table:
           name: workplace
           schema: public
+remote_relationships:
+  - definition:
+      hasura_fields:
+        - stripe_account_id
+      remote_field:
+        GetAccountsAccount:
+          arguments:
+            account: $stripe_account_id
+      remote_schema: stripe
+    name: stripeAccount
+  - definition:
+      hasura_fields:
+        - stripe_customer_id
+      remote_field:
+        GetCustomersCustomer:
+          arguments:
+            customer: $stripe_customer_id
+      remote_schema: stripe
+    name: stripeCustomer
+  - definition:
+      hasura_fields:
+        - stripe_customer_id
+      remote_field:
+        GetSubscriptions:
+          arguments:
+            customer: $stripe_customer_id
+      remote_schema: stripe
+    name: stripeSubscription
 insert_permissions:
   - role: user
     permission:
@@ -24,21 +52,23 @@ insert_permissions:
         owner_id: x-hasura-User-Id
       columns:
         - address_id
+        - email
         - name
 select_permissions:
   - role: user
     permission:
       columns:
+        - address_id
+        - created_at
+        - email
+        - id
         - name
+        - owner_id
         - stripe_account_id
         - stripe_customer_id
         - stripe_subscription_id
         - stripe_subscription_status
-        - created_at
         - updated_at
-        - address_id
-        - id
-        - owner_id
       filter:
         _or:
           - owner_id:
@@ -52,6 +82,7 @@ update_permissions:
     permission:
       columns:
         - address_id
+        - email
         - name
         - stripe_account_id
         - stripe_customer_id

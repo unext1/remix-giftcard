@@ -15,8 +15,10 @@ const GETALLWORKPLACES = graphql(`
 `);
 
 const CREATEWORKPLACE = graphql(`
-  mutation createWokrplace($title: String, $userId: uuid!) {
-    insertWorkplace(objects: { title: $title, workplaceMembers: { data: { userId: $userId } } }) {
+  mutation createWokrplace($title: String, $userId: uuid!, $organizationId: uuid!) {
+    insertWorkplace(
+      objects: { title: $title, organizationId: $organizationId, workplaceMembers: { data: { userId: $userId } } }
+    ) {
       returning {
         title
         id
@@ -180,10 +182,19 @@ export const deleteWorkplace = async ({ workplaceId, token }: { workplaceId: str
   }
 };
 
-export const createWorkplace = async ({ title, sessionUser }: { title: string; sessionUser: UserSession }) => {
+export const createWorkplace = async ({
+  title,
+  sessionUser,
+  organizationId
+}: {
+  title: string;
+  sessionUser: UserSession;
+  organizationId: string;
+}) => {
   const data = await hasuraClient({ token: sessionUser.token }).request(CREATEWORKPLACE, {
     title: title,
-    userId: sessionUser.id
+    userId: sessionUser.id,
+    organizationId: organizationId
   });
 
   if (data && data.insertWorkplace) {

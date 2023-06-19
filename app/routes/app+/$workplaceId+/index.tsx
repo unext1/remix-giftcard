@@ -10,7 +10,7 @@ import {
   stripeCheckout,
   stripeDashboard,
   updateStripeAccount
-} from '~/services/stripe.server';
+} from '~/services/oldstripe';
 export async function action({ request, params }: ActionArgs) {
   const user = await requireUser({ request, params });
 

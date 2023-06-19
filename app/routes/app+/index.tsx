@@ -1,6 +1,6 @@
 import { Label } from '@radix-ui/react-label';
 import { json, redirect, type ActionArgs, type LoaderArgs, type V2_MetaFunction } from '@remix-run/node';
-import { Form, useLoaderData } from '@remix-run/react';
+import { Form, Link, useLoaderData } from '@remix-run/react';
 import { namedAction } from 'remix-utils';
 import { route } from 'routes-gen';
 import { z } from 'zod';
@@ -12,6 +12,7 @@ import { Button } from '~/components/ui/button';
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '~/components/ui/dialog';
 import { Input } from '~/components/ui/input';
 import { authenticator, requireUser } from '~/services/auth.server';
+import { getOwnedOrganizations } from '~/services/organization.server';
 import {
   acceptInvitation,
   cancelInvitation,
@@ -33,7 +34,9 @@ export async function loader({ request, params }: LoaderArgs) {
 
   const workplaces = await getAllWorkplaces({ token: user.token });
 
-  return json({ invitations, workplaces });
+  const organizations = await getOwnedOrganizations({ user });
+
+  return json({ invitations, workplaces, organizations });
 }
 
 export async function action({ request, params }: ActionArgs) {
@@ -41,10 +44,11 @@ export async function action({ request, params }: ActionArgs) {
 
   return namedAction(request, {
     async create() {
-      const { title } = await zx.parseForm(request, {
-        title: z.string()
+      const { title, organizationId } = await zx.parseForm(request, {
+        title: z.string(),
+        organizationId: z.string()
       });
-      const workplace = await createWorkplace({ sessionUser: user, title });
+      const workplace = await createWorkplace({ sessionUser: user, title, organizationId });
 
       return redirect(route('/app/:workplaceId', { workplaceId: workplace?.[0].id }));
     },
@@ -68,7 +72,7 @@ export async function action({ request, params }: ActionArgs) {
 }
 
 export default function AppIndex() {
-  const { workplaces, invitations } = useLoaderData<typeof loader>();
+  const { workplaces, invitations, organizations } = useLoaderData<typeof loader>();
   return (
     <div className="w-full min-h-screen-safe">
       <div className="container mx-auto p-5">
@@ -78,31 +82,38 @@ export default function AppIndex() {
             <div className="flex justify-between">
               <h1 className="text-xl my-2 font-semibold">Your workplaces</h1>
 
-              <Dialog>
-                <DialogTrigger asChild>
-                  <Button className="" variant="default">
-                    Create Workplace
-                  </Button>
-                </DialogTrigger>
-                <DialogContent>
-                  <Form method="post">
-                    <DialogHeader>
-                      <DialogTitle>Create a new Workplace</DialogTitle>
-                    </DialogHeader>
-                    <div className="space-x-4 flex mt-4">
-                      <Label htmlFor="title" className="my-auto">
-                        Name
-                      </Label>
-                      <Input name="title" />
-                    </div>
-                    <DialogFooter className="mt-4">
-                      <Button name="_action" value="create" type="submit" variant="default">
-                        Confirm
-                      </Button>
-                    </DialogFooter>
-                  </Form>
-                </DialogContent>
-              </Dialog>
+              {organizations.length > 0 ? (
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Button className="" variant="default">
+                      Create Workplace
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent>
+                    <Form method="post">
+                      <DialogHeader>
+                        <DialogTitle>Create a new Workplace</DialogTitle>
+                      </DialogHeader>
+                      <div className="space-x-4 flex mt-4">
+                        <input type="hidden" value={organizations[0].id} />
+                        <Label htmlFor="title" className="my-auto">
+                          Name
+                        </Label>
+                        <Input name="title" />
+                      </div>
+                      <DialogFooter className="mt-4">
+                        <Button name="_action" value="create" type="submit" variant="default">
+                          Confirm
+                        </Button>
+                      </DialogFooter>
+                    </Form>
+                  </DialogContent>
+                </Dialog>
+              ) : (
+                <Link to="/app/organization/create" className="btn btn-sm btn-primary">
+                  Create Organization
+                </Link>
+              )}
             </div>
 
             <div className="grid grid-cols-3 mt-6 gap-5">
@@ -110,22 +121,6 @@ export default function AppIndex() {
                 <WorkplaceCard workplace={workplace} key={workplace.id} />
               ))}
             </div>
-          </div>
-          <div className="bg-neutral rounded-md p-5 col-span-2">
-            <Accordion type="single" collapsible>
-              <AccordionItem value="item-1">
-                <AccordionTrigger>Getting Started</AccordionTrigger>
-                <AccordionContent>Yes. It adheres to the WAI-ARIA design pattern.</AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="item-2">
-                <AccordionTrigger>Getting Started</AccordionTrigger>
-                <AccordionContent>Yes. It adheres to the WAI-ARIA design pattern.</AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="item-3">
-                <AccordionTrigger>Getting Started</AccordionTrigger>
-                <AccordionContent>Yes. It adheres to the WAI-ARIA design pattern.</AccordionContent>
-              </AccordionItem>
-            </Accordion>
           </div>
         </div>
 
