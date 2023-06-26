@@ -16,34 +16,6 @@ array_relationships:
         table:
           name: workplace
           schema: public
-remote_relationships:
-  - definition:
-      hasura_fields:
-        - stripe_account_id
-      remote_field:
-        GetAccountsAccount:
-          arguments:
-            account: $stripe_account_id
-      remote_schema: stripe
-    name: stripeAccount
-  - definition:
-      hasura_fields:
-        - stripe_customer_id
-      remote_field:
-        GetCustomersCustomer:
-          arguments:
-            customer: $stripe_customer_id
-      remote_schema: stripe
-    name: stripeCustomer
-  - definition:
-      hasura_fields:
-        - stripe_customer_id
-      remote_field:
-        GetSubscriptions:
-          arguments:
-            customer: $stripe_customer_id
-      remote_schema: stripe
-    name: stripeSubscription
 insert_permissions:
   - role: user
     permission:

@@ -46,12 +46,12 @@ const GETORGANIZATIONBYID = graphql(`
 `);
 
 const CREATEORGANIZATION = graphql(`
-  mutation CreateOrganization($name: String!, $email: String!, $data: AddressInsertInput!) {
+  mutation CreateOrganization($name: String!, $email: String!, $address: AddressInsertInput!) {
     insertOrganization(
       objects: {
         name: $name
         email: $email
-        address: { data: $data, onConflict: { constraint: address_pkey, update_columns: [] } }
+        address: { data: $address, onConflict: { constraint: address_pkey, update_columns: [] } }
       }
     ) {
       returning {
@@ -156,7 +156,7 @@ export const createNewOrganization = async ({
   const organization = await hasuraClient({ token: user.token }).request(CREATEORGANIZATION, {
     name: name,
     email: email,
-    data: address
+    address: address
   });
   if (!organization.insertOrganization?.returning) {
     throw new Error('organization was not created');
@@ -172,7 +172,7 @@ export const createNewOrganization = async ({
     organization: organization.insertOrganization?.returning[0],
     user,
     business_type,
-    return_url: 'http://localhost:3000/app/organization/create'
+    return_url: 'http://localhost:3000/app'
   });
 
   return stipeAccountLink;

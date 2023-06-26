@@ -87,6 +87,7 @@ export const createStripeAccount = async ({
     default_currency: 'sek',
     country: 'SE'
   });
+  console.log(account);
 
   await hasuraClient({ token: user.token }).request(UPDATEORGANIZATIONSTRIPEACCOUNT, {
     organizationId: organization.id,
@@ -101,6 +102,117 @@ export const createStripeAccount = async ({
   });
 
   return accountLink;
+};
+
+export const updateStripeAccount = async ({ accountId, return_url }: { accountId: string; return_url: string }) => {
+  const accountLink = await stripe.accountLinks.create({
+    account: accountId,
+    return_url,
+    refresh_url: return_url,
+    type: 'account_onboarding'
+  });
+  return accountLink;
+};
+
+export const stripeDashboard = async ({ accountId }: { accountId: string }) => {
+  const dashboardLink = await stripe.accounts.createLoginLink(accountId);
+  return dashboardLink;
+};
+
+export const stripeCheckout = async ({ accountId }: { accountId: string }) => {
+  const coupons = [
+    {
+      quantity: 1,
+      price_data: {
+        product_data: {
+          name: 'Coupon 500kr'
+        },
+        unit_amount: 500 * 100,
+        currency: 'sek'
+      }
+    }
+    // {
+    //   quantity: 1,
+    //   price_data: {
+    //     product_data: {
+    //       name: 'Coupon 200kr'
+    //     },
+    //     unit_amount: 200 * 100,
+    //     currency: 'sek'
+    //   }
+    // }
+  ];
+  const total = coupons.reduce((total, coupon) => total + coupon.price_data.unit_amount, 0);
+  const totalFee = Math.ceil(total * 0.035 + 1000);
+  console.log(totalFee, 'myfee');
+  console.log(Math.ceil(total * 0.025 + 180), 'stripefee');
+
+  const session = await stripe.checkout.sessions.create({
+    mode: 'payment',
+    payment_method_types: ['card', 'link', 'klarna'],
+    line_items: [...coupons],
+
+    payment_intent_data: {
+      application_fee_amount: totalFee,
+      transfer_data: {
+        destination: accountId
+      }
+    },
+    success_url: 'http://localhost:3000/app/workdplsad',
+    cancel_url: 'http://localhost:3000/app/workdplsad'
+  });
+
+  return session;
+};
+
+export const createStripeSubscription = async ({ return_url, user }: { return_url: string; user: UserType }) => {
+  const customerId = await getStripeCustomerId({ user });
+
+  const session = await stripe.checkout.sessions.create({
+    mode: 'subscription',
+    // payment_method_types: ['card', 'klarna'],
+    line_items: [
+      {
+        price: 'price_1NKlmWE9sPp9rw1vAfNfFlXY',
+        quantity: 1
+      }
+    ],
+    customer: customerId,
+    metadata: {
+      userId: user.id
+    },
+    success_url: return_url,
+    cancel_url: return_url
+  });
+  return session;
+};
+
+export const manageSubscriptions = async ({ return_url, user }: { return_url: string; user: UserType }) => {
+  const customerId = await getStripeCustomerId({ user });
+
+  const session = await stripe.billingPortal.sessions.create({
+    customer: customerId,
+    return_url
+  });
+
+  return session;
+};
+
+export const getStripeCustomerId = async ({ user }: { user: UserType }) => {
+  if (user.organizations[0].stripeCustomerId) {
+    return user.organizations[0].stripeCustomerId;
+  }
+
+  const customer = await stripe.customers.create({
+    email: user.email
+  });
+
+  await hasuraClient({ token: user.token }).request(UPDATEORGANIZATIONSSTRIPECUSTOMERID, {
+    stripeCustomerId: customer.id,
+    organizationId: user.organizations[0].id
+  });
+
+  return customer.id;
 };
 
 export const webhookHandler = async (request: Request) => {

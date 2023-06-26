@@ -4,32 +4,23 @@ import { Form, useLoaderData } from '@remix-run/react';
 import { namedAction } from 'remix-utils';
 import { requireUser } from '~/services/auth.server';
 import {
-  createStripeAccount,
   createStripeSubscription,
   manageSubscriptions,
   stripeCheckout,
   stripeDashboard,
   updateStripeAccount
-} from '~/services/oldstripe';
+} from '~/services/stripe.server';
+
 export async function action({ request, params }: ActionArgs) {
   const user = await requireUser({ request, params });
 
   return namedAction(request, {
-    async create() {
-      const accountLink = await createStripeAccount({
-        return_url: request.url,
-        user
-      });
-      console.log(accountLink);
-
-      return redirect(accountLink.url);
-    },
     async update() {
       console.log('update');
-      console.log(user.stripeAccountId);
-      if (user.stripeAccountId) {
+      console.log(user.organizations[0].stripeAccountId);
+      if (user.organizations[0].stripeAccountId) {
         const accountLink = await updateStripeAccount({
-          accountId: user.stripeAccountId,
+          accountId: user.organizations[0].stripeAccountId,
           return_url: request.url
         });
         return redirect(accountLink.url);
@@ -37,15 +28,15 @@ export async function action({ request, params }: ActionArgs) {
       return json({ message: 'no stripe account' });
     },
     async open() {
-      if (user.stripeAccountId) {
-        const data = await stripeDashboard({ accountId: user.stripeAccountId });
+      if (user.organizations[0].stripeAccountId) {
+        const data = await stripeDashboard({ accountId: user.organizations[0].stripeAccountId });
         return redirect(data.url);
       }
       return json({ message: 'no stripe account' });
     },
     async checkout() {
-      if (user.stripeAccountId) {
-        const data = await stripeCheckout({ accountId: user.stripeAccountId });
+      if (user.organizations[0].stripeAccountId) {
+        const data = await stripeCheckout({ accountId: user.organizations[0].stripeAccountId });
         if (data && data.url) {
           return redirect(data.url);
         }
@@ -72,51 +63,50 @@ export async function action({ request, params }: ActionArgs) {
 
 export async function loader({ params, request }: LoaderArgs) {
   const user = await requireUser({ request, params });
-  // const stripeAccount = await getStripeAccount({ user });
-  // console.log(stripeAccount);
 
-  return json({ hasStripeAccount: !!user.stripeAccountId });
+  return json({ organizations: user.organizations });
 }
 
-const Dashboard = () => {
-  const { hasStripeAccount } = useLoaderData<typeof loader>();
+const Dashbaord = () => {
+  const { organizations } = useLoaderData<typeof loader>();
   return (
     <div>
-      <h1>Stripe</h1>
-      <Form method="post">
-        {hasStripeAccount ? (
-          <button type="submit" name="_action" value="update">
-            Update
-          </button>
-        ) : (
-          <div>
-            <button type="submit" name="_action" value="create">
-              Create
+      {organizations.length > 0 ? (
+        <>
+          <h1>Stripe</h1>
+          <Form method="post">
+            <button type="submit" name="_action" value="update">
+              Update
             </button>
-          </div>
-        )}
+
+            <div>
+              <button type="submit" name="_action" value="open">
+                dashboard
+              </button>
+            </div>
+            <div>
+              <button type="submit" name="_action" value="checkout">
+                checkout
+              </button>
+            </div>
+            <div>
+              <button type="submit" name="_action" value="subscribe">
+                subscribe
+              </button>
+            </div>
+            <div>
+              <button type="submit" name="_action" value="manage">
+                manage
+              </button>
+            </div>
+          </Form>
+        </>
+      ) : (
         <div>
-          <button type="submit" name="_action" value="open">
-            dashboard
-          </button>
+          <h1>hi</h1>
         </div>
-        <div>
-          <button type="submit" name="_action" value="checkout">
-            checkout
-          </button>
-        </div>
-        <div>
-          <button type="submit" name="_action" value="subscribe">
-            subscribe
-          </button>
-        </div>
-        <div>
-          <button type="submit" name="_action" value="manage">
-            manage
-          </button>
-        </div>
-      </Form>
+      )}
     </div>
   );
 };
-export default Dashboard;
+export default Dashbaord;

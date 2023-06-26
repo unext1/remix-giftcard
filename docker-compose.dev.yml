@@ -34,16 +34,6 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
       - dbdata:/var/lib/postgresql/data
-  stripe:
-    image: wbms/stripe-graphql:20230428-1540
-    container_name: stripe
-    ports:
-      - 4000:4000
-    environment:
-      STRIPE_SECRET_KEY: ${STRIPE_SECRET_KEY}
-    volumes:
-      - stripe_data:/app/.mesh
 
 volumes:
   dbdata:
-  stripe_data:

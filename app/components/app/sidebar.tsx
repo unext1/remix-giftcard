@@ -1,17 +1,15 @@
 import { Form, Link, NavLink } from '@remix-run/react';
 import cc from 'classcat';
-import { GiftIcon, LayoutDashboard } from 'lucide-react';
+import { GiftIcon, LayoutDashboard, SettingsIcon } from 'lucide-react';
 import { type ReactNode } from 'react';
 import { type UserType } from '~/services/auth.server';
 import { WorkplaceSwitcher } from './workplace-switcher';
 
-const navLinks = [
-  { icon: LayoutDashboard, label: 'Overview', href: '' },
-  { icon: GiftIcon, label: 'Gift Cards', href: 'gift' },
-  { icon: GiftIcon, label: 'Settings', href: 'settings' }
-];
-
 export const Navigation = ({ user }: { user: UserType }) => {
+  const navLinks = [
+    { icon: LayoutDashboard, label: 'Overview', href: '' },
+    { icon: SettingsIcon, label: 'Settings', href: 'settings' }
+  ];
   return (
     <nav className="overflow-auto flex-1 px-4 ">
       <div className="flex flex-col justify-between h-full">

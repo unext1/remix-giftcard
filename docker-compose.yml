@@ -30,7 +30,6 @@ services:
       - 8080:8080
     depends_on:
       - db
-      - stripe
     environment:
       ## postgres database to store Hasura metadata
       HASURA_GRAPHQL_METADATA_DATABASE_URL: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}
@@ -51,7 +50,6 @@ services:
       HASURA_GRAPHQL_EXPERIMENTAL_FEATURES: 'naming_convention'
     networks:
       - dbnet
-      - stripenet
       - apphasura
 
   db:
@@ -65,18 +63,6 @@ services:
       - dbdata:/var/lib/postgresql/data
     networks:
       - dbnet
-
-  stripe:
-    image: wbms/stripe-graphql:20230428-1540
-    container_name: stripe
-    ports:
-      - 4000:4000
-    environment:
-      STRIPE_SECRET_KEY: ${STRIPE_SECRET_KEY}
-    volumes:
-      - stripe_data:/app/.mesh
-    networks:
-      - stripenet
 
   caddy:
     image: wbms/caddy-cloudflare
@@ -97,12 +83,10 @@ services:
 
 volumes:
   dbdata:
-  stripe_data:
   caddy_config:
   caddy_data:
 
 networks:
   proxy:
   dbnet:
-  stripenet:
   apphasura:

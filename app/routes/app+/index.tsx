@@ -7,10 +7,10 @@ import { z } from 'zod';
 import { zx } from 'zodix';
 import Invitations from '~/components/app/index/invitations';
 import { WorkplaceCard } from '~/components/app/index/workplaceCard';
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '~/components/ui/accordion';
 import { Button } from '~/components/ui/button';
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '~/components/ui/dialog';
 import { Input } from '~/components/ui/input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '~/components/ui/select';
 import { authenticator, requireUser } from '~/services/auth.server';
 import { getOwnedOrganizations } from '~/services/organization.server';
 import {
@@ -85,21 +85,33 @@ export default function AppIndex() {
               {organizations.length > 0 ? (
                 <Dialog>
                   <DialogTrigger asChild>
-                    <Button className="" variant="default">
+                    <Button className="my-auto" variant="default">
                       Create Workplace
                     </Button>
                   </DialogTrigger>
                   <DialogContent>
+                    <DialogHeader>
+                      <DialogTitle>Create a new Workplace</DialogTitle>
+                    </DialogHeader>
                     <Form method="post">
-                      <DialogHeader>
-                        <DialogTitle>Create a new Workplace</DialogTitle>
-                      </DialogHeader>
                       <div className="space-x-4 flex mt-4">
-                        <input type="hidden" value={organizations[0].id} />
+                        <input type="hidden" name="organizationId" value={organizations[0].id || ''} />
                         <Label htmlFor="title" className="my-auto">
                           Name
                         </Label>
                         <Input name="title" />
+                        {/* <Select>
+                            <SelectTrigger className="w-[180px] bg-background">
+                              <SelectValue placeholder="Organization" />
+                            </SelectTrigger>
+                            <SelectContent className="bg-background text-background-content">
+                              {organizations.map((i) => (
+                                <SelectItem value={i.id} key={i.id}>
+                                  {i.name}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select> */}
                       </div>
                       <DialogFooter className="mt-4">
                         <Button name="_action" value="create" type="submit" variant="default">
@@ -110,8 +122,8 @@ export default function AppIndex() {
                   </DialogContent>
                 </Dialog>
               ) : (
-                <Link to="/app/organization/create" className="btn btn-sm btn-primary">
-                  Create Organization
+                <Link to="/app/organization/create" className="my-auto">
+                  <Button>Create Organization</Button>
                 </Link>
               )}
             </div>
