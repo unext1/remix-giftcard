@@ -1,7 +1,7 @@
 version: '3.4'
 services:
   app:
-    image: lauva/couponapp:20230626-1852
+    image: lauva/couponapp:20230618-1428
     container_name: app
     depends_on:
       - hasura
