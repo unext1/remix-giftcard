@@ -230,6 +230,10 @@ export const webhookHandler = async (request: Request) => {
     case 'charge.succeeded':
       console.log('pinigai gauti');
       break;
+    case 'account.updated':
+      console.log('updatint');
+      console.log(event.data);
+      break;
     default:
       console.warn(`🤷‍♀️ Unhandled event type: ${event.type}`);
   }

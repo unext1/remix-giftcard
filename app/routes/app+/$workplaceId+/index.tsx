@@ -1,5 +1,4 @@
-import type { LoaderArgs } from '@remix-run/node';
-import { json, redirect, type ActionArgs } from '@remix-run/node';
+import { type LoaderArgs, json, redirect, type ActionArgs } from '@remix-run/node';
 import { Form, useLoaderData } from '@remix-run/react';
 import { namedAction } from 'remix-utils';
 import { requireUser } from '~/services/auth.server';
@@ -71,41 +70,35 @@ const Dashbaord = () => {
   const { organizations } = useLoaderData<typeof loader>();
   return (
     <div>
-      {organizations.length > 0 ? (
-        <>
-          <h1>Stripe</h1>
-          <Form method="post">
-            <button type="submit" name="_action" value="update">
-              Update
-            </button>
+      <>
+        <h1>Stripe</h1>
+        <Form method="post">
+          <button type="submit" name="_action" value="update">
+            Update
+          </button>
 
-            <div>
-              <button type="submit" name="_action" value="open">
-                dashboard
-              </button>
-            </div>
-            <div>
-              <button type="submit" name="_action" value="checkout">
-                checkout
-              </button>
-            </div>
-            <div>
-              <button type="submit" name="_action" value="subscribe">
-                subscribe
-              </button>
-            </div>
-            <div>
-              <button type="submit" name="_action" value="manage">
-                manage
-              </button>
-            </div>
-          </Form>
-        </>
-      ) : (
-        <div>
-          <h1>hi</h1>
-        </div>
-      )}
+          <div>
+            <button type="submit" name="_action" value="open">
+              dashboard
+            </button>
+          </div>
+          <div>
+            <button type="submit" name="_action" value="checkout">
+              checkout
+            </button>
+          </div>
+          <div>
+            <button type="submit" name="_action" value="subscribe">
+              subscribe
+            </button>
+          </div>
+          <div>
+            <button type="submit" name="_action" value="manage">
+              manage
+            </button>
+          </div>
+        </Form>
+      </>
     </div>
   );
 };

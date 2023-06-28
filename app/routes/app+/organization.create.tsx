@@ -39,6 +39,7 @@ export async function action({ request, params }: ActionArgs) {
     name,
     email,
     business_type,
+    workplaceId: 'workplaceId',
     address: {
       line1,
       line2,

@@ -52,6 +52,7 @@ update_permissions:
   - role: user
     permission:
       columns:
+        - organization_id
         - title
       filter:
         owner_id:

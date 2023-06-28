@@ -78,6 +78,14 @@ const CREATEORGANIZATION = graphql(`
   }
 `);
 
+const UPDATEWORKPLACEORGID = graphql(`
+  mutation UpdateWorkplaceorganizationId($id: uuid!, $organizationId: uuid!) {
+    updateWorkplaceByPk(pk_columns: { id: $id }, _set: { organizationId: $organizationId }) {
+      id
+    }
+  }
+`);
+
 const CREATEADRESS = graphql(`
   mutation CreateAddress(
     $state: String
@@ -96,6 +104,7 @@ const CREATEADRESS = graphql(`
     }
   }
 `);
+
 export type OrganizationType = Awaited<ReturnType<typeof getOrganizationById>>;
 
 export const getOrganizationById = async ({ user, organizationId }: { user: UserSession; organizationId: string }) => {
@@ -122,12 +131,14 @@ export const createNewOrganization = async ({
   name,
   email,
   business_type,
+  workplaceId,
   address
 }: {
   user: UserType;
   name: string;
   email: string;
   business_type: 'individual' | 'company';
+  workplaceId: string;
   address: {
     line1: string;
     line2?: string;
@@ -140,18 +151,6 @@ export const createNewOrganization = async ({
   if (user.organizations.length > 0) {
     throw new Error('user already has an organization');
   }
-  // const addressId = await hasuraClient({ token: user.token }).request(CREATEADRESS, {
-  //   city: address.city,
-  //   country: address.country,
-  //   line1: address.line1,
-  //   line2: address.line2,
-  //   postalCode: address.postalCode,
-  //   state: address.state
-  // });
-
-  // if (!addressId.insertAddress?.returning) {
-  //   throw new Error('address not created');
-  // }
 
   const organization = await hasuraClient({ token: user.token }).request(CREATEORGANIZATION, {
     name: name,
@@ -161,6 +160,17 @@ export const createNewOrganization = async ({
   if (!organization.insertOrganization?.returning) {
     throw new Error('organization was not created');
   }
+  console.log(organization.insertOrganization.returning[0].id);
+
+  console.log({
+    id: workplaceId,
+    organizationId: organization.insertOrganization?.returning[0].id
+  });
+  const created = await hasuraClient({ token: user.token }).request(UPDATEWORKPLACEORGID, {
+    id: workplaceId,
+    organizationId: organization.insertOrganization?.returning[0].id
+  });
+  console.log(created);
 
   await updateOrganizationsCustomerId({
     email: email,
@@ -168,11 +178,13 @@ export const createNewOrganization = async ({
     organizationId: organization.insertOrganization?.returning[0].id
   });
 
+  console.log('PADARYRTA');
+
   const stipeAccountLink = await createStripeAccount({
     organization: organization.insertOrganization?.returning[0],
     user,
     business_type,
-    return_url: 'http://localhost:3000/app'
+    return_url: `http://localhost:3000/app/${workplaceId}/settings/organization`
   });
 
   return stipeAccountLink;

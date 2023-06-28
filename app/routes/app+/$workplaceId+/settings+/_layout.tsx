@@ -21,6 +21,10 @@ const SettingsLayout = () => {
     {
       label: 'Billing',
       href: 'billing'
+    },
+    {
+      label: 'Organization',
+      href: 'organization'
     }
   ];
   return (

@@ -69,16 +69,14 @@ export const WorkplaceSwitcher = ({
         }
       }}
       dialog={{
-        title: 'Create a Workplace',
-        description:
-          'This will create a new workplace and add you as the owner. You can invite others to join your workplace later.'
+        title: 'Create a Workplace'
       }}
       form={{
         action: route('/new/workplace'),
         method: 'post'
       }}
     >
-      <FormInput name="name" placeholder="Workplace Name" labelTop="Workplace Name" required />
+      <FormInput name="name" placeholder="Workplace Name" className="bg-neutral" labelTop="Workplace Name" required />
     </ComboboxWithAction>
   );
 };

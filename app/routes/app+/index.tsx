@@ -10,7 +10,6 @@ import { WorkplaceCard } from '~/components/app/index/workplaceCard';
 import { Button } from '~/components/ui/button';
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '~/components/ui/dialog';
 import { Input } from '~/components/ui/input';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '~/components/ui/select';
 import { authenticator, requireUser } from '~/services/auth.server';
 import { getOwnedOrganizations } from '~/services/organization.server';
 import {
@@ -46,7 +45,7 @@ export async function action({ request, params }: ActionArgs) {
     async create() {
       const { title, organizationId } = await zx.parseForm(request, {
         title: z.string(),
-        organizationId: z.string()
+        organizationId: z.string().optional()
       });
       const workplace = await createWorkplace({ sessionUser: user, title, organizationId });
 
@@ -73,6 +72,53 @@ export async function action({ request, params }: ActionArgs) {
 
 export default function AppIndex() {
   const { workplaces, invitations, organizations } = useLoaderData<typeof loader>();
+
+  if (workplaces.length === 0 && invitations?.length === 0) {
+    return (
+      <div className="w-full min-h-screen-safe flex justify-center items-center">
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button className="my-auto" variant="default">
+              Create Workplace
+            </Button>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Create a new Workplace</DialogTitle>
+            </DialogHeader>
+            <Form method="post">
+              <div className="space-x-4 flex mt-4">
+                <Label htmlFor="title" className="my-auto">
+                  Name
+                </Label>
+                <Input name="title" />
+                {/* <Select>
+                            <SelectTrigger className="w-[180px] bg-background">
+                              <SelectValue placeholder="Organization" />
+                            </SelectTrigger>
+                            <SelectContent className="bg-background text-background-content">
+                              {organizations.map((i) => (
+                                <SelectItem value={i.id} key={i.id}>
+                                  {i.name}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select> */}
+              </div>
+              <DialogFooter className="mt-4">
+                <Button type="button" className="btn-outline">
+                  Cancel
+                </Button>
+                <Button name="_action" value="create" type="submit" variant="default">
+                  Confirm
+                </Button>
+              </DialogFooter>
+            </Form>
+          </DialogContent>
+        </Dialog>
+      </div>
+    );
+  }
   return (
     <div className="w-full min-h-screen-safe">
       <div className="container mx-auto p-5">
@@ -91,15 +137,15 @@ export default function AppIndex() {
                   </DialogTrigger>
                   <DialogContent>
                     <DialogHeader>
-                      <DialogTitle>Create a new Workplace</DialogTitle>
+                      <DialogTitle>Create a Workplace</DialogTitle>
                     </DialogHeader>
                     <Form method="post">
-                      <div className="space-x-4 flex mt-4">
+                      <div className=" mt-4">
                         <input type="hidden" name="organizationId" value={organizations[0].id || ''} />
-                        <Label htmlFor="title" className="my-auto">
-                          Name
+                        <Label htmlFor="title" className="my-auto text-sm">
+                          Workplace Name
                         </Label>
-                        <Input name="title" />
+                        <Input name="title" required className="bg-neutral" placeholder="Workplace Name" />
                         {/* <Select>
                             <SelectTrigger className="w-[180px] bg-background">
                               <SelectValue placeholder="Organization" />
@@ -114,9 +160,14 @@ export default function AppIndex() {
                           </Select> */}
                       </div>
                       <DialogFooter className="mt-4">
-                        <Button name="_action" value="create" type="submit" variant="default">
+                        <DialogTrigger asChild>
+                          <button type="button" className="btn btn-outline btn-sm">
+                            Cancel
+                          </button>
+                        </DialogTrigger>
+                        <button name="_action" value="create" type="submit" className="btn btn-primary btn-sm">
                           Confirm
-                        </Button>
+                        </button>
                       </DialogFooter>
                     </Form>
                   </DialogContent>

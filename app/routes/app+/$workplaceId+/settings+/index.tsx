@@ -1,5 +1,5 @@
-import type { ActionArgs } from '@remix-run/node';
-import { json, type LoaderArgs } from '@remix-run/node';
+import { type ActionArgs, type LoaderArgs } from '@remix-run/node';
+import { json } from '@remix-run/node';
 import { Form, useLoaderData } from '@remix-run/react';
 import { namedAction } from 'remix-utils';
 import { z } from 'zod';

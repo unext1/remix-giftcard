@@ -15,7 +15,7 @@ const GETALLWORKPLACES = graphql(`
 `);
 
 const CREATEWORKPLACE = graphql(`
-  mutation createWokrplace($title: String, $userId: uuid!, $organizationId: uuid!) {
+  mutation createWokrplace($title: String, $userId: uuid!, $organizationId: uuid) {
     insertWorkplace(
       objects: { title: $title, organizationId: $organizationId, workplaceMembers: { data: { userId: $userId } } }
     ) {
@@ -42,6 +42,9 @@ const GETWORKPLACEMEMBERS = graphql(`
   query GetWorkplaceMembers($workplaceId: uuid!) {
     workplaceMember(where: { workplaceId: { _eq: $workplaceId } }) {
       workplaceId
+      workplace {
+        ownerId
+      }
       workplaceMembers: user {
         id
         name
@@ -97,6 +100,59 @@ const ADDWORKPLACEMEMBER = graphql(`
     }
   }
 `);
+
+const GETWORKPLACESORGANIZATION = graphql(`
+  query GetWorkplaceOrganization($id: uuid!) {
+    workplaceByPk(id: $id) {
+      ownerId
+      organization {
+        name
+        id
+        email
+        createdAt
+        addressId
+        ownerId
+        stripeAccountId
+        stripeCustomerId
+        stripeSubscriptionId
+        stripeSubscriptionStatus
+        updatedAt
+      }
+    }
+  }
+`);
+
+const DELETEWORKPLACEMEMBER = graphql(`
+  mutation DeleteWorkplaceMember($userId: uuid!, $workplaceId: uuid!) {
+    deleteWorkplaceMember(where: { workplaceId: { _eq: $workplaceId }, userId: { _eq: $userId } }) {
+      returning {
+        userId
+      }
+    }
+  }
+`);
+
+export const deleteWorkplaceMember = async ({
+  token,
+  userId,
+  workplaceId
+}: {
+  token: string;
+  userId: string;
+  workplaceId: string;
+}) => {
+  const data = await hasuraClient({ token }).request(DELETEWORKPLACEMEMBER, {
+    userId: userId,
+    workplaceId: workplaceId
+  });
+  return data;
+};
+
+export const getWorkplaceOrganization = async ({ workplaceId, token }: { workplaceId: string; token: string }) => {
+  const { workplaceByPk } = await hasuraClient({ token }).request(GETWORKPLACESORGANIZATION, { id: workplaceId });
+
+  return workplaceByPk;
+};
 
 export const getAllWorkplaces = async ({ token }: { token: string }) => {
   const { workplace } = await hasuraClient({ token }).request(GETALLWORKPLACES);
@@ -189,7 +245,7 @@ export const createWorkplace = async ({
 }: {
   title: string;
   sessionUser: UserSession;
-  organizationId: string;
+  organizationId?: string;
 }) => {
   const data = await hasuraClient({ token: sessionUser.token }).request(CREATEWORKPLACE, {
     title: title,

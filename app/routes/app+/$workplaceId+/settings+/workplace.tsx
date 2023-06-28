@@ -11,11 +11,16 @@ import {
 } from '~/components/ui/dialog';
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '~/components/ui/table';
 
-import { json, redirect, type ActionArgs } from '@remix-run/node';
+import { json, redirect, type ActionArgs, type LoaderArgs } from '@remix-run/node';
 import { requireUser } from '~/services/auth.server';
-import { addWorkplaceMember, deleteWorkplace, getWorkplaceMembers } from '~/services/workplace.server';
+import {
+  addWorkplaceMember,
+  cancelInvitation,
+  deleteWorkplace,
+  deleteWorkplaceMember,
+  getWorkplaceMembers
+} from '~/services/workplace.server';
 
-import type { LoaderArgs } from '@remix-run/node';
 import { useEffect } from 'react';
 import { namedAction } from 'remix-utils';
 import { z } from 'zod';
@@ -23,6 +28,7 @@ import { zx } from 'zodix';
 import { useToast } from '~/components/toast/use-toast';
 import { Avatar } from '~/components/ui/avatar';
 import { Input } from '~/components/ui/input';
+import { XIcon } from 'lucide-react';
 
 export async function action({ request, params }: ActionArgs) {
   const user = await requireUser({ request, params });
@@ -48,6 +54,15 @@ export async function action({ request, params }: ActionArgs) {
 
       await addWorkplaceMember({ token: user.token, email: formData.data.email, workplaceId: data.workplaceId });
       return json({ message: `${formData.data.email} has been added to the workplace !` });
+    },
+    async remove() {
+      const { userId } = await zx.parseForm(request, {
+        userId: z.string()
+      });
+
+      const deleted = await deleteWorkplaceMember({ token: user.token, userId, workplaceId: params.workplaceId || '' });
+      if (deleted) return json(true);
+      else return json(false);
     }
   });
 }
@@ -59,11 +74,12 @@ export async function loader({ request, params }: LoaderArgs) {
     workplaceId: params.workplaceId ? params.workplaceId : '',
     token: user.token
   });
-  return json(workplaceMembers);
+
+  return json({ workplaceMembers, user });
 }
 
 const WokrplaceSettings = () => {
-  const workplaceMembers = useLoaderData<typeof loader>();
+  const { workplaceMembers, user } = useLoaderData<typeof loader>();
   const actionData = useActionData();
   const params = useParams();
   const { toast } = useToast();
@@ -75,6 +91,7 @@ const WokrplaceSettings = () => {
       });
     }
   }, [actionData, toast]);
+
   return (
     <div>
       <div className="flex justify-between">
@@ -115,7 +132,19 @@ const WokrplaceSettings = () => {
                     </TableCell>
                     <TableCell>{i.workplaceMembers.name}</TableCell>
                     <TableCell>{i.workplaceMembers.email}</TableCell>
-                    <TableCell className="text-right">User</TableCell>
+                    <TableCell className="text-right">Member</TableCell>
+
+                    {i.workplace.ownerId === user.id && i.workplaceMembers.id !== user.id ? (
+                      <TableCell className="text-right">
+                        <Form method="post">
+                          <input type="hidden" name="userId" value={i.workplaceMembers.id} />
+
+                          <Button variant="destructive" name="_action" value="remove" size="sm">
+                            <XIcon className="w-4" />
+                          </Button>
+                        </Form>
+                      </TableCell>
+                    ) : null}
                   </TableRow>
                 ))
               : null}
