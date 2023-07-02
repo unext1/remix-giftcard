@@ -4,6 +4,7 @@ import { type UserType } from './auth.server';
 import { hasuraAdminClient, hasuraClient } from './hasura.server';
 import { graphql } from '~/_gql';
 import { type OrganizationType } from './organization.server';
+import { type SubscriptionStatusEnum } from '~/_gql/graphql';
 
 const stripe = new Stripe(env.STRIPE_SECRET_KEY, {
   apiVersion: '2022-11-15'
@@ -29,6 +30,36 @@ const UPDATEORGANIZATIONSTRIPEACCOUNT = graphql(`
   mutation UpdateOrganizationStripeAccount($organizationId: uuid!, $stripeAccountId: String!) {
     updateOrganizationByPk(pkColumns: { id: $organizationId }, _set: { stripeAccountId: $stripeAccountId }) {
       stripeAccountId
+    }
+  }
+`);
+
+const SUBSCRIPTIONSTATUS = graphql(`
+  query SubscriptionStatus {
+    subscriptionStatus {
+      status
+      description
+    }
+  }
+`);
+
+const UPDATEORGANIZATIONSUBSCRIPTIONSTATUS = graphql(`
+  mutation UpdateSubscriptionStatus($subscriptionId: String, $status: SubscriptionStatusEnum!) {
+    updateOrganization(
+      where: { stripeSubscriptionId: { _eq: $subscriptionId } }
+      _set: { stripeSubscriptionStatus: $status }
+    ) {
+      returning {
+        id
+      }
+    }
+  }
+`);
+
+const UPDATEORGANIZATIONSUBSCRIPTIONID = graphql(`
+  mutation UpdateSubscriptionId($organizationId: uuid!, $subscriptionId: String!) {
+    updateOrganizationByPk(pkColumns: { id: $organizationId }, _set: { stripeSubscriptionId: $subscriptionId }) {
+      id
     }
   }
 `);
@@ -186,23 +217,26 @@ export const stripeCheckout = async ({ accountId }: { accountId: string }) => {
 export const createStripeSubscription = async ({ return_url, user }: { return_url: string; user: UserType }) => {
   const customerId = await getStripeCustomerId({ user });
 
-  const session = await stripe.checkout.sessions.create({
-    mode: 'subscription',
-    // payment_method_types: ['card', 'klarna'],
-    line_items: [
-      {
-        price: 'price_1NKlmWE9sPp9rw1vAfNfFlXY',
-        quantity: 1
-      }
-    ],
-    customer: customerId,
-    metadata: {
-      userId: user.id
-    },
-    success_url: return_url,
-    cancel_url: return_url
-  });
-  return session;
+  if (customerId) {
+    const session = await stripe.checkout.sessions.create({
+      mode: 'subscription',
+      line_items: [
+        {
+          price: 'price_1NKlmWE9sPp9rw1vAfNfFlXY',
+          quantity: 1
+        }
+      ],
+      customer: customerId,
+      metadata: {
+        organizationId: user.organizations.id
+      },
+      success_url: return_url,
+      cancel_url: return_url
+    });
+
+    return session;
+  }
+  return;
 };
 
 export const manageSubscriptions = async ({ return_url, user }: { return_url: string; user: UserType }) => {
@@ -240,6 +274,16 @@ export const getStripeAccountId = async ({ stripeAccountId }: { stripeAccountId:
   return account;
 };
 
+// export const Test = (status: Lowercase<SubscriptionStatusEnum>) => {
+//   console.log(status);
+// };
+
+export const updateStatus = async (data: Stripe.Subscription) => {
+  const status = data.status.toLocaleUpperCase() as SubscriptionStatusEnum;
+  const subscriptionId = data.id as string;
+  await hasuraAdminClient().request(UPDATEORGANIZATIONSUBSCRIPTIONSTATUS, { subscriptionId, status });
+};
+
 export const webhookHandler = async (request: Request) => {
   const body = await request.text();
   const signature = request.headers.get('stripe-signature') as string;
@@ -256,6 +300,52 @@ export const webhookHandler = async (request: Request) => {
       console.log('pinigai gauti');
       break;
     }
+    case 'checkout.session.completed': {
+      const data = event.data.object as Stripe.Checkout.Session;
+      const organizationId = data.metadata?.organizationId;
+      const subscriptionId = data.subscription as string;
+
+      if (!organizationId || !subscriptionId) break;
+
+      if (data.status === 'complete') {
+        await hasuraAdminClient().request(UPDATEORGANIZATIONSUBSCRIPTIONID, {
+          organizationId,
+          subscriptionId
+        });
+      }
+      break;
+    }
+    case 'customer.subscription.updated': {
+      const data = event.data.object as Stripe.Subscription;
+
+      await updateStatus(data);
+      break;
+    }
+    case 'customer.subscription.created': {
+      const data = event.data.object as Stripe.Subscription;
+
+      await updateStatus(data);
+      break;
+    }
+    case 'customer.subscription.deleted': {
+      const data = event.data.object as Stripe.Subscription;
+
+      await updateStatus(data);
+      break;
+    }
+    case 'customer.subscription.resumed': {
+      const data = event.data.object as Stripe.Subscription;
+
+      await updateStatus(data);
+      break;
+    }
+    case 'customer.subscription.paused': {
+      const data = event.data.object as Stripe.Subscription;
+
+      await updateStatus(data);
+      break;
+    }
+
     case 'account.updated': {
       const account = event.data.object as Stripe.Account;
 

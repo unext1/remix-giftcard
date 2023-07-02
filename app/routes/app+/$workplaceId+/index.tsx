@@ -15,8 +15,6 @@ export async function action({ request, params }: ActionArgs) {
 
   return namedAction(request, {
     async update() {
-      console.log('update');
-      console.log(user.organizations.stripeAccountId);
       if (user.organizations.stripeAccountId) {
         const accountLink = await updateStripeAccount({
           accountId: user.organizations.stripeAccountId,

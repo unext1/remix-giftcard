@@ -109,9 +109,9 @@ const WokrplaceSettings = () => {
               className="bg-background text-base-content w-fit"
               required
             />
-            <Button name="_action" value="add" type="submit" variant="default" size="sm">
+            <button name="_action" value="add" type="submit" className="btn btn-primary btn-sm">
               Add User
-            </Button>
+            </button>
           </div>
         </Form>
       </div>
@@ -125,6 +125,8 @@ const WokrplaceSettings = () => {
               <TableHead>Name</TableHead>
               <TableHead>Email</TableHead>
               <TableHead className="text-right">Role</TableHead>
+
+              <TableHead className="text-right">Controls</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>

@@ -69,9 +69,9 @@ const Settings = () => {
               className="bg-background text-base-content w-fit"
               defaultValue={user.name}
             />
-            <Button name="_action" value="change" type="submit" size="sm">
+            <button name="_action" value="change" type="submit" className="btn btn-primary btn-sm">
               Change Name
-            </Button>
+            </button>
           </div>
         </Form>
         <div>

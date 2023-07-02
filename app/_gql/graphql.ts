@@ -326,7 +326,7 @@ export type Organization = {
   stripeAccountId?: Maybe<Scalars['String']['output']>;
   stripeCustomerId?: Maybe<Scalars['String']['output']>;
   stripeSubscriptionId?: Maybe<Scalars['String']['output']>;
-  stripeSubscriptionStatus?: Maybe<Scalars['String']['output']>;
+  stripeSubscriptionStatus?: Maybe<SubscriptionStatusEnum>;
   updatedAt: Scalars['timestamptz']['output'];
   /** An array relationship */
   workplaces: Array<Workplace>;
@@ -411,7 +411,7 @@ export type OrganizationBoolExp = {
   stripeAccountId?: InputMaybe<StringComparisonExp>;
   stripeCustomerId?: InputMaybe<StringComparisonExp>;
   stripeSubscriptionId?: InputMaybe<StringComparisonExp>;
-  stripeSubscriptionStatus?: InputMaybe<StringComparisonExp>;
+  stripeSubscriptionStatus?: InputMaybe<SubscriptionStatusEnumComparisonExp>;
   updatedAt?: InputMaybe<TimestamptzComparisonExp>;
   workplaces?: InputMaybe<WorkplaceBoolExp>;
   workplacesAggregate?: InputMaybe<WorkplaceAggregateBoolExp>;
@@ -436,7 +436,7 @@ export type OrganizationInsertInput = {
   stripeAccountId?: InputMaybe<Scalars['String']['input']>;
   stripeCustomerId?: InputMaybe<Scalars['String']['input']>;
   stripeSubscriptionId?: InputMaybe<Scalars['String']['input']>;
-  stripeSubscriptionStatus?: InputMaybe<Scalars['String']['input']>;
+  stripeSubscriptionStatus?: InputMaybe<SubscriptionStatusEnum>;
   updatedAt?: InputMaybe<Scalars['timestamptz']['input']>;
   workplaces?: InputMaybe<WorkplaceArrRelInsertInput>;
 };
@@ -452,7 +452,6 @@ export type OrganizationMaxFields = {
   stripeAccountId?: Maybe<Scalars['String']['output']>;
   stripeCustomerId?: Maybe<Scalars['String']['output']>;
   stripeSubscriptionId?: Maybe<Scalars['String']['output']>;
-  stripeSubscriptionStatus?: Maybe<Scalars['String']['output']>;
   updatedAt?: Maybe<Scalars['timestamptz']['output']>;
 };
 
@@ -467,7 +466,6 @@ export type OrganizationMaxOrderBy = {
   stripeAccountId?: InputMaybe<OrderBy>;
   stripeCustomerId?: InputMaybe<OrderBy>;
   stripeSubscriptionId?: InputMaybe<OrderBy>;
-  stripeSubscriptionStatus?: InputMaybe<OrderBy>;
   updatedAt?: InputMaybe<OrderBy>;
 };
 
@@ -482,7 +480,6 @@ export type OrganizationMinFields = {
   stripeAccountId?: Maybe<Scalars['String']['output']>;
   stripeCustomerId?: Maybe<Scalars['String']['output']>;
   stripeSubscriptionId?: Maybe<Scalars['String']['output']>;
-  stripeSubscriptionStatus?: Maybe<Scalars['String']['output']>;
   updatedAt?: Maybe<Scalars['timestamptz']['output']>;
 };
 
@@ -497,7 +494,6 @@ export type OrganizationMinOrderBy = {
   stripeAccountId?: InputMaybe<OrderBy>;
   stripeCustomerId?: InputMaybe<OrderBy>;
   stripeSubscriptionId?: InputMaybe<OrderBy>;
-  stripeSubscriptionStatus?: InputMaybe<OrderBy>;
   updatedAt?: InputMaybe<OrderBy>;
 };
 
@@ -596,7 +592,7 @@ export type OrganizationSetInput = {
   stripeAccountId?: InputMaybe<Scalars['String']['input']>;
   stripeCustomerId?: InputMaybe<Scalars['String']['input']>;
   stripeSubscriptionId?: InputMaybe<Scalars['String']['input']>;
-  stripeSubscriptionStatus?: InputMaybe<Scalars['String']['input']>;
+  stripeSubscriptionStatus?: InputMaybe<SubscriptionStatusEnum>;
   updatedAt?: InputMaybe<Scalars['timestamptz']['input']>;
 };
 
@@ -620,7 +616,7 @@ export type OrganizationStreamCursorValueInput = {
   stripeAccountId?: InputMaybe<Scalars['String']['input']>;
   stripeCustomerId?: InputMaybe<Scalars['String']['input']>;
   stripeSubscriptionId?: InputMaybe<Scalars['String']['input']>;
-  stripeSubscriptionStatus?: InputMaybe<Scalars['String']['input']>;
+  stripeSubscriptionStatus?: InputMaybe<SubscriptionStatusEnum>;
   updatedAt?: InputMaybe<Scalars['timestamptz']['input']>;
 };
 
@@ -689,6 +685,156 @@ export type StringComparisonExp = {
   _regex?: InputMaybe<Scalars['String']['input']>;
   /** does the column match the given SQL regular expression */
   _similar?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** columns and relationships of "subscription_status" */
+export type SubscriptionStatus = {
+  description?: Maybe<Scalars['String']['output']>;
+  status: Scalars['String']['output'];
+};
+
+/** aggregated selection of "subscription_status" */
+export type SubscriptionStatusAggregate = {
+  aggregate?: Maybe<SubscriptionStatusAggregateFields>;
+  nodes: Array<SubscriptionStatus>;
+};
+
+/** aggregate fields of "subscription_status" */
+export type SubscriptionStatusAggregateFields = {
+  count: Scalars['Int']['output'];
+  max?: Maybe<SubscriptionStatusMaxFields>;
+  min?: Maybe<SubscriptionStatusMinFields>;
+};
+
+
+/** aggregate fields of "subscription_status" */
+export type SubscriptionStatusAggregateFieldsCountArgs = {
+  columns?: InputMaybe<Array<SubscriptionStatusSelectColumn>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** Boolean expression to filter rows from the table "subscription_status". All fields are combined with a logical 'AND'. */
+export type SubscriptionStatusBoolExp = {
+  _and?: InputMaybe<Array<SubscriptionStatusBoolExp>>;
+  _not?: InputMaybe<SubscriptionStatusBoolExp>;
+  _or?: InputMaybe<Array<SubscriptionStatusBoolExp>>;
+  description?: InputMaybe<StringComparisonExp>;
+  status?: InputMaybe<StringComparisonExp>;
+};
+
+/** unique or primary key constraints on table "subscription_status" */
+export type SubscriptionStatusConstraint =
+  /** unique or primary key constraint on columns "status" */
+  | 'subscription_status_pkey';
+
+export type SubscriptionStatusEnum =
+  /** The subscription is in good standing and the most recent payment is successful. It’s safe to provision your product for your customer. */
+  | 'ACTIVE'
+  /** The subscription has been canceled. During cancellation, automatic collection for all unpaid invoices is disabled (auto_advance=false). This is a terminal state that can’t be updated. */
+  | 'CANCELED'
+  /** The initial payment on the subscription failed and no successful payment was made within 23 hours of creating the subscription. These subscriptions don’t bill customers. This status exists so you can track customers that failed to activate their subscriptions. */
+  | 'INCOMPLETE_EXPIRED'
+  /** Payment on the latest finalized invoice either failed or wasn’t attempted. The subscription continues to create invoices. Your subscription settings determine the subscription’s next state. If the invoice is still unpaid after all Smart Retries have been attempted, you can configure the subscription to move to canceled, unpaid, or leave it as past_due. To move the subscription to active, pay the most recent invoice before its due date. */
+  | 'PAST_DUE'
+  /** The subscription has ended its trial period without a default payment method and the trial_settings.end_behavior.missing_payment_method is set to pause. Invoices will no longer be created for the subscription. After a default payment method has been attached to the customer, you can resume the subscription. */
+  | 'PAUSED'
+  /** The subscription is currently in a trial period and it’s safe to provision your product for your customer. The subscription transitions automatically to active when the first payment is made. */
+  | 'TRIALING'
+  /** The latest invoice hasn’t been paid but the subscription remains in place. The latest invoice remains open and invoices continue to be generated but payments aren’t attempted. You should revoke access to your product when the subscription is unpaid since payments were already attempted and retried when it was past_due. To move the subscription to active, pay the most recent invoice before its due date. */
+  | 'UNPAID';
+
+/** Boolean expression to compare columns of type "SubscriptionStatusEnum". All fields are combined with logical 'AND'. */
+export type SubscriptionStatusEnumComparisonExp = {
+  _eq?: InputMaybe<SubscriptionStatusEnum>;
+  _in?: InputMaybe<Array<SubscriptionStatusEnum>>;
+  _isNull?: InputMaybe<Scalars['Boolean']['input']>;
+  _neq?: InputMaybe<SubscriptionStatusEnum>;
+  _nin?: InputMaybe<Array<SubscriptionStatusEnum>>;
+};
+
+/** input type for inserting data into table "subscription_status" */
+export type SubscriptionStatusInsertInput = {
+  description?: InputMaybe<Scalars['String']['input']>;
+  status?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** aggregate max on columns */
+export type SubscriptionStatusMaxFields = {
+  description?: Maybe<Scalars['String']['output']>;
+  status?: Maybe<Scalars['String']['output']>;
+};
+
+/** aggregate min on columns */
+export type SubscriptionStatusMinFields = {
+  description?: Maybe<Scalars['String']['output']>;
+  status?: Maybe<Scalars['String']['output']>;
+};
+
+/** response of any mutation on the table "subscription_status" */
+export type SubscriptionStatusMutationResponse = {
+  /** number of rows affected by the mutation */
+  affectedRows: Scalars['Int']['output'];
+  /** data from the rows affected by the mutation */
+  returning: Array<SubscriptionStatus>;
+};
+
+/** on_conflict condition type for table "subscription_status" */
+export type SubscriptionStatusOnConflict = {
+  constraint: SubscriptionStatusConstraint;
+  updateColumns?: Array<SubscriptionStatusUpdateColumn>;
+  where?: InputMaybe<SubscriptionStatusBoolExp>;
+};
+
+/** Ordering options when selecting data from "subscription_status". */
+export type SubscriptionStatusOrderBy = {
+  description?: InputMaybe<OrderBy>;
+  status?: InputMaybe<OrderBy>;
+};
+
+/** primary key columns input for table: subscription_status */
+export type SubscriptionStatusPkColumnsInput = {
+  status: Scalars['String']['input'];
+};
+
+/** select columns of table "subscription_status" */
+export type SubscriptionStatusSelectColumn =
+  /** column name */
+  | 'description'
+  /** column name */
+  | 'status';
+
+/** input type for updating data in table "subscription_status" */
+export type SubscriptionStatusSetInput = {
+  description?: InputMaybe<Scalars['String']['input']>;
+  status?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** Streaming cursor of the table "subscription_status" */
+export type SubscriptionStatusStreamCursorInput = {
+  /** Stream column input with initial value */
+  initialValue: SubscriptionStatusStreamCursorValueInput;
+  /** cursor ordering */
+  ordering?: InputMaybe<CursorOrdering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type SubscriptionStatusStreamCursorValueInput = {
+  description?: InputMaybe<Scalars['String']['input']>;
+  status?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** update columns of table "subscription_status" */
+export type SubscriptionStatusUpdateColumn =
+  /** column name */
+  | 'description'
+  /** column name */
+  | 'status';
+
+export type SubscriptionStatusUpdates = {
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<SubscriptionStatusSetInput>;
+  /** filter the rows which have to be updated */
+  where: SubscriptionStatusBoolExp;
 };
 
 /** Boolean expression to compare columns of type "timestamptz". All fields are combined with logical 'AND'. */
@@ -1652,6 +1798,10 @@ export type Mutation_Root = {
   deleteOrganization?: Maybe<OrganizationMutationResponse>;
   /** delete single row from the table: "organization" */
   deleteOrganizationByPk?: Maybe<Organization>;
+  /** delete data from the table: "subscription_status" */
+  deleteSubscriptionStatus?: Maybe<SubscriptionStatusMutationResponse>;
+  /** delete single row from the table: "subscription_status" */
+  deleteSubscriptionStatusByPk?: Maybe<SubscriptionStatus>;
   /** delete data from the table: "user" */
   deleteUser?: Maybe<UserMutationResponse>;
   /** delete single row from the table: "user" */
@@ -1676,6 +1826,10 @@ export type Mutation_Root = {
   insertOrganization?: Maybe<OrganizationMutationResponse>;
   /** insert a single row into the table: "organization" */
   insertOrganizationOne?: Maybe<Organization>;
+  /** insert data into the table: "subscription_status" */
+  insertSubscriptionStatus?: Maybe<SubscriptionStatusMutationResponse>;
+  /** insert a single row into the table: "subscription_status" */
+  insertSubscriptionStatusOne?: Maybe<SubscriptionStatus>;
   /** insert data into the table: "user" */
   insertUser?: Maybe<UserMutationResponse>;
   /** insert a single row into the table: "user" */
@@ -1704,6 +1858,12 @@ export type Mutation_Root = {
   updateOrganizationByPk?: Maybe<Organization>;
   /** update multiples rows of table: "organization" */
   updateOrganizationMany?: Maybe<Array<Maybe<OrganizationMutationResponse>>>;
+  /** update data of the table: "subscription_status" */
+  updateSubscriptionStatus?: Maybe<SubscriptionStatusMutationResponse>;
+  /** update single row of the table: "subscription_status" */
+  updateSubscriptionStatusByPk?: Maybe<SubscriptionStatus>;
+  /** update multiples rows of table: "subscription_status" */
+  updateSubscriptionStatusMany?: Maybe<Array<Maybe<SubscriptionStatusMutationResponse>>>;
   /** update data of the table: "user" */
   updateUser?: Maybe<UserMutationResponse>;
   /** update single row of the table: "user" */
@@ -1752,6 +1912,18 @@ export type Mutation_RootDeleteOrganizationArgs = {
 /** mutation root */
 export type Mutation_RootDeleteOrganizationByPkArgs = {
   id: Scalars['uuid']['input'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDeleteSubscriptionStatusArgs = {
+  where: SubscriptionStatusBoolExp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDeleteSubscriptionStatusByPkArgs = {
+  status: Scalars['String']['input'];
 };
 
 
@@ -1829,6 +2001,20 @@ export type Mutation_RootInsertOrganizationArgs = {
 export type Mutation_RootInsertOrganizationOneArgs = {
   object: OrganizationInsertInput;
   onConflict?: InputMaybe<OrganizationOnConflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsertSubscriptionStatusArgs = {
+  objects: Array<SubscriptionStatusInsertInput>;
+  onConflict?: InputMaybe<SubscriptionStatusOnConflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsertSubscriptionStatusOneArgs = {
+  object: SubscriptionStatusInsertInput;
+  onConflict?: InputMaybe<SubscriptionStatusOnConflict>;
 };
 
 
@@ -1925,6 +2111,26 @@ export type Mutation_RootUpdateOrganizationByPkArgs = {
 /** mutation root */
 export type Mutation_RootUpdateOrganizationManyArgs = {
   updates: Array<OrganizationUpdates>;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdateSubscriptionStatusArgs = {
+  _set?: InputMaybe<SubscriptionStatusSetInput>;
+  where: SubscriptionStatusBoolExp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdateSubscriptionStatusByPkArgs = {
+  _set?: InputMaybe<SubscriptionStatusSetInput>;
+  pkColumns: SubscriptionStatusPkColumnsInput;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdateSubscriptionStatusManyArgs = {
+  updates: Array<SubscriptionStatusUpdates>;
 };
 
 
@@ -2041,6 +2247,12 @@ export type Query_Root = {
   organizationAggregate: OrganizationAggregate;
   /** fetch data from the table: "organization" using primary key columns */
   organizationByPk?: Maybe<Organization>;
+  /** fetch data from the table: "subscription_status" */
+  subscriptionStatus: Array<SubscriptionStatus>;
+  /** fetch aggregated fields from the table: "subscription_status" */
+  subscriptionStatusAggregate: SubscriptionStatusAggregate;
+  /** fetch data from the table: "subscription_status" using primary key columns */
+  subscriptionStatusByPk?: Maybe<SubscriptionStatus>;
   /** fetch data from the table: "user" */
   user: Array<User>;
   /** fetch aggregated fields from the table: "user" */
@@ -2111,6 +2323,29 @@ export type Query_RootOrganizationAggregateArgs = {
 
 export type Query_RootOrganizationByPkArgs = {
   id: Scalars['uuid']['input'];
+};
+
+
+export type Query_RootSubscriptionStatusArgs = {
+  distinctOn?: InputMaybe<Array<SubscriptionStatusSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<SubscriptionStatusOrderBy>>;
+  where?: InputMaybe<SubscriptionStatusBoolExp>;
+};
+
+
+export type Query_RootSubscriptionStatusAggregateArgs = {
+  distinctOn?: InputMaybe<Array<SubscriptionStatusSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<SubscriptionStatusOrderBy>>;
+  where?: InputMaybe<SubscriptionStatusBoolExp>;
+};
+
+
+export type Query_RootSubscriptionStatusByPkArgs = {
+  status: Scalars['String']['input'];
 };
 
 
@@ -2223,6 +2458,14 @@ export type Subscription_Root = {
   organizationByPk?: Maybe<Organization>;
   /** fetch data from the table in a streaming manner: "organization" */
   organizationStream: Array<Organization>;
+  /** fetch data from the table: "subscription_status" */
+  subscriptionStatus: Array<SubscriptionStatus>;
+  /** fetch aggregated fields from the table: "subscription_status" */
+  subscriptionStatusAggregate: SubscriptionStatusAggregate;
+  /** fetch data from the table: "subscription_status" using primary key columns */
+  subscriptionStatusByPk?: Maybe<SubscriptionStatus>;
+  /** fetch data from the table in a streaming manner: "subscription_status" */
+  subscriptionStatusStream: Array<SubscriptionStatus>;
   /** fetch data from the table: "user" */
   user: Array<User>;
   /** fetch aggregated fields from the table: "user" */
@@ -2315,6 +2558,36 @@ export type Subscription_RootOrganizationStreamArgs = {
   batchSize: Scalars['Int']['input'];
   cursor: Array<InputMaybe<OrganizationStreamCursorInput>>;
   where?: InputMaybe<OrganizationBoolExp>;
+};
+
+
+export type Subscription_RootSubscriptionStatusArgs = {
+  distinctOn?: InputMaybe<Array<SubscriptionStatusSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<SubscriptionStatusOrderBy>>;
+  where?: InputMaybe<SubscriptionStatusBoolExp>;
+};
+
+
+export type Subscription_RootSubscriptionStatusAggregateArgs = {
+  distinctOn?: InputMaybe<Array<SubscriptionStatusSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<SubscriptionStatusOrderBy>>;
+  where?: InputMaybe<SubscriptionStatusBoolExp>;
+};
+
+
+export type Subscription_RootSubscriptionStatusByPkArgs = {
+  status: Scalars['String']['input'];
+};
+
+
+export type Subscription_RootSubscriptionStatusStreamArgs = {
+  batchSize: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<SubscriptionStatusStreamCursorInput>>;
+  where?: InputMaybe<SubscriptionStatusBoolExp>;
 };
 
 
@@ -2473,7 +2746,7 @@ export type GetUserByIdQueryVariables = Exact<{
 }>;
 
 
-export type GetUserByIdQuery = { user?: { createdAt: string, email: string, imageUrl?: string | null, id: string, name: string, organizations: Array<{ id: string, createdAt: string, updatedAt: string, name: string, ownerId: string, stripeAccountId?: string | null, stripeCustomerId?: string | null, stripeSubscriptionId?: string | null, stripeSubscriptionStatus?: string | null }>, ownerOfWorkplaces: Array<{ id: string, title: string, updatedAt: string, ownerId: string, createdAt: string }>, memberOfWorkplaces: Array<{ workplace: { createdAt: string, id: string, ownerId: string, title: string, updatedAt: string } }> } | null };
+export type GetUserByIdQuery = { user?: { createdAt: string, email: string, imageUrl?: string | null, id: string, name: string, organizations: Array<{ id: string, createdAt: string, updatedAt: string, name: string, ownerId: string, stripeAccountId?: string | null, stripeCustomerId?: string | null, stripeSubscriptionId?: string | null, stripeSubscriptionStatus?: SubscriptionStatusEnum | null }>, ownerOfWorkplaces: Array<{ id: string, title: string, updatedAt: string, ownerId: string, createdAt: string }>, memberOfWorkplaces: Array<{ workplace: { createdAt: string, id: string, ownerId: string, title: string, updatedAt: string } }> } | null };
 
 export type UpdateUserNameMutationVariables = Exact<{
   id: Scalars['uuid']['input'];
@@ -2495,14 +2768,14 @@ export type GetOwnedOrganizationsQueryVariables = Exact<{
 }>;
 
 
-export type GetOwnedOrganizationsQuery = { organizations: Array<{ id: string, createdAt: string, updatedAt: string, name: string, email: string, ownerId: string, stripeAccountId?: string | null, stripeCustomerId?: string | null, stripeSubscriptionId?: string | null, stripeSubscriptionStatus?: string | null, chargesEnabled?: boolean | null }> };
+export type GetOwnedOrganizationsQuery = { organizations: Array<{ id: string, createdAt: string, updatedAt: string, name: string, email: string, ownerId: string, stripeAccountId?: string | null, stripeCustomerId?: string | null, stripeSubscriptionId?: string | null, stripeSubscriptionStatus?: SubscriptionStatusEnum | null, chargesEnabled?: boolean | null }> };
 
 export type GetOrganizationByIdQueryVariables = Exact<{
   organizationId: Scalars['uuid']['input'];
 }>;
 
 
-export type GetOrganizationByIdQuery = { organization?: { id: string, createdAt: string, updatedAt: string, name: string, email: string, ownerId: string, stripeAccountId?: string | null, stripeCustomerId?: string | null, stripeSubscriptionId?: string | null, stripeSubscriptionStatus?: string | null, chargesEnabled?: boolean | null, address: { line1: string, line2?: string | null, city: string, state?: string | null, postalCode: string, country: string } } | null };
+export type GetOrganizationByIdQuery = { organization?: { id: string, createdAt: string, updatedAt: string, name: string, email: string, ownerId: string, stripeAccountId?: string | null, stripeCustomerId?: string | null, stripeSubscriptionId?: string | null, stripeSubscriptionStatus?: SubscriptionStatusEnum | null, chargesEnabled?: boolean | null, address: { line1: string, line2?: string | null, city: string, state?: string | null, postalCode: string, country: string } } | null };
 
 export type CreateOrganizationMutationVariables = Exact<{
   name: Scalars['String']['input'];
@@ -2511,7 +2784,7 @@ export type CreateOrganizationMutationVariables = Exact<{
 }>;
 
 
-export type CreateOrganizationMutation = { insertOrganization?: { returning: Array<{ id: string, createdAt: string, updatedAt: string, name: string, email: string, ownerId: string, stripeAccountId?: string | null, stripeCustomerId?: string | null, stripeSubscriptionId?: string | null, stripeSubscriptionStatus?: string | null, chargesEnabled?: boolean | null, address: { line1: string, line2?: string | null, city: string, state?: string | null, postalCode: string, country: string } }> } | null };
+export type CreateOrganizationMutation = { insertOrganization?: { returning: Array<{ id: string, createdAt: string, updatedAt: string, name: string, email: string, ownerId: string, stripeAccountId?: string | null, stripeCustomerId?: string | null, stripeSubscriptionId?: string | null, stripeSubscriptionStatus?: SubscriptionStatusEnum | null, chargesEnabled?: boolean | null, address: { line1: string, line2?: string | null, city: string, state?: string | null, postalCode: string, country: string } }> } | null };
 
 export type UpdateWorkplaceorganizationIdMutationVariables = Exact<{
   id: Scalars['uuid']['input'];
@@ -2555,6 +2828,27 @@ export type UpdateOrganizationStripeAccountMutationVariables = Exact<{
 
 
 export type UpdateOrganizationStripeAccountMutation = { updateOrganizationByPk?: { stripeAccountId?: string | null } | null };
+
+export type SubscriptionStatusQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type SubscriptionStatusQuery = { subscriptionStatus: Array<{ status: string, description?: string | null }> };
+
+export type UpdateSubscriptionStatusMutationVariables = Exact<{
+  subscriptionId?: InputMaybe<Scalars['String']['input']>;
+  status: SubscriptionStatusEnum;
+}>;
+
+
+export type UpdateSubscriptionStatusMutation = { updateOrganization?: { returning: Array<{ id: string }> } | null };
+
+export type UpdateSubscriptionIdMutationVariables = Exact<{
+  organizationId: Scalars['uuid']['input'];
+  subscriptionId: Scalars['String']['input'];
+}>;
+
+
+export type UpdateSubscriptionIdMutation = { updateOrganizationByPk?: { id: string } | null };
 
 export type GetAllWorkplacesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -2618,7 +2912,7 @@ export type GetWorkplaceOrganizationQueryVariables = Exact<{
 }>;
 
 
-export type GetWorkplaceOrganizationQuery = { workplaceByPk?: { ownerId: string, organization?: { name: string, id: string, email: string, createdAt: string, addressId: string, ownerId: string, stripeAccountId?: string | null, stripeCustomerId?: string | null, stripeSubscriptionId?: string | null, stripeSubscriptionStatus?: string | null, updatedAt: string, chargesEnabled?: boolean | null } | null } | null };
+export type GetWorkplaceOrganizationQuery = { workplaceByPk?: { ownerId: string, organization?: { name: string, id: string, email: string, createdAt: string, addressId: string, ownerId: string, stripeAccountId?: string | null, stripeCustomerId?: string | null, stripeSubscriptionId?: string | null, stripeSubscriptionStatus?: SubscriptionStatusEnum | null, updatedAt: string, chargesEnabled?: boolean | null } | null } | null };
 
 export type DeleteWorkplaceMemberMutationVariables = Exact<{
   userId: Scalars['uuid']['input'];
@@ -2641,6 +2935,9 @@ export const CreateAddressDocument = {"kind":"Document","definitions":[{"kind":"
 export const UpdateOrgranizationsStripeCustomerIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateOrgranizationsStripeCustomerId"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"stripeCustomerId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateOrganizationByPk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pkColumns"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"_set"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"stripeCustomerId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"stripeCustomerId"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"stripeCustomerId"}}]}}]}}]} as unknown as DocumentNode<UpdateOrgranizationsStripeCustomerIdMutation, UpdateOrgranizationsStripeCustomerIdMutationVariables>;
 export const UpdateOrganizationsChargesEnabledDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateOrganizationsChargesEnabled"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateOrganizationByPk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pkColumns"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"_set"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"chargesEnabled"},"value":{"kind":"BooleanValue","value":true}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<UpdateOrganizationsChargesEnabledMutation, UpdateOrganizationsChargesEnabledMutationVariables>;
 export const UpdateOrganizationStripeAccountDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateOrganizationStripeAccount"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"stripeAccountId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateOrganizationByPk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pkColumns"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"_set"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"stripeAccountId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"stripeAccountId"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"stripeAccountId"}}]}}]}}]} as unknown as DocumentNode<UpdateOrganizationStripeAccountMutation, UpdateOrganizationStripeAccountMutationVariables>;
+export const SubscriptionStatusDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"SubscriptionStatus"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"subscriptionStatus"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"description"}}]}}]}}]} as unknown as DocumentNode<SubscriptionStatusQuery, SubscriptionStatusQueryVariables>;
+export const UpdateSubscriptionStatusDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateSubscriptionStatus"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"subscriptionId"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"status"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SubscriptionStatusEnum"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateOrganization"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"stripeSubscriptionId"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"subscriptionId"}}}]}}]}},{"kind":"Argument","name":{"kind":"Name","value":"_set"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"stripeSubscriptionStatus"},"value":{"kind":"Variable","name":{"kind":"Name","value":"status"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"returning"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]}}]} as unknown as DocumentNode<UpdateSubscriptionStatusMutation, UpdateSubscriptionStatusMutationVariables>;
+export const UpdateSubscriptionIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateSubscriptionId"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"subscriptionId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateOrganizationByPk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pkColumns"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"_set"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"stripeSubscriptionId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"subscriptionId"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<UpdateSubscriptionIdMutation, UpdateSubscriptionIdMutationVariables>;
 export const GetAllWorkplacesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetAllWorkplaces"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"workplace"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"ownerId"}}]}}]}}]} as unknown as DocumentNode<GetAllWorkplacesQuery, GetAllWorkplacesQueryVariables>;
 export const CreateWokrplaceDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"createWokrplace"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"title"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"userId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"insertWorkplace"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"objects"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"title"},"value":{"kind":"Variable","name":{"kind":"Name","value":"title"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"organizationId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"workplaceMembers"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"data"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"userId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId"}}}]}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"returning"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"ownerId"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]}}]} as unknown as DocumentNode<CreateWokrplaceMutation, CreateWokrplaceMutationVariables>;
 export const DeleteWorkplaceDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"DeleteWorkplace"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"workplaceId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"deleteWorkplace"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"workplaceId"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"affectedRows"}}]}}]}}]} as unknown as DocumentNode<DeleteWorkplaceMutation, DeleteWorkplaceMutationVariables>;

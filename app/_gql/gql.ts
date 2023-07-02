@@ -25,6 +25,9 @@ const documents = {
     "\n  mutation UpdateOrgranizationsStripeCustomerId($organizationId: uuid!, $stripeCustomerId: String!) {\n    updateOrganizationByPk(pkColumns: { id: $organizationId }, _set: { stripeCustomerId: $stripeCustomerId }) {\n      stripeCustomerId\n    }\n  }\n": types.UpdateOrgranizationsStripeCustomerIdDocument,
     "\n  mutation UpdateOrganizationsChargesEnabled($id: uuid!) {\n    updateOrganizationByPk(pkColumns: { id: $id }, _set: { chargesEnabled: true }) {\n      id\n    }\n  }\n": types.UpdateOrganizationsChargesEnabledDocument,
     "\n  mutation UpdateOrganizationStripeAccount($organizationId: uuid!, $stripeAccountId: String!) {\n    updateOrganizationByPk(pkColumns: { id: $organizationId }, _set: { stripeAccountId: $stripeAccountId }) {\n      stripeAccountId\n    }\n  }\n": types.UpdateOrganizationStripeAccountDocument,
+    "\n  query SubscriptionStatus {\n    subscriptionStatus {\n      status\n      description\n    }\n  }\n": types.SubscriptionStatusDocument,
+    "\n  mutation UpdateSubscriptionStatus($subscriptionId: String, $status: SubscriptionStatusEnum!) {\n    updateOrganization(\n      where: { stripeSubscriptionId: { _eq: $subscriptionId } }\n      _set: { stripeSubscriptionStatus: $status }\n    ) {\n      returning {\n        id\n      }\n    }\n  }\n": types.UpdateSubscriptionStatusDocument,
+    "\n  mutation UpdateSubscriptionId($organizationId: uuid!, $subscriptionId: String!) {\n    updateOrganizationByPk(pkColumns: { id: $organizationId }, _set: { stripeSubscriptionId: $subscriptionId }) {\n      id\n    }\n  }\n": types.UpdateSubscriptionIdDocument,
     "\n  query GetAllWorkplaces {\n    workplace {\n      id\n      title\n      createdAt\n      updatedAt\n      ownerId\n    }\n  }\n": types.GetAllWorkplacesDocument,
     "\n  mutation createWokrplace($title: String, $userId: uuid!, $organizationId: uuid) {\n    insertWorkplace(\n      objects: { title: $title, organizationId: $organizationId, workplaceMembers: { data: { userId: $userId } } }\n    ) {\n      returning {\n        title\n        id\n        createdAt\n        ownerId\n        updatedAt\n      }\n    }\n  }\n": types.CreateWokrplaceDocument,
     "\n  mutation DeleteWorkplace($workplaceId: uuid!) {\n    deleteWorkplace(where: { id: { _eq: $workplaceId } }) {\n      affectedRows\n    }\n  }\n": types.DeleteWorkplaceDocument,
@@ -99,6 +102,18 @@ export function graphql(source: "\n  mutation UpdateOrganizationsChargesEnabled(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  mutation UpdateOrganizationStripeAccount($organizationId: uuid!, $stripeAccountId: String!) {\n    updateOrganizationByPk(pkColumns: { id: $organizationId }, _set: { stripeAccountId: $stripeAccountId }) {\n      stripeAccountId\n    }\n  }\n"): (typeof documents)["\n  mutation UpdateOrganizationStripeAccount($organizationId: uuid!, $stripeAccountId: String!) {\n    updateOrganizationByPk(pkColumns: { id: $organizationId }, _set: { stripeAccountId: $stripeAccountId }) {\n      stripeAccountId\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query SubscriptionStatus {\n    subscriptionStatus {\n      status\n      description\n    }\n  }\n"): (typeof documents)["\n  query SubscriptionStatus {\n    subscriptionStatus {\n      status\n      description\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation UpdateSubscriptionStatus($subscriptionId: String, $status: SubscriptionStatusEnum!) {\n    updateOrganization(\n      where: { stripeSubscriptionId: { _eq: $subscriptionId } }\n      _set: { stripeSubscriptionStatus: $status }\n    ) {\n      returning {\n        id\n      }\n    }\n  }\n"): (typeof documents)["\n  mutation UpdateSubscriptionStatus($subscriptionId: String, $status: SubscriptionStatusEnum!) {\n    updateOrganization(\n      where: { stripeSubscriptionId: { _eq: $subscriptionId } }\n      _set: { stripeSubscriptionStatus: $status }\n    ) {\n      returning {\n        id\n      }\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation UpdateSubscriptionId($organizationId: uuid!, $subscriptionId: String!) {\n    updateOrganizationByPk(pkColumns: { id: $organizationId }, _set: { stripeSubscriptionId: $subscriptionId }) {\n      id\n    }\n  }\n"): (typeof documents)["\n  mutation UpdateSubscriptionId($organizationId: uuid!, $subscriptionId: String!) {\n    updateOrganizationByPk(pkColumns: { id: $organizationId }, _set: { stripeSubscriptionId: $subscriptionId }) {\n      id\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

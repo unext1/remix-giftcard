@@ -176,9 +176,9 @@ const OrganizationSettingsPage = () => {
           <Form method="post">
             <input type="hidden" name="stripeAccountId" value={data.organization.stripeAccountId || ''} />
             <div className="mt-4">
-              <Button type="submit" name="_action" value="dashboard">
+              <button type="submit" name="_action" value="dashboard" className="btn btn-primary">
                 Dashboard
-              </Button>
+              </button>
             </div>
           </Form>
         ) : (

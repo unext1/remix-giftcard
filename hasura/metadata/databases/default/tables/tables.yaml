@@ -1,5 +1,6 @@
 - "!include public_address.yaml"
 - "!include public_organization.yaml"
+- "!include public_subscription_status.yaml"
 - "!include public_user.yaml"
 - "!include public_workplace.yaml"
 - "!include public_workplace_invitation.yaml"

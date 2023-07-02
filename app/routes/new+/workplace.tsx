@@ -32,7 +32,7 @@ export async function action({ request, params }: ActionArgs) {
     const workplaces = await createWorkplace({
       sessionUser: user,
       title: result.data.name,
-      organizationId: user.organizations.id || null
+      organizationId: user?.organizations?.id || null
     });
 
     if (workplaces) {

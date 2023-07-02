@@ -1,5 +1,12 @@
 import { useState } from 'react';
 import { RadioGroup } from '@headlessui/react';
+import { CheckIcon } from 'lucide-react';
+
+import { json, type ActionArgs, redirect } from '@remix-run/node';
+import { namedAction } from 'remix-utils';
+import { createStripeSubscription } from '~/services/stripe.server';
+import { requireUser } from '~/services/auth.server';
+import { Form } from '@remix-run/react';
 
 type Price = {
   [key: string]: string;
@@ -15,40 +22,34 @@ const tiers = [
     id: 'tier-enterprise',
     href: '#',
     price: { monthly: '0 SEK', annually: '0 SEK' } as Price,
-    description: 'Dedicated support and infrastructure for your company.',
-    features: [
-      'Unlimited products',
-      'Unlimited subscribers',
-      'Advanced analytics',
-      '1-hour, dedicated support response time',
-      'Marketing automations',
-      'Custom reporting tools'
-    ],
+    description: 'This Plan is dedicated to small buisnesses',
+    features: ['Limited to 1 workplace', 'Unlimited Users', 'Stripe Payouts', 'QR-Codes', 'Buisness Managment'],
     featured: true,
-    cta: 'Contact sales'
+    cta: 'Current Plan'
   },
   {
     name: 'Pro',
     id: 'tier-freelancer',
     href: '#',
-    price: { monthly: '150 SEK', annually: '1399 SEK' } as Price,
-    description: 'The essentials to provide your best work for clients.',
-    features: ['5 products', 'Up to 1,000 subscribers', 'Basic analytics', '48-hour support response time'],
+    price: { monthly: '99 SEK', annually: '999 SEK' } as Price,
+    description: 'The essentials to provide your buisness with the best possible experience.',
+    features: [
+      '14 Days Trial',
+      'Up to 5 Workplaces',
+      'Unlimited Users',
+      'Stripe Payouts',
+      'QR-Codes',
+      'Buisness Managment'
+    ],
     featured: false,
-    cta: 'Buy plan'
+    cta: 'Buy Subscription'
   },
   {
     name: 'Enterprice',
     id: 'tier-startup',
     href: '#',
     description: 'A plan that scales with your rapidly growing business.',
-    features: [
-      '25 products',
-      'Up to 10,000 subscribers',
-      'Advanced analytics',
-      '24-hour support response time',
-      'Marketing automations'
-    ],
+    features: ['Personal Features', '24/7 Support'],
     featured: false,
     cta: 'Contact Us'
   }
@@ -58,11 +59,26 @@ function classNames(...classes: any) {
   return classes.filter(Boolean).join(' ');
 }
 
+export async function action({ request, params }: ActionArgs) {
+  const user = await requireUser({ request, params });
+  return namedAction(request, {
+    async subscribe() {
+      const data = await createStripeSubscription({ return_url: request.url, user });
+
+      if (data && data.url) {
+        return redirect(data.url);
+      }
+      return json({ message: 'no stripe account' });
+    }
+  });
+}
+
 export default function BillingSettings() {
   const [frequency, setFrequency] = useState(frequencies[0]);
 
   return (
-    <div className="">
+    <div>
+      Billing
       <div className=" px-6 lg:px-8">
         <div className="mt-16 flex justify-center">
           <RadioGroup
@@ -87,10 +103,10 @@ export default function BillingSettings() {
             ))}
           </RadioGroup>
         </div>
-        <div className=" mx-auto mt-10 grid grid-cols-1 gap-8 lg:mx-0 lg:grid-cols-3">
+        <div className="mx-auto mt-10 grid grid-cols-1 gap-8 lg:mx-0 lg:grid-cols-3">
           {tiers.map((tier) => (
-            <div key={tier.id} className="rounded-3xl p-8 ring-1 xl:p-10 bg-background">
-              <h3 id={tier.id} className="">
+            <div key={tier.id} className="rounded-3xl p-8 xl:p-10 bg-background">
+              <h3 id={tier.id} className="text-xl font-semibold">
                 {tier.name}
               </h3>
               <p className="mt-4 text-sm leading-6">{tier.description}</p>
@@ -104,18 +120,21 @@ export default function BillingSettings() {
                 </p>
               ) : null}
 
-              <a
-                href={tier.href}
-                aria-describedby={tier.id}
-                className="mt-6 block rounded-md py-2 px-3 text-center text-sm font-semibold leading-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
-              >
-                {tier.cta}
-              </a>
+              <Form method="post">
+                <button
+                  disabled={tier.featured}
+                  type="submit"
+                  name="_action"
+                  value="subscribe"
+                  className="btn btn-primary mt-8 w-full"
+                >
+                  {tier.cta}
+                </button>
+              </Form>
               <ul className="mt-8 space-y-3 text-sm leading-6 xl:mt-10">
                 {tier.features.map((feature) => (
                   <li key={feature} className="flex gap-x-3">
-                    <div className="h-6 w-5 flex-none" aria-hidden="true" />
-                    {feature}
+                    <CheckIcon className="w-4" /> {feature}
                   </li>
                 ))}
               </ul>
