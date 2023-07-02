@@ -33,7 +33,7 @@ const CREATEWORKPLACE = graphql(`
 const DELETEWORKPLACE = graphql(`
   mutation DeleteWorkplace($workplaceId: uuid!) {
     deleteWorkplace(where: { id: { _eq: $workplaceId } }) {
-      affected_rows
+      affectedRows
     }
   }
 `);
@@ -85,7 +85,7 @@ const CANCELINVITATION = graphql(`
 const ACCEPTINVITATION = graphql(`
   mutation AcceptInvitation($userId: uuid!, $workplaceId: uuid!, $invitationId: uuid!) {
     insertWorkplaceMember(objects: { workplaceId: $workplaceId, userId: $userId }) {
-      affected_rows
+      affectedRows
     }
     deleteWorkplaceInvitationByPk(id: $invitationId) {
       id
@@ -96,7 +96,7 @@ const ACCEPTINVITATION = graphql(`
 const ADDWORKPLACEMEMBER = graphql(`
   mutation InviteUser($email: String!, $workplaceId: uuid!) {
     insertWorkplaceInvitation(objects: { email: $email, workplaceId: $workplaceId }) {
-      affected_rows
+      affectedRows
     }
   }
 `);
@@ -176,7 +176,7 @@ export const addWorkplaceMember = async ({
   });
 
   if (data && data.insertWorkplaceInvitation) {
-    return data.insertWorkplaceInvitation.affected_rows;
+    return data.insertWorkplaceInvitation.affectedRows;
   }
 };
 
@@ -196,7 +196,7 @@ export const acceptInvitation = async ({
   });
 
   if (data && data.insertWorkplaceMember) {
-    return data.insertWorkplaceMember.affected_rows;
+    return data.insertWorkplaceMember.affectedRows;
   }
 };
 
@@ -235,7 +235,7 @@ export const deleteWorkplace = async ({ workplaceId, token }: { workplaceId: str
   });
 
   if (data && data.deleteWorkplace) {
-    return data.deleteWorkplace.affected_rows;
+    return data.deleteWorkplace.affectedRows;
   }
 };
 

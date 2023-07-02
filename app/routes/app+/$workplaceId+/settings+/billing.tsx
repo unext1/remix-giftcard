@@ -28,7 +28,7 @@ const tiers = [
     cta: 'Contact sales'
   },
   {
-    name: 'Freelancer',
+    name: 'Pro',
     id: 'tier-freelancer',
     href: '#',
     price: { monthly: '150 SEK', annually: '1399 SEK' } as Price,
@@ -38,10 +38,9 @@ const tiers = [
     cta: 'Buy plan'
   },
   {
-    name: 'Startup',
+    name: 'Enterprice',
     id: 'tier-startup',
     href: '#',
-    price: { monthly: '289 SEK', annually: '2499 SEK' } as Price,
     description: 'A plan that scales with your rapidly growing business.',
     features: [
       '25 products',
@@ -51,7 +50,7 @@ const tiers = [
       'Marketing automations'
     ],
     featured: false,
-    cta: 'Buy plan'
+    cta: 'Contact Us'
   }
 ];
 
@@ -95,13 +94,16 @@ export default function BillingSettings() {
                 {tier.name}
               </h3>
               <p className="mt-4 text-sm leading-6">{tier.description}</p>
-              <p className="mt-6 flex items-baseline gap-x-1">
-                <span className="text-4xl font-bold tracking-tight"> {tier.price[frequency.value]}</span>
+              {tier.price ? (
+                <p className="mt-6 flex items-baseline gap-x-1">
+                  <span className="text-4xl font-bold tracking-tight"> {tier.price[frequency.value]}</span>
 
-                {typeof tier.price !== 'string' ? (
-                  <span className="text-sm font-semibold leading-6">{frequency.priceSuffix}</span>
-                ) : null}
-              </p>
+                  {typeof tier.price !== 'string' ? (
+                    <span className="text-sm font-semibold leading-6">{frequency.priceSuffix}</span>
+                  ) : null}
+                </p>
+              ) : null}
+
               <a
                 href={tier.href}
                 aria-describedby={tier.id}

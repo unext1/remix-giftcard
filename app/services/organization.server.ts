@@ -53,7 +53,7 @@ const CREATEORGANIZATION = graphql(`
       objects: {
         name: $name
         email: $email
-        address: { data: $address, onConflict: { constraint: address_pkey, update_columns: [] } }
+        address: { data: $address, onConflict: { constraint: address_pkey, updateColumns: [] } }
       }
     ) {
       returning {
@@ -83,7 +83,7 @@ const CREATEORGANIZATION = graphql(`
 
 const UPDATEWORKPLACEORGID = graphql(`
   mutation UpdateWorkplaceorganizationId($id: uuid!, $organizationId: uuid!) {
-    updateWorkplaceByPk(pk_columns: { id: $id }, _set: { organizationId: $organizationId }) {
+    updateWorkplaceByPk(pkColumns: { id: $id }, _set: { organizationId: $organizationId }) {
       id
     }
   }

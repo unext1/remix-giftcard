@@ -11,7 +11,7 @@ const stripe = new Stripe(env.STRIPE_SECRET_KEY, {
 
 const UPDATEORGANIZATIONSSTRIPECUSTOMERID = graphql(`
   mutation UpdateOrgranizationsStripeCustomerId($organizationId: uuid!, $stripeCustomerId: String!) {
-    updateOrganizationByPk(pk_columns: { id: $organizationId }, _set: { stripeCustomerId: $stripeCustomerId }) {
+    updateOrganizationByPk(pkColumns: { id: $organizationId }, _set: { stripeCustomerId: $stripeCustomerId }) {
       stripeCustomerId
     }
   }
@@ -19,7 +19,7 @@ const UPDATEORGANIZATIONSSTRIPECUSTOMERID = graphql(`
 
 const UPDATECHARGESENEBLED = graphql(`
   mutation UpdateOrganizationsChargesEnabled($id: uuid!) {
-    updateOrganizationByPk(pk_columns: { id: $id }, _set: { chargesEnabled: true }) {
+    updateOrganizationByPk(pkColumns: { id: $id }, _set: { chargesEnabled: true }) {
       id
     }
   }
@@ -27,7 +27,7 @@ const UPDATECHARGESENEBLED = graphql(`
 
 const UPDATEORGANIZATIONSTRIPEACCOUNT = graphql(`
   mutation UpdateOrganizationStripeAccount($organizationId: uuid!, $stripeAccountId: String!) {
-    updateOrganizationByPk(pk_columns: { id: $organizationId }, _set: { stripeAccountId: $stripeAccountId }) {
+    updateOrganizationByPk(pkColumns: { id: $organizationId }, _set: { stripeAccountId: $stripeAccountId }) {
       stripeAccountId
     }
   }

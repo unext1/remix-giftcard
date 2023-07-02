@@ -9,7 +9,7 @@ const cookie = (name: string): Cookie => ({
   sameSite: 'lax',
   path: '/',
   httpOnly: true,
-  secrets: env.JWT_SECRET_KEY,
+  secrets: [env.JWT_SECRET_KEY],
   secure: process.env.NODE_ENV === 'production'
 });
 

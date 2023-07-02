@@ -23,7 +23,7 @@ const CREATEORUPDATEUSER = graphql(`
   mutation AddUser($email: String, $name: String, $image: String) {
     insertUser(
       objects: { email: $email, name: $name, imageUrl: $image }
-      onConflict: { constraint: user_email_key, update_columns: [imageUrl] }
+      onConflict: { constraint: user_email_key, updateColumns: [imageUrl] }
     ) {
       returning {
         id
@@ -75,7 +75,7 @@ const GETUSERBYID = graphql(`
 
 const UPDATEUSERNAME = graphql(`
   mutation UpdateUserName($id: uuid!, $name: String!) {
-    updateUserByPk(pk_columns: { id: $id }, _set: { name: $name }) {
+    updateUserByPk(pkColumns: { id: $id }, _set: { name: $name }) {
       name
     }
   }
