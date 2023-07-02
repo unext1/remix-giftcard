@@ -6,7 +6,6 @@ import { z } from 'zod';
 import { zx } from 'zodix';
 import { AppLayout } from '~/components/app/layout';
 import { requireUser } from '~/services/auth.server';
-import { createNewOrganization } from '~/services/organization.server';
 import { getWorkplaceOrganization } from '~/services/workplace.server';
 
 export async function loader({ request, params }: LoaderArgs) {
@@ -22,10 +21,10 @@ const AppLayouts = () => {
   const { user, data } = useLoaderData<typeof loader>();
   return (
     <AppLayout user={user}>
-      {!data?.organization ? (
+      {!data?.organization?.chargesEnabled ? (
         <div className="alert alert-error mb-6">
           <InfoIcon />
-          <span>You are using free version of our App.</span>
+          <span>This organization does not have charges enabled</span>
           <div>
             <Link to="settings/organization" className="btn btn-sm">
               Activate

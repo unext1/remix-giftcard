@@ -126,6 +126,8 @@ export const requireUser = async ({
     });
 
     if (user === undefined || !user || !user?.id) {
+      console.log(user);
+      await authenticator.logout(request, { redirectTo: '/' });
       throw unauthorized({ messege: 'Unauthorized' });
     }
 
@@ -137,14 +139,14 @@ export const requireUser = async ({
         ...user.ownerOfWorkplaces.map((i) => i.id),
         ...user.memberOfWorkplaces.map((i) => i.workplace.id)
       ];
-      // if (workplaceIds.length <= 0 ) {
-      //   throw redirect(route('/app'));
-      // }
+      if (workplaceIds.length <= 0) {
+        throw redirect(route('/app'));
+      }
       if (workplaceId && !workplaceIds.includes(workplaceId)) {
         throw redirect(route('/app/:workplaceId', { workplaceId: workplaceIds[0] }));
       }
     }
-    return { ...user, token: sessionUser.token };
+    return { ...user, organizations: user.organizations[0], token: sessionUser.token };
   } catch (error) {
     if (error instanceof Response) {
       throw error;

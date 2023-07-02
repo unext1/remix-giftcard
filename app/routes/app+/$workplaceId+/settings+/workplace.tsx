@@ -52,7 +52,11 @@ export async function action({ request, params }: ActionArgs) {
         return json({ message: formData.error.errors[0].message });
       }
 
-      await addWorkplaceMember({ token: user.token, email: formData.data.email, workplaceId: data.workplaceId });
+      await addWorkplaceMember({
+        token: user.token,
+        email: formData.data.email.toLocaleLowerCase(),
+        workplaceId: data.workplaceId
+      });
       return json({ message: `${formData.data.email} has been added to the workplace !` });
     },
     async remove() {

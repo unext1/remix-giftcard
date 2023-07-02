@@ -9,12 +9,10 @@ import { Button } from '~/components/ui/button';
 import { Input } from '~/components/ui/input';
 import { requireUser } from '~/services/auth.server';
 import { createNewOrganization } from '~/services/organization.server';
-import { stripeCheckout, stripeDashboard } from '~/services/stripe.server';
+import { getStripeAccountId, stripeCheckout, stripeDashboard, updateStripeAccount } from '~/services/stripe.server';
 import { getWorkplaceOrganization } from '~/services/workplace.server';
 
 export async function loader({ request, params }: LoaderArgs) {
-  //Cia gauti workpalco organizacija ir displaying inforamcija jeigu yra, jeigu ne tada leisti savininkui workplaco sukurti orgnaizacija
-
   const user = await requireUser({ request, params });
   const data = await getWorkplaceOrganization({
     token: user.token,
@@ -70,6 +68,20 @@ export async function action({ request, params }: ActionArgs) {
 
       const data = await stripeDashboard({ accountId: stripeAccountId });
       return redirect(data.url);
+    },
+    async update() {
+      const { stripeAccountId } = await zx.parseForm(request, {
+        stripeAccountId: z.string()
+      });
+      if (stripeAccountId) {
+        const accountLink = await updateStripeAccount({
+          accountId: stripeAccountId,
+          return_url: request.url
+        });
+        return redirect(accountLink.url);
+      }
+
+      return json({ message: 'no stripe account' });
     }
   });
 }
@@ -81,19 +93,11 @@ const OrganizationSettingsPage = () => {
 
   const submitting = transition.state === 'submitting' || transition.state === 'loading';
 
-  return (
-    <>
-      {data?.organization === null && isOwner ? (
-        <>
-          <div className="mb-4 font-semibold">Setup your Organization</div>
-          {user.organizations.length > 0 ? (
-            <div className="mb-6">
-              <h2 className="text-sm">You already have an organization</h2>
-              <Button className="mt-2" size="sm">
-                Use It
-              </Button>
-            </div>
-          ) : null}
+  if (isOwner) {
+    return (
+      <>
+        <div className="mb-4">Organization's settings</div>
+        {!data?.organization?.id ? (
           <Form method="post">
             <div className="grid grid-cols-2 gap-5">
               <div>
@@ -168,26 +172,41 @@ const OrganizationSettingsPage = () => {
               {submitting ? <LoaderIcon className="mr-2 h-4 w-4 animate-spin" /> : 'Submit'}
             </Button>
           </Form>
-        </>
-      ) : (
-        data?.organization === null &&
-        !isOwner && (
-          <div>
-            <h1>Workplace does not have organization created.</h1>
-          </div>
-        )
-      )}
-      {data?.organization && (
-        <div>
-          <h1>Organization Details</h1>
+        ) : data.organization.chargesEnabled ? (
           <Form method="post">
             <input type="hidden" name="stripeAccountId" value={data.organization.stripeAccountId || ''} />
-            <button type="submit" name="_action" value="dashboard">
-              dashboard
-            </button>
+            <div className="mt-4">
+              <Button type="submit" name="_action" value="dashboard">
+                Dashboard
+              </Button>
+            </div>
           </Form>
-          {/* <div>{customerData.balance} SEK</div>
-        <div>{customerData.email}</div> */}
+        ) : (
+          <Form method="post">
+            <input type="hidden" name="stripeAccountId" value={data.organization.stripeAccountId || ''} />
+
+            <h2 className="mt-4 font-medium ">You haven't finished setting up your organization yet !</h2>
+            <div className="mt-4">
+              <Button type="submit" name="_action" value="update">
+                Continue Setup
+              </Button>
+            </div>
+          </Form>
+        )}
+      </>
+    );
+  }
+
+  return (
+    <>
+      <h1>Organization Details</h1>
+      {data?.organization?.id ? (
+        <div>
+          <h1>MEMBER VIEW</h1>
+        </div>
+      ) : (
+        <div>
+          <h1>This Workplace is not a member of any organization</h1>
         </div>
       )}
     </>

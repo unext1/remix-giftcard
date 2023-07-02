@@ -16,6 +16,7 @@ const GETOWNEDORGANIZATIONS = graphql(`
       stripeCustomerId
       stripeSubscriptionId
       stripeSubscriptionStatus
+      chargesEnabled
     }
   }
 `);
@@ -33,6 +34,7 @@ const GETORGANIZATIONBYID = graphql(`
       stripeCustomerId
       stripeSubscriptionId
       stripeSubscriptionStatus
+      chargesEnabled
       address {
         line1
         line2
@@ -65,6 +67,7 @@ const CREATEORGANIZATION = graphql(`
         stripeCustomerId
         stripeSubscriptionId
         stripeSubscriptionStatus
+        chargesEnabled
         address {
           line1
           line2
@@ -123,7 +126,7 @@ export const getOwnedOrganizations = async ({ user }: { user: UserType }) => {
     userId: user.id
   });
 
-  return organizations;
+  return organizations?.[0];
 };
 
 export const createNewOrganization = async ({
@@ -148,7 +151,7 @@ export const createNewOrganization = async ({
     country: string;
   };
 }) => {
-  if (user.organizations.length > 0) {
+  if (user?.organizations?.id) {
     throw new Error('user already has an organization');
   }
 
@@ -160,25 +163,16 @@ export const createNewOrganization = async ({
   if (!organization.insertOrganization?.returning) {
     throw new Error('organization was not created');
   }
-  console.log(organization.insertOrganization.returning[0].id);
-
-  console.log({
-    id: workplaceId,
-    organizationId: organization.insertOrganization?.returning[0].id
-  });
   const created = await hasuraClient({ token: user.token }).request(UPDATEWORKPLACEORGID, {
     id: workplaceId,
     organizationId: organization.insertOrganization?.returning[0].id
   });
-  console.log(created);
 
   await updateOrganizationsCustomerId({
     email: email,
     user: user,
     organizationId: organization.insertOrganization?.returning[0].id
   });
-
-  console.log('PADARYRTA');
 
   const stipeAccountLink = await createStripeAccount({
     organization: organization.insertOrganization?.returning[0],

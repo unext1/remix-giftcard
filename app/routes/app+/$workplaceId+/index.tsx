@@ -16,10 +16,10 @@ export async function action({ request, params }: ActionArgs) {
   return namedAction(request, {
     async update() {
       console.log('update');
-      console.log(user.organizations[0].stripeAccountId);
-      if (user.organizations[0].stripeAccountId) {
+      console.log(user.organizations.stripeAccountId);
+      if (user.organizations.stripeAccountId) {
         const accountLink = await updateStripeAccount({
-          accountId: user.organizations[0].stripeAccountId,
+          accountId: user.organizations.stripeAccountId,
           return_url: request.url
         });
         return redirect(accountLink.url);
@@ -27,15 +27,15 @@ export async function action({ request, params }: ActionArgs) {
       return json({ message: 'no stripe account' });
     },
     async open() {
-      if (user.organizations[0].stripeAccountId) {
-        const data = await stripeDashboard({ accountId: user.organizations[0].stripeAccountId });
+      if (user.organizations.stripeAccountId) {
+        const data = await stripeDashboard({ accountId: user.organizations.stripeAccountId });
         return redirect(data.url);
       }
       return json({ message: 'no stripe account' });
     },
     async checkout() {
-      if (user.organizations[0].stripeAccountId) {
-        const data = await stripeCheckout({ accountId: user.organizations[0].stripeAccountId });
+      if (user.organizations.stripeAccountId) {
+        const data = await stripeCheckout({ accountId: user.organizations.stripeAccountId });
         if (data && data.url) {
           return redirect(data.url);
         }

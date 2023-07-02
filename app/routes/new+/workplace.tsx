@@ -29,7 +29,11 @@ export async function action({ request, params }: ActionArgs) {
   }
 
   try {
-    const workplaces = await createWorkplace({ sessionUser: user, title: result.data.name });
+    const workplaces = await createWorkplace({
+      sessionUser: user,
+      title: result.data.name,
+      organizationId: user.organizations.id || null
+    });
 
     if (workplaces) {
       return redirect(route('/app/:workplaceId', { workplaceId: workplaces[0].id }));

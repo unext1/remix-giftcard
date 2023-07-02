@@ -35,7 +35,7 @@ export async function loader({ request, params }: LoaderArgs) {
 
   const organizations = await getOwnedOrganizations({ user });
 
-  return json({ invitations, workplaces, organizations });
+  return json({ invitations, workplaces, organizations, user });
 }
 
 export async function action({ request, params }: ActionArgs) {
@@ -43,11 +43,14 @@ export async function action({ request, params }: ActionArgs) {
 
   return namedAction(request, {
     async create() {
-      const { title, organizationId } = await zx.parseForm(request, {
-        title: z.string(),
-        organizationId: z.string().optional()
+      const { title } = await zx.parseForm(request, {
+        title: z.string()
       });
-      const workplace = await createWorkplace({ sessionUser: user, title, organizationId });
+      const workplace = await createWorkplace({
+        sessionUser: user,
+        title,
+        organizationId: user?.organizations?.id || null
+      });
 
       return redirect(route('/app/:workplaceId', { workplaceId: workplace?.[0].id }));
     },
@@ -71,7 +74,7 @@ export async function action({ request, params }: ActionArgs) {
 }
 
 export default function AppIndex() {
-  const { workplaces, invitations, organizations } = useLoaderData<typeof loader>();
+  const { workplaces, invitations, organizations, user } = useLoaderData<typeof loader>();
 
   if (workplaces.length === 0 && invitations?.length === 0) {
     return (
@@ -128,25 +131,23 @@ export default function AppIndex() {
             <div className="flex justify-between">
               <h1 className="text-xl my-2 font-semibold">Your workplaces</h1>
 
-              {organizations.length > 0 ? (
-                <Dialog>
-                  <DialogTrigger asChild>
-                    <Button className="my-auto" variant="default">
-                      Create Workplace
-                    </Button>
-                  </DialogTrigger>
-                  <DialogContent>
-                    <DialogHeader>
-                      <DialogTitle>Create a Workplace</DialogTitle>
-                    </DialogHeader>
-                    <Form method="post">
-                      <div className=" mt-4">
-                        <input type="hidden" name="organizationId" value={organizations[0].id || ''} />
-                        <Label htmlFor="title" className="my-auto text-sm">
-                          Workplace Name
-                        </Label>
-                        <Input name="title" required className="bg-neutral" placeholder="Workplace Name" />
-                        {/* <Select>
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button className="my-auto" variant="default">
+                    Create Workplace
+                  </Button>
+                </DialogTrigger>
+                <DialogContent>
+                  <DialogHeader>
+                    <DialogTitle>Create a Workplace</DialogTitle>
+                  </DialogHeader>
+                  <Form method="post">
+                    <div className=" mt-4">
+                      <Label htmlFor="title" className="my-auto text-sm">
+                        Workplace Name
+                      </Label>
+                      <Input name="title" required className="bg-neutral" placeholder="Workplace Name" />
+                      {/* <Select>
                             <SelectTrigger className="w-[180px] bg-background">
                               <SelectValue placeholder="Organization" />
                             </SelectTrigger>
@@ -158,25 +159,20 @@ export default function AppIndex() {
                               ))}
                             </SelectContent>
                           </Select> */}
-                      </div>
-                      <DialogFooter className="mt-4">
-                        <DialogTrigger asChild>
-                          <button type="button" className="btn btn-outline btn-sm">
-                            Cancel
-                          </button>
-                        </DialogTrigger>
-                        <button name="_action" value="create" type="submit" className="btn btn-primary btn-sm">
-                          Confirm
+                    </div>
+                    <DialogFooter className="mt-4">
+                      <DialogTrigger asChild>
+                        <button type="button" className="btn btn-outline btn-sm">
+                          Cancel
                         </button>
-                      </DialogFooter>
-                    </Form>
-                  </DialogContent>
-                </Dialog>
-              ) : (
-                <Link to="/app/organization/create" className="my-auto">
-                  <Button>Create Organization</Button>
-                </Link>
-              )}
+                      </DialogTrigger>
+                      <button name="_action" value="create" type="submit" className="btn btn-primary btn-sm">
+                        Confirm
+                      </button>
+                    </DialogFooter>
+                  </Form>
+                </DialogContent>
+              </Dialog>
             </div>
 
             <div className="grid grid-cols-3 mt-6 gap-5">
@@ -187,12 +183,15 @@ export default function AppIndex() {
           </div>
         </div>
 
-        <div>
-          <Title title="Invitations" />
-          <div className="mt-6 bg-neutral text-neutral-content rounded-xl p-5">
-            <Invitations invitations={invitations} />
+        {invitations && invitations?.length > 0 ? (
+          <div>
+            <Title title="Invitations" />
+            <div className="mt-6 bg-neutral text-neutral-content rounded-xl p-5">
+              <Invitations invitations={invitations} />
+            </div>
           </div>
-        </div>
+        ) : null}
+
         <div>
           <Title title="Settings" />
           <Form action="/auth/logout" method="post">

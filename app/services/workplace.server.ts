@@ -117,6 +117,7 @@ const GETWORKPLACESORGANIZATION = graphql(`
         stripeSubscriptionId
         stripeSubscriptionStatus
         updatedAt
+        chargesEnabled
       }
     }
   }
@@ -245,7 +246,7 @@ export const createWorkplace = async ({
 }: {
   title: string;
   sessionUser: UserSession;
-  organizationId?: string;
+  organizationId?: string | null;
 }) => {
   const data = await hasuraClient({ token: sessionUser.token }).request(CREATEWORKPLACE, {
     title: title,

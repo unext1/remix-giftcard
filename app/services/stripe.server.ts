@@ -1,7 +1,7 @@
 import Stripe from 'stripe';
 import { env } from './env.server';
 import { type UserType } from './auth.server';
-import { hasuraClient } from './hasura.server';
+import { hasuraAdminClient, hasuraClient } from './hasura.server';
 import { graphql } from '~/_gql';
 import { type OrganizationType } from './organization.server';
 
@@ -13,6 +13,14 @@ const UPDATEORGANIZATIONSSTRIPECUSTOMERID = graphql(`
   mutation UpdateOrgranizationsStripeCustomerId($organizationId: uuid!, $stripeCustomerId: String!) {
     updateOrganizationByPk(pk_columns: { id: $organizationId }, _set: { stripeCustomerId: $stripeCustomerId }) {
       stripeCustomerId
+    }
+  }
+`);
+
+const UPDATECHARGESENEBLED = graphql(`
+  mutation UpdateOrganizationsChargesEnabled($id: uuid!) {
+    updateOrganizationByPk(pk_columns: { id: $id }, _set: { chargesEnabled: true }) {
+      id
     }
   }
 `);
@@ -65,9 +73,18 @@ export const createStripeAccount = async ({
     postal_code: organization.address.postalCode,
     state: organization.address.state || ''
   };
+
   const account = await stripe.accounts.create({
     type: 'express',
     email: organization.email,
+    capabilities: {
+      card_payments: {
+        requested: true
+      },
+      transfers: {
+        requested: true
+      }
+    },
     business_type,
     company: {
       name: organization.name,
@@ -82,7 +99,8 @@ export const createStripeAccount = async ({
       name: 'Qpong'
     },
     metadata: {
-      userId: user.id
+      userId: user.id,
+      organizationId: organization.id
     },
     default_currency: 'sek',
     country: 'SE'
@@ -199,8 +217,8 @@ export const manageSubscriptions = async ({ return_url, user }: { return_url: st
 };
 
 export const getStripeCustomerId = async ({ user }: { user: UserType }) => {
-  if (user.organizations[0].stripeCustomerId) {
-    return user.organizations[0].stripeCustomerId;
+  if (user.organizations.stripeCustomerId) {
+    return user.organizations.stripeCustomerId;
   }
 
   const customer = await stripe.customers.create({
@@ -209,10 +227,17 @@ export const getStripeCustomerId = async ({ user }: { user: UserType }) => {
 
   await hasuraClient({ token: user.token }).request(UPDATEORGANIZATIONSSTRIPECUSTOMERID, {
     stripeCustomerId: customer.id,
-    organizationId: user.organizations[0].id
+    organizationId: user.organizations.id
   });
 
   return customer.id;
+};
+
+export const getStripeAccountId = async ({ stripeAccountId }: { stripeAccountId: string }) => {
+  const account = await stripe.accounts.retrieve(stripeAccountId);
+
+  console.log(account.details_submitted);
+  return account;
 };
 
 export const webhookHandler = async (request: Request) => {
@@ -227,13 +252,23 @@ export const webhookHandler = async (request: Request) => {
     case 'payment_intent.payment_failed':
       console.log('failed');
       break;
-    case 'charge.succeeded':
+    case 'charge.succeeded': {
       console.log('pinigai gauti');
       break;
-    case 'account.updated':
-      console.log('updatint');
-      console.log(event.data);
+    }
+    case 'account.updated': {
+      const account = event.data.object as Stripe.Account;
+
+      if (account.charges_enabled) {
+        if (account?.metadata?.organizationId) {
+          await hasuraAdminClient().request(UPDATECHARGESENEBLED, {
+            id: account.metadata.organizationId
+          });
+        }
+        return {};
+      }
       break;
+    }
     default:
       console.warn(`🤷‍♀️ Unhandled event type: ${event.type}`);
   }

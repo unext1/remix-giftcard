@@ -13,7 +13,7 @@ import { LoaderIcon } from 'lucide-react';
 export async function loader({ request, params }: LoaderArgs) {
   const user = await requireUser({ request, params });
 
-  if (user.organizations.length > 0) {
+  if (user.organizations.id) {
     return redirect('/app');
   }
 
