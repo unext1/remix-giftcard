@@ -2,18 +2,20 @@ import { useState } from 'react';
 import { RadioGroup } from '@headlessui/react';
 import { CheckIcon } from 'lucide-react';
 
-import { json, type ActionArgs, redirect } from '@remix-run/node';
+import { json, type ActionArgs, type LoaderArgs, redirect } from '@remix-run/node';
 import { namedAction } from 'remix-utils';
-import { createStripeSubscription } from '~/services/stripe.server';
+import { createStripeSubscription, manageSubscriptions, getStripeCustomerData } from '~/services/stripe.server';
 import { requireUser } from '~/services/auth.server';
-import { Form } from '@remix-run/react';
+import { Form, useLoaderData } from '@remix-run/react';
+import { zx } from 'zodix';
+import { z } from 'zod';
 
 type Price = {
   [key: string]: string;
 };
 const frequencies = [
   { value: 'monthly', label: 'Monthly', priceSuffix: '/month' },
-  { value: 'annually', label: 'Annually', priceSuffix: '/year' }
+  { value: 'yearly', label: 'Yearly', priceSuffix: '/year' }
 ];
 
 const tiers = [
@@ -21,7 +23,7 @@ const tiers = [
     name: 'Free',
     id: 'tier-enterprise',
     href: '#',
-    price: { monthly: '0 SEK', annually: '0 SEK' } as Price,
+    price: { monthly: '0 SEK', yearly: '0 SEK' } as Price,
     description: 'This Plan is dedicated to small buisnesses',
     features: ['Limited to 1 workplace', 'Unlimited Users', 'Stripe Payouts', 'QR-Codes', 'Buisness Managment'],
     featured: true,
@@ -31,7 +33,7 @@ const tiers = [
     name: 'Pro',
     id: 'tier-freelancer',
     href: '#',
-    price: { monthly: '99 SEK', annually: '999 SEK' } as Price,
+    price: { monthly: '49 SEK', yearly: '489 SEK' } as Price,
     description: 'The essentials to provide your buisness with the best possible experience.',
     features: [
       '14 Days Trial',
@@ -63,9 +65,19 @@ export async function action({ request, params }: ActionArgs) {
   const user = await requireUser({ request, params });
   return namedAction(request, {
     async subscribe() {
-      const data = await createStripeSubscription({ return_url: request.url, user });
+      const { plan } = await zx.parseForm(request, {
+        plan: z.enum(['monthly', 'yearly'])
+      });
+      const data = await createStripeSubscription({ return_url: request.url, user, plan });
 
       if (data && data.url) {
+        return redirect(data.url);
+      }
+      return json({ message: 'no stripe account' });
+    },
+    async manage() {
+      const data = await manageSubscriptions({ user, return_url: request.url });
+      if (data) {
         return redirect(data.url);
       }
       return json({ message: 'no stripe account' });
@@ -73,13 +85,38 @@ export async function action({ request, params }: ActionArgs) {
   });
 }
 
+export async function loader({ request, params }: LoaderArgs) {
+  const user = await requireUser({ request, params });
+
+  return json({ user });
+}
+
 export default function BillingSettings() {
   const [frequency, setFrequency] = useState(frequencies[0]);
 
+  const { user } = useLoaderData<typeof loader>();
+
+  if (user.organizations.stripeSubscriptionId) {
+    return (
+      <div>
+        Billing
+        <Form method="post" className="mt-6">
+          <button type="submit" name="_action" value="manage" className="btn btn-primary btn-sm">
+            Manage Subscriptions
+          </button>
+        </Form>
+      </div>
+    );
+  }
   return (
     <div>
       Billing
-      <div className=" px-6 lg:px-8">
+      <Form method="post">
+        <button type="submit" name="_action" value="manage" className="btn btn-primary btn-sm">
+          Manage Subscriptions
+        </button>
+      </Form>
+      <div className="px-6 lg:px-8">
         <div className="mt-16 flex justify-center">
           <RadioGroup
             value={frequency}
@@ -121,6 +158,7 @@ export default function BillingSettings() {
               ) : null}
 
               <Form method="post">
+                <input type="hidden" name="plan" value={frequency.value} />
                 <button
                   disabled={tier.featured}
                   type="submit"
@@ -141,6 +179,7 @@ export default function BillingSettings() {
             </div>
           ))}
         </div>
+        F
       </div>
     </div>
   );

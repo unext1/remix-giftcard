@@ -8,6 +8,7 @@ import { WorkplaceSwitcher } from './workplace-switcher';
 export const Navigation = ({ user }: { user: UserType }) => {
   const navLinks = [
     { icon: LayoutDashboard, label: 'Overview', href: '' },
+    { icon: GiftIcon, label: 'Coupon', href: 'coupon' },
     { icon: SettingsIcon, label: 'Settings', href: 'settings' }
   ];
   return (

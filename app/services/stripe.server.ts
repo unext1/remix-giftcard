@@ -44,11 +44,8 @@ const SUBSCRIPTIONSTATUS = graphql(`
 `);
 
 const UPDATEORGANIZATIONSUBSCRIPTIONSTATUS = graphql(`
-  mutation UpdateSubscriptionStatus($subscriptionId: String, $status: SubscriptionStatusEnum!) {
-    updateOrganization(
-      where: { stripeSubscriptionId: { _eq: $subscriptionId } }
-      _set: { stripeSubscriptionStatus: $status }
-    ) {
+  mutation UpdateSubscriptionStatus($organizationId: uuid!, $status: SubscriptionStatusEnum!) {
+    updateOrganization(where: { id: { _eq: $organizationId } }, _set: { stripeSubscriptionStatus: $status }) {
       returning {
         id
       }
@@ -193,42 +190,54 @@ export const stripeCheckout = async ({ accountId }: { accountId: string }) => {
   ];
   const total = coupons.reduce((total, coupon) => total + coupon.price_data.unit_amount, 0);
   const totalFee = Math.ceil(total * 0.035 + 1000);
-  console.log(totalFee, 'myfee');
-  console.log(Math.ceil(total * 0.025 + 180), 'stripefee');
 
   const session = await stripe.checkout.sessions.create({
     mode: 'payment',
     payment_method_types: ['card', 'link', 'klarna'],
     line_items: [...coupons],
-
     payment_intent_data: {
       application_fee_amount: totalFee,
       transfer_data: {
         destination: accountId
       }
     },
-    success_url: 'http://localhost:3000/app/workdplsad',
-    cancel_url: 'http://localhost:3000/app/workdplsad'
+    success_url: 'http://localhost:3000/app/workplace',
+    cancel_url: 'http://localhost:3000/app/workplace'
   });
 
   return session;
 };
 
-export const createStripeSubscription = async ({ return_url, user }: { return_url: string; user: UserType }) => {
+export const createStripeSubscription = async ({
+  return_url,
+  user,
+  plan
+}: {
+  return_url: string;
+  user: UserType;
+  plan: 'monthly' | 'yearly';
+}) => {
   const customerId = await getStripeCustomerId({ user });
+
+  const line_items = [
+    {
+      price: plan === 'monthly' ? 'price_1NKlmWE9sPp9rw1vAfNfFlXY' : 'price_1NKlmWE9sPp9rw1vjXiyiEUO',
+      quantity: 1
+    }
+  ];
 
   if (customerId) {
     const session = await stripe.checkout.sessions.create({
       mode: 'subscription',
-      line_items: [
-        {
-          price: 'price_1NKlmWE9sPp9rw1vAfNfFlXY',
-          quantity: 1
-        }
-      ],
+      line_items,
       customer: customerId,
       metadata: {
         organizationId: user.organizations.id
+      },
+      subscription_data: {
+        metadata: {
+          organizationId: user.organizations.id
+        }
       },
       success_url: return_url,
       cancel_url: return_url
@@ -236,6 +245,7 @@ export const createStripeSubscription = async ({ return_url, user }: { return_ur
 
     return session;
   }
+
   return;
 };
 
@@ -250,8 +260,14 @@ export const manageSubscriptions = async ({ return_url, user }: { return_url: st
   return session;
 };
 
+export const getStripeCustomerData = async ({ user }: { user: UserType }) => {
+  const id = user.organizations.stripeCustomerId;
+  const customer = await stripe.customers.retrieve(user.organizations.stripeCustomerId as string);
+  return customer.object;
+};
+
 export const getStripeCustomerId = async ({ user }: { user: UserType }) => {
-  if (user.organizations.stripeCustomerId) {
+  if (user?.organizations?.stripeCustomerId) {
     return user.organizations.stripeCustomerId;
   }
 
@@ -274,14 +290,13 @@ export const getStripeAccountId = async ({ stripeAccountId }: { stripeAccountId:
   return account;
 };
 
-// export const Test = (status: Lowercase<SubscriptionStatusEnum>) => {
-//   console.log(status);
-// };
-
 export const updateStatus = async (data: Stripe.Subscription) => {
   const status = data.status.toLocaleUpperCase() as SubscriptionStatusEnum;
-  const subscriptionId = data.id as string;
-  await hasuraAdminClient().request(UPDATEORGANIZATIONSUBSCRIPTIONSTATUS, { subscriptionId, status });
+  const organizationId = data?.metadata?.organizationId as string;
+
+  if (!organizationId) return;
+
+  return await hasuraAdminClient().request(UPDATEORGANIZATIONSUBSCRIPTIONSTATUS, { organizationId, status });
 };
 
 export const webhookHandler = async (request: Request) => {
@@ -315,30 +330,11 @@ export const webhookHandler = async (request: Request) => {
       }
       break;
     }
-    case 'customer.subscription.updated': {
-      const data = event.data.object as Stripe.Subscription;
 
-      await updateStatus(data);
-      break;
-    }
-    case 'customer.subscription.created': {
-      const data = event.data.object as Stripe.Subscription;
-
-      await updateStatus(data);
-      break;
-    }
-    case 'customer.subscription.deleted': {
-      const data = event.data.object as Stripe.Subscription;
-
-      await updateStatus(data);
-      break;
-    }
-    case 'customer.subscription.resumed': {
-      const data = event.data.object as Stripe.Subscription;
-
-      await updateStatus(data);
-      break;
-    }
+    case 'customer.subscription.updated':
+    case 'customer.subscription.created':
+    case 'customer.subscription.deleted':
+    case 'customer.subscription.resumed':
     case 'customer.subscription.paused': {
       const data = event.data.object as Stripe.Subscription;
 

@@ -6,6 +6,7 @@ import { route } from 'routes-gen';
 import { z } from 'zod';
 import { zx } from 'zodix';
 import Invitations from '~/components/app/index/invitations';
+import { TopBar } from '~/components/app/index/topBar';
 import { WorkplaceCard } from '~/components/app/index/workplaceCard';
 import { Button } from '~/components/ui/button';
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '~/components/ui/dialog';
@@ -125,6 +126,7 @@ export default function AppIndex() {
   return (
     <div className="w-full min-h-screen-safe">
       <div className="container mx-auto p-5">
+        <TopBar user={user} />
         <Title title="Overview" />
         <div className="grid grid-cols-5 gap-5">
           <div className="bg-neutral rounded-md p-5 col-span-3 ">

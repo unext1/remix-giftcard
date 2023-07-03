@@ -187,9 +187,9 @@ const OrganizationSettingsPage = () => {
 
             <h2 className="mt-4 font-medium ">You haven't finished setting up your organization yet !</h2>
             <div className="mt-4">
-              <Button type="submit" name="_action" value="update">
+              <button type="submit" name="_action" value="update" className="btn btn-sm btn-primary">
                 Continue Setup
-              </Button>
+              </button>
             </div>
           </Form>
         )}

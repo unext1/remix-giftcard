@@ -1,9 +1,12 @@
 import { Dialog, Transition } from '@headlessui/react';
-import { MenuIcon, XIcon } from 'lucide-react';
+import { DoorClosedIcon, DoorOpenIcon, MenuIcon, XIcon } from 'lucide-react';
 import { Fragment, useState, type ReactNode } from 'react';
 
 import { type UserType } from '~/services/auth.server';
 import { Navigation } from './sidebar';
+import { Form } from '@remix-run/react';
+import { Avatar } from '../ui/avatar';
+import { TopBar } from './index/topBar';
 
 export const AppLayout = ({ children, user }: { children: React.ReactNode; user: UserType }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -20,6 +23,8 @@ export const AppLayout = ({ children, user }: { children: React.ReactNode; user:
       </div>
 
       <main className="flex flex-1 flex-col overflow-y-scroll rounded-md max-w-none container mx-auto p-5">
+        <TopBar user={user} />
+
         {children}
       </main>
       <MobileMenu openSidebar={() => setSidebarOpen(true)} />
