@@ -48,7 +48,7 @@ export async function action({ request, params }: ActionArgs) {
         title: z.string()
       });
       const workplace = await createWorkplace({
-        sessionUser: user,
+        user,
         title,
         organizationId: user?.organizations?.id || null
       });

@@ -30,7 +30,7 @@ export async function action({ request, params }: ActionArgs) {
 
   try {
     const workplaces = await createWorkplace({
-      sessionUser: user,
+      user,
       title: result.data.name,
       organizationId: user?.organizations?.id || null
     });

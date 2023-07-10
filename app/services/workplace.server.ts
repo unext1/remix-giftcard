@@ -1,5 +1,5 @@
 import { graphql } from '~/_gql';
-import { type UserSession } from './auth.server';
+import { type UserSession, type UserType } from './auth.server';
 import { hasuraClient } from './hasura.server';
 
 const GETALLWORKPLACES = graphql(`
@@ -241,20 +241,24 @@ export const deleteWorkplace = async ({ workplaceId, token }: { workplaceId: str
 
 export const createWorkplace = async ({
   title,
-  sessionUser,
+  user,
   organizationId
 }: {
   title: string;
-  sessionUser: UserSession;
+  user: UserType;
   organizationId?: string | null;
 }) => {
-  const data = await hasuraClient({ token: sessionUser.token }).request(CREATEWORKPLACE, {
-    title: title,
-    userId: sessionUser.id,
-    organizationId: organizationId
-  });
+  const workplaceCount = user?.organizations?.stripeSubscriptionId ? 3 : 1;
+  if (workplaceCount > user.ownerOfWorkplaces.length) {
+    const data = await hasuraClient({ token: user.token }).request(CREATEWORKPLACE, {
+      title: title,
+      userId: user.id,
+      organizationId: organizationId
+    });
 
-  if (data && data.insertWorkplace) {
-    return data.insertWorkplace.returning;
+    if (data && data.insertWorkplace) {
+      return data.insertWorkplace.returning;
+    }
   }
+  throw new Error(`You cannot create more than ${workplaceCount} ${workplaceCount === 1 ? 'workplace' : 'workplaces'}`);
 };

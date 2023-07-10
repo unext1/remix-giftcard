@@ -11,7 +11,7 @@ export default function Navbar() {
             <div className="flex h-12 justify-between">
               <div className="flex my-auto">
                 <Link to="/" className="text-base uppercase tracking-widest text-primary">
-                  <span className="text-white">Q</span>Pong
+                  Q<span className="text-white">Pong</span>
                 </Link>
               </div>
               <div className="hidden sm:ml-6 sm:flex sm:space-x-8 items-center">

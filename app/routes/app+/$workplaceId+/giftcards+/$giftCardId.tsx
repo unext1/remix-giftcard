@@ -10,11 +10,11 @@ import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, Tabl
 import { requireUser } from '~/services/auth.server';
 import { getGiftCardById, insertGiftCardUsageLine, type GiftCardType } from '~/services/gift.server.';
 
-const RemainingAmount = (giftCard: GiftCardType) => {
-  const usedAmount = giftCard.usageLines.reduce((sum, usageLine) => sum + usageLine.amount, 0);
-  const remainingAmount = giftCard?.amount - usedAmount;
-  return remainingAmount;
-};
+// const RemainingAmount = (giftCard: GiftCardType) => {
+//   const usedAmount = giftCard.usageLines.reduce((sum, usageLine) => sum + usageLine.amount, 0);
+//   const remainingAmount = giftCard?.amount - usedAmount;
+//   return remainingAmount;
+// };
 
 export async function loader({ params, request }: LoaderArgs) {
   const user = await requireUser({ params, request });
@@ -99,13 +99,15 @@ const CouponPage = () => {
           </TableHeader>
           <TableBody>
             {giftCard?.usageLines
-              ? giftCard.usageLines.map((i) => (
-                  <TableRow key={i.id}>
-                    <TableCell>{i.amount} SEK</TableCell>
-                    <TableCell>{new Date(i.createdAt).toDateString()}</TableCell>
-                    <TableCell className="text-right">{i.creator.name}</TableCell>
-                  </TableRow>
-                ))
+              ? giftCard.usageLines
+                  .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+                  .map((i) => (
+                    <TableRow key={i.id}>
+                      <TableCell>{i.amount} SEK</TableCell>
+                      <TableCell>{new Date(i.createdAt).toDateString()}</TableCell>
+                      <TableCell className="text-right">{i.creator.name}</TableCell>
+                    </TableRow>
+                  ))
               : null}
           </TableBody>
         </Table>
