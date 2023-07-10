@@ -1,4 +1,6 @@
 - "!include public_address.yaml"
+- "!include public_gift_card.yaml"
+- "!include public_gift_card_usage_line.yaml"
 - "!include public_organization.yaml"
 - "!include public_subscription_status.yaml"
 - "!include public_user.yaml"

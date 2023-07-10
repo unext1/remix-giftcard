@@ -1,0 +1,64 @@
+table:
+  name: gift_card
+  schema: public
+object_relationships:
+  - name: creator
+    using:
+      foreign_key_constraint_on: created_by
+  - name: workplace
+    using:
+      foreign_key_constraint_on: workplace_id
+array_relationships:
+  - name: usageLines
+    using:
+      foreign_key_constraint_on:
+        column: gift_card_id
+        table:
+          name: gift_card_usage_line
+          schema: public
+insert_permissions:
+  - role: user
+    permission:
+      check:
+        _or:
+          - workplace:
+              workplaceMembers:
+                user_id:
+                  _eq: X-Hasura-User-Id
+          - workplace:
+              owner_id:
+                _eq: X-Hasura-User-Id
+      set:
+        created_by: x-hasura-User-Id
+      columns:
+        - amount
+        - customer_email
+        - is_active
+        - workplace_id
+select_permissions:
+  - role: public
+    permission:
+      columns:
+        - is_active
+        - amount
+        - customer_email
+        - stripe_payment_id
+        - created_at
+        - updated_at
+        - created_by
+        - id
+        - workplace_id
+      filter: {}
+  - role: user
+    permission:
+      columns:
+        - amount
+        - created_at
+        - created_by
+        - customer_email
+        - id
+        - is_active
+        - stripe_payment_id
+        - updated_at
+        - workplace_id
+      filter: {}

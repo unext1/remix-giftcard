@@ -282,6 +282,739 @@ export type CursorOrdering =
   /** descending ordering of the cursor */
   | 'DESC';
 
+/** columns and relationships of "gift_card" */
+export type GiftCard = {
+  amount: Scalars['Int']['output'];
+  createdAt: Scalars['timestamptz']['output'];
+  createdBy?: Maybe<Scalars['uuid']['output']>;
+  /** An object relationship */
+  creator?: Maybe<User>;
+  customerEmail?: Maybe<Scalars['String']['output']>;
+  id: Scalars['uuid']['output'];
+  isActive: Scalars['Boolean']['output'];
+  stripePaymentId?: Maybe<Scalars['String']['output']>;
+  updatedAt: Scalars['timestamptz']['output'];
+  /** An array relationship */
+  usageLines: Array<GiftCardUsageLine>;
+  /** An aggregate relationship */
+  usageLinesAggregate: GiftCardUsageLineAggregate;
+  /** An object relationship */
+  workplace: Workplace;
+  workplaceId: Scalars['uuid']['output'];
+};
+
+
+/** columns and relationships of "gift_card" */
+export type GiftCardUsageLinesArgs = {
+  distinctOn?: InputMaybe<Array<GiftCardUsageLineSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<GiftCardUsageLineOrderBy>>;
+  where?: InputMaybe<GiftCardUsageLineBoolExp>;
+};
+
+
+/** columns and relationships of "gift_card" */
+export type GiftCardUsageLinesAggregateArgs = {
+  distinctOn?: InputMaybe<Array<GiftCardUsageLineSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<GiftCardUsageLineOrderBy>>;
+  where?: InputMaybe<GiftCardUsageLineBoolExp>;
+};
+
+/** aggregated selection of "gift_card" */
+export type GiftCardAggregate = {
+  aggregate?: Maybe<GiftCardAggregateFields>;
+  nodes: Array<GiftCard>;
+};
+
+export type GiftCardAggregateBoolExp = {
+  bool_and?: InputMaybe<GiftCardAggregateBoolExpBool_And>;
+  bool_or?: InputMaybe<GiftCardAggregateBoolExpBool_Or>;
+  count?: InputMaybe<GiftCardAggregateBoolExpCount>;
+};
+
+/** aggregate fields of "gift_card" */
+export type GiftCardAggregateFields = {
+  avg?: Maybe<GiftCardAvgFields>;
+  count: Scalars['Int']['output'];
+  max?: Maybe<GiftCardMaxFields>;
+  min?: Maybe<GiftCardMinFields>;
+  stddev?: Maybe<GiftCardStddevFields>;
+  stddevPop?: Maybe<GiftCardStddevPopFields>;
+  stddevSamp?: Maybe<GiftCardStddevSampFields>;
+  sum?: Maybe<GiftCardSumFields>;
+  varPop?: Maybe<GiftCardVarPopFields>;
+  varSamp?: Maybe<GiftCardVarSampFields>;
+  variance?: Maybe<GiftCardVarianceFields>;
+};
+
+
+/** aggregate fields of "gift_card" */
+export type GiftCardAggregateFieldsCountArgs = {
+  columns?: InputMaybe<Array<GiftCardSelectColumn>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** order by aggregate values of table "gift_card" */
+export type GiftCardAggregateOrderBy = {
+  avg?: InputMaybe<GiftCardAvgOrderBy>;
+  count?: InputMaybe<OrderBy>;
+  max?: InputMaybe<GiftCardMaxOrderBy>;
+  min?: InputMaybe<GiftCardMinOrderBy>;
+  stddev?: InputMaybe<GiftCardStddevOrderBy>;
+  stddevPop?: InputMaybe<GiftCardStddevPopOrderBy>;
+  stddevSamp?: InputMaybe<GiftCardStddevSampOrderBy>;
+  sum?: InputMaybe<GiftCardSumOrderBy>;
+  varPop?: InputMaybe<GiftCardVarPopOrderBy>;
+  varSamp?: InputMaybe<GiftCardVarSampOrderBy>;
+  variance?: InputMaybe<GiftCardVarianceOrderBy>;
+};
+
+/** input type for inserting array relation for remote table "gift_card" */
+export type GiftCardArrRelInsertInput = {
+  data: Array<GiftCardInsertInput>;
+  /** upsert condition */
+  onConflict?: InputMaybe<GiftCardOnConflict>;
+};
+
+/** aggregate avg on columns */
+export type GiftCardAvgFields = {
+  amount?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by avg() on columns of table "gift_card" */
+export type GiftCardAvgOrderBy = {
+  amount?: InputMaybe<OrderBy>;
+};
+
+/** Boolean expression to filter rows from the table "gift_card". All fields are combined with a logical 'AND'. */
+export type GiftCardBoolExp = {
+  _and?: InputMaybe<Array<GiftCardBoolExp>>;
+  _not?: InputMaybe<GiftCardBoolExp>;
+  _or?: InputMaybe<Array<GiftCardBoolExp>>;
+  amount?: InputMaybe<IntComparisonExp>;
+  createdAt?: InputMaybe<TimestamptzComparisonExp>;
+  createdBy?: InputMaybe<UuidComparisonExp>;
+  creator?: InputMaybe<UserBoolExp>;
+  customerEmail?: InputMaybe<StringComparisonExp>;
+  id?: InputMaybe<UuidComparisonExp>;
+  isActive?: InputMaybe<BooleanComparisonExp>;
+  stripePaymentId?: InputMaybe<StringComparisonExp>;
+  updatedAt?: InputMaybe<TimestamptzComparisonExp>;
+  usageLines?: InputMaybe<GiftCardUsageLineBoolExp>;
+  usageLinesAggregate?: InputMaybe<GiftCardUsageLineAggregateBoolExp>;
+  workplace?: InputMaybe<WorkplaceBoolExp>;
+  workplaceId?: InputMaybe<UuidComparisonExp>;
+};
+
+/** unique or primary key constraints on table "gift_card" */
+export type GiftCardConstraint =
+  /** unique or primary key constraint on columns "id" */
+  | 'gift_card_pkey';
+
+/** input type for incrementing numeric columns in table "gift_card" */
+export type GiftCardIncInput = {
+  amount?: InputMaybe<Scalars['Int']['input']>;
+};
+
+/** input type for inserting data into table "gift_card" */
+export type GiftCardInsertInput = {
+  amount?: InputMaybe<Scalars['Int']['input']>;
+  createdAt?: InputMaybe<Scalars['timestamptz']['input']>;
+  createdBy?: InputMaybe<Scalars['uuid']['input']>;
+  creator?: InputMaybe<UserObjRelInsertInput>;
+  customerEmail?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  isActive?: InputMaybe<Scalars['Boolean']['input']>;
+  stripePaymentId?: InputMaybe<Scalars['String']['input']>;
+  updatedAt?: InputMaybe<Scalars['timestamptz']['input']>;
+  usageLines?: InputMaybe<GiftCardUsageLineArrRelInsertInput>;
+  workplace?: InputMaybe<WorkplaceObjRelInsertInput>;
+  workplaceId?: InputMaybe<Scalars['uuid']['input']>;
+};
+
+/** aggregate max on columns */
+export type GiftCardMaxFields = {
+  amount?: Maybe<Scalars['Int']['output']>;
+  createdAt?: Maybe<Scalars['timestamptz']['output']>;
+  createdBy?: Maybe<Scalars['uuid']['output']>;
+  customerEmail?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['uuid']['output']>;
+  stripePaymentId?: Maybe<Scalars['String']['output']>;
+  updatedAt?: Maybe<Scalars['timestamptz']['output']>;
+  workplaceId?: Maybe<Scalars['uuid']['output']>;
+};
+
+/** order by max() on columns of table "gift_card" */
+export type GiftCardMaxOrderBy = {
+  amount?: InputMaybe<OrderBy>;
+  createdAt?: InputMaybe<OrderBy>;
+  createdBy?: InputMaybe<OrderBy>;
+  customerEmail?: InputMaybe<OrderBy>;
+  id?: InputMaybe<OrderBy>;
+  stripePaymentId?: InputMaybe<OrderBy>;
+  updatedAt?: InputMaybe<OrderBy>;
+  workplaceId?: InputMaybe<OrderBy>;
+};
+
+/** aggregate min on columns */
+export type GiftCardMinFields = {
+  amount?: Maybe<Scalars['Int']['output']>;
+  createdAt?: Maybe<Scalars['timestamptz']['output']>;
+  createdBy?: Maybe<Scalars['uuid']['output']>;
+  customerEmail?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['uuid']['output']>;
+  stripePaymentId?: Maybe<Scalars['String']['output']>;
+  updatedAt?: Maybe<Scalars['timestamptz']['output']>;
+  workplaceId?: Maybe<Scalars['uuid']['output']>;
+};
+
+/** order by min() on columns of table "gift_card" */
+export type GiftCardMinOrderBy = {
+  amount?: InputMaybe<OrderBy>;
+  createdAt?: InputMaybe<OrderBy>;
+  createdBy?: InputMaybe<OrderBy>;
+  customerEmail?: InputMaybe<OrderBy>;
+  id?: InputMaybe<OrderBy>;
+  stripePaymentId?: InputMaybe<OrderBy>;
+  updatedAt?: InputMaybe<OrderBy>;
+  workplaceId?: InputMaybe<OrderBy>;
+};
+
+/** response of any mutation on the table "gift_card" */
+export type GiftCardMutationResponse = {
+  /** number of rows affected by the mutation */
+  affectedRows: Scalars['Int']['output'];
+  /** data from the rows affected by the mutation */
+  returning: Array<GiftCard>;
+};
+
+/** input type for inserting object relation for remote table "gift_card" */
+export type GiftCardObjRelInsertInput = {
+  data: GiftCardInsertInput;
+  /** upsert condition */
+  onConflict?: InputMaybe<GiftCardOnConflict>;
+};
+
+/** on_conflict condition type for table "gift_card" */
+export type GiftCardOnConflict = {
+  constraint: GiftCardConstraint;
+  updateColumns?: Array<GiftCardUpdateColumn>;
+  where?: InputMaybe<GiftCardBoolExp>;
+};
+
+/** Ordering options when selecting data from "gift_card". */
+export type GiftCardOrderBy = {
+  amount?: InputMaybe<OrderBy>;
+  createdAt?: InputMaybe<OrderBy>;
+  createdBy?: InputMaybe<OrderBy>;
+  creator?: InputMaybe<UserOrderBy>;
+  customerEmail?: InputMaybe<OrderBy>;
+  id?: InputMaybe<OrderBy>;
+  isActive?: InputMaybe<OrderBy>;
+  stripePaymentId?: InputMaybe<OrderBy>;
+  updatedAt?: InputMaybe<OrderBy>;
+  usageLinesAggregate?: InputMaybe<GiftCardUsageLineAggregateOrderBy>;
+  workplace?: InputMaybe<WorkplaceOrderBy>;
+  workplaceId?: InputMaybe<OrderBy>;
+};
+
+/** primary key columns input for table: gift_card */
+export type GiftCardPkColumnsInput = {
+  id: Scalars['uuid']['input'];
+};
+
+/** select columns of table "gift_card" */
+export type GiftCardSelectColumn =
+  /** column name */
+  | 'amount'
+  /** column name */
+  | 'createdAt'
+  /** column name */
+  | 'createdBy'
+  /** column name */
+  | 'customerEmail'
+  /** column name */
+  | 'id'
+  /** column name */
+  | 'isActive'
+  /** column name */
+  | 'stripePaymentId'
+  /** column name */
+  | 'updatedAt'
+  /** column name */
+  | 'workplaceId';
+
+/** select "giftCardAggregateBoolExpBool_andArgumentsColumns" columns of table "gift_card" */
+export type GiftCardSelectColumnGiftCardAggregateBoolExpBool_AndArgumentsColumns =
+  /** column name */
+  | 'isActive';
+
+/** select "giftCardAggregateBoolExpBool_orArgumentsColumns" columns of table "gift_card" */
+export type GiftCardSelectColumnGiftCardAggregateBoolExpBool_OrArgumentsColumns =
+  /** column name */
+  | 'isActive';
+
+/** input type for updating data in table "gift_card" */
+export type GiftCardSetInput = {
+  amount?: InputMaybe<Scalars['Int']['input']>;
+  createdAt?: InputMaybe<Scalars['timestamptz']['input']>;
+  createdBy?: InputMaybe<Scalars['uuid']['input']>;
+  customerEmail?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  isActive?: InputMaybe<Scalars['Boolean']['input']>;
+  stripePaymentId?: InputMaybe<Scalars['String']['input']>;
+  updatedAt?: InputMaybe<Scalars['timestamptz']['input']>;
+  workplaceId?: InputMaybe<Scalars['uuid']['input']>;
+};
+
+/** aggregate stddev on columns */
+export type GiftCardStddevFields = {
+  amount?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by stddev() on columns of table "gift_card" */
+export type GiftCardStddevOrderBy = {
+  amount?: InputMaybe<OrderBy>;
+};
+
+/** aggregate stddevPop on columns */
+export type GiftCardStddevPopFields = {
+  amount?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by stddevPop() on columns of table "gift_card" */
+export type GiftCardStddevPopOrderBy = {
+  amount?: InputMaybe<OrderBy>;
+};
+
+/** aggregate stddevSamp on columns */
+export type GiftCardStddevSampFields = {
+  amount?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by stddevSamp() on columns of table "gift_card" */
+export type GiftCardStddevSampOrderBy = {
+  amount?: InputMaybe<OrderBy>;
+};
+
+/** Streaming cursor of the table "gift_card" */
+export type GiftCardStreamCursorInput = {
+  /** Stream column input with initial value */
+  initialValue: GiftCardStreamCursorValueInput;
+  /** cursor ordering */
+  ordering?: InputMaybe<CursorOrdering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type GiftCardStreamCursorValueInput = {
+  amount?: InputMaybe<Scalars['Int']['input']>;
+  createdAt?: InputMaybe<Scalars['timestamptz']['input']>;
+  createdBy?: InputMaybe<Scalars['uuid']['input']>;
+  customerEmail?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  isActive?: InputMaybe<Scalars['Boolean']['input']>;
+  stripePaymentId?: InputMaybe<Scalars['String']['input']>;
+  updatedAt?: InputMaybe<Scalars['timestamptz']['input']>;
+  workplaceId?: InputMaybe<Scalars['uuid']['input']>;
+};
+
+/** aggregate sum on columns */
+export type GiftCardSumFields = {
+  amount?: Maybe<Scalars['Int']['output']>;
+};
+
+/** order by sum() on columns of table "gift_card" */
+export type GiftCardSumOrderBy = {
+  amount?: InputMaybe<OrderBy>;
+};
+
+/** update columns of table "gift_card" */
+export type GiftCardUpdateColumn =
+  /** column name */
+  | 'amount'
+  /** column name */
+  | 'createdAt'
+  /** column name */
+  | 'createdBy'
+  /** column name */
+  | 'customerEmail'
+  /** column name */
+  | 'id'
+  /** column name */
+  | 'isActive'
+  /** column name */
+  | 'stripePaymentId'
+  /** column name */
+  | 'updatedAt'
+  /** column name */
+  | 'workplaceId';
+
+export type GiftCardUpdates = {
+  /** increments the numeric columns with given value of the filtered values */
+  _inc?: InputMaybe<GiftCardIncInput>;
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<GiftCardSetInput>;
+  /** filter the rows which have to be updated */
+  where: GiftCardBoolExp;
+};
+
+/** columns and relationships of "gift_card_usage_line" */
+export type GiftCardUsageLine = {
+  amount: Scalars['Int']['output'];
+  createdAt: Scalars['timestamptz']['output'];
+  createdBy: Scalars['uuid']['output'];
+  /** An object relationship */
+  creator: User;
+  /** An object relationship */
+  giftCard: GiftCard;
+  giftCardId: Scalars['uuid']['output'];
+  id: Scalars['uuid']['output'];
+  updatedAt: Scalars['timestamptz']['output'];
+};
+
+/** aggregated selection of "gift_card_usage_line" */
+export type GiftCardUsageLineAggregate = {
+  aggregate?: Maybe<GiftCardUsageLineAggregateFields>;
+  nodes: Array<GiftCardUsageLine>;
+};
+
+export type GiftCardUsageLineAggregateBoolExp = {
+  count?: InputMaybe<GiftCardUsageLineAggregateBoolExpCount>;
+};
+
+/** aggregate fields of "gift_card_usage_line" */
+export type GiftCardUsageLineAggregateFields = {
+  avg?: Maybe<GiftCardUsageLineAvgFields>;
+  count: Scalars['Int']['output'];
+  max?: Maybe<GiftCardUsageLineMaxFields>;
+  min?: Maybe<GiftCardUsageLineMinFields>;
+  stddev?: Maybe<GiftCardUsageLineStddevFields>;
+  stddevPop?: Maybe<GiftCardUsageLineStddevPopFields>;
+  stddevSamp?: Maybe<GiftCardUsageLineStddevSampFields>;
+  sum?: Maybe<GiftCardUsageLineSumFields>;
+  varPop?: Maybe<GiftCardUsageLineVarPopFields>;
+  varSamp?: Maybe<GiftCardUsageLineVarSampFields>;
+  variance?: Maybe<GiftCardUsageLineVarianceFields>;
+};
+
+
+/** aggregate fields of "gift_card_usage_line" */
+export type GiftCardUsageLineAggregateFieldsCountArgs = {
+  columns?: InputMaybe<Array<GiftCardUsageLineSelectColumn>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** order by aggregate values of table "gift_card_usage_line" */
+export type GiftCardUsageLineAggregateOrderBy = {
+  avg?: InputMaybe<GiftCardUsageLineAvgOrderBy>;
+  count?: InputMaybe<OrderBy>;
+  max?: InputMaybe<GiftCardUsageLineMaxOrderBy>;
+  min?: InputMaybe<GiftCardUsageLineMinOrderBy>;
+  stddev?: InputMaybe<GiftCardUsageLineStddevOrderBy>;
+  stddevPop?: InputMaybe<GiftCardUsageLineStddevPopOrderBy>;
+  stddevSamp?: InputMaybe<GiftCardUsageLineStddevSampOrderBy>;
+  sum?: InputMaybe<GiftCardUsageLineSumOrderBy>;
+  varPop?: InputMaybe<GiftCardUsageLineVarPopOrderBy>;
+  varSamp?: InputMaybe<GiftCardUsageLineVarSampOrderBy>;
+  variance?: InputMaybe<GiftCardUsageLineVarianceOrderBy>;
+};
+
+/** input type for inserting array relation for remote table "gift_card_usage_line" */
+export type GiftCardUsageLineArrRelInsertInput = {
+  data: Array<GiftCardUsageLineInsertInput>;
+  /** upsert condition */
+  onConflict?: InputMaybe<GiftCardUsageLineOnConflict>;
+};
+
+/** aggregate avg on columns */
+export type GiftCardUsageLineAvgFields = {
+  amount?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by avg() on columns of table "gift_card_usage_line" */
+export type GiftCardUsageLineAvgOrderBy = {
+  amount?: InputMaybe<OrderBy>;
+};
+
+/** Boolean expression to filter rows from the table "gift_card_usage_line". All fields are combined with a logical 'AND'. */
+export type GiftCardUsageLineBoolExp = {
+  _and?: InputMaybe<Array<GiftCardUsageLineBoolExp>>;
+  _not?: InputMaybe<GiftCardUsageLineBoolExp>;
+  _or?: InputMaybe<Array<GiftCardUsageLineBoolExp>>;
+  amount?: InputMaybe<IntComparisonExp>;
+  createdAt?: InputMaybe<TimestamptzComparisonExp>;
+  createdBy?: InputMaybe<UuidComparisonExp>;
+  creator?: InputMaybe<UserBoolExp>;
+  giftCard?: InputMaybe<GiftCardBoolExp>;
+  giftCardId?: InputMaybe<UuidComparisonExp>;
+  id?: InputMaybe<UuidComparisonExp>;
+  updatedAt?: InputMaybe<TimestamptzComparisonExp>;
+};
+
+/** unique or primary key constraints on table "gift_card_usage_line" */
+export type GiftCardUsageLineConstraint =
+  /** unique or primary key constraint on columns "id" */
+  | 'gift_card_usage_line_pkey';
+
+/** input type for incrementing numeric columns in table "gift_card_usage_line" */
+export type GiftCardUsageLineIncInput = {
+  amount?: InputMaybe<Scalars['Int']['input']>;
+};
+
+/** input type for inserting data into table "gift_card_usage_line" */
+export type GiftCardUsageLineInsertInput = {
+  amount?: InputMaybe<Scalars['Int']['input']>;
+  createdAt?: InputMaybe<Scalars['timestamptz']['input']>;
+  createdBy?: InputMaybe<Scalars['uuid']['input']>;
+  creator?: InputMaybe<UserObjRelInsertInput>;
+  giftCard?: InputMaybe<GiftCardObjRelInsertInput>;
+  giftCardId?: InputMaybe<Scalars['uuid']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  updatedAt?: InputMaybe<Scalars['timestamptz']['input']>;
+};
+
+/** aggregate max on columns */
+export type GiftCardUsageLineMaxFields = {
+  amount?: Maybe<Scalars['Int']['output']>;
+  createdAt?: Maybe<Scalars['timestamptz']['output']>;
+  createdBy?: Maybe<Scalars['uuid']['output']>;
+  giftCardId?: Maybe<Scalars['uuid']['output']>;
+  id?: Maybe<Scalars['uuid']['output']>;
+  updatedAt?: Maybe<Scalars['timestamptz']['output']>;
+};
+
+/** order by max() on columns of table "gift_card_usage_line" */
+export type GiftCardUsageLineMaxOrderBy = {
+  amount?: InputMaybe<OrderBy>;
+  createdAt?: InputMaybe<OrderBy>;
+  createdBy?: InputMaybe<OrderBy>;
+  giftCardId?: InputMaybe<OrderBy>;
+  id?: InputMaybe<OrderBy>;
+  updatedAt?: InputMaybe<OrderBy>;
+};
+
+/** aggregate min on columns */
+export type GiftCardUsageLineMinFields = {
+  amount?: Maybe<Scalars['Int']['output']>;
+  createdAt?: Maybe<Scalars['timestamptz']['output']>;
+  createdBy?: Maybe<Scalars['uuid']['output']>;
+  giftCardId?: Maybe<Scalars['uuid']['output']>;
+  id?: Maybe<Scalars['uuid']['output']>;
+  updatedAt?: Maybe<Scalars['timestamptz']['output']>;
+};
+
+/** order by min() on columns of table "gift_card_usage_line" */
+export type GiftCardUsageLineMinOrderBy = {
+  amount?: InputMaybe<OrderBy>;
+  createdAt?: InputMaybe<OrderBy>;
+  createdBy?: InputMaybe<OrderBy>;
+  giftCardId?: InputMaybe<OrderBy>;
+  id?: InputMaybe<OrderBy>;
+  updatedAt?: InputMaybe<OrderBy>;
+};
+
+/** response of any mutation on the table "gift_card_usage_line" */
+export type GiftCardUsageLineMutationResponse = {
+  /** number of rows affected by the mutation */
+  affectedRows: Scalars['Int']['output'];
+  /** data from the rows affected by the mutation */
+  returning: Array<GiftCardUsageLine>;
+};
+
+/** on_conflict condition type for table "gift_card_usage_line" */
+export type GiftCardUsageLineOnConflict = {
+  constraint: GiftCardUsageLineConstraint;
+  updateColumns?: Array<GiftCardUsageLineUpdateColumn>;
+  where?: InputMaybe<GiftCardUsageLineBoolExp>;
+};
+
+/** Ordering options when selecting data from "gift_card_usage_line". */
+export type GiftCardUsageLineOrderBy = {
+  amount?: InputMaybe<OrderBy>;
+  createdAt?: InputMaybe<OrderBy>;
+  createdBy?: InputMaybe<OrderBy>;
+  creator?: InputMaybe<UserOrderBy>;
+  giftCard?: InputMaybe<GiftCardOrderBy>;
+  giftCardId?: InputMaybe<OrderBy>;
+  id?: InputMaybe<OrderBy>;
+  updatedAt?: InputMaybe<OrderBy>;
+};
+
+/** primary key columns input for table: gift_card_usage_line */
+export type GiftCardUsageLinePkColumnsInput = {
+  id: Scalars['uuid']['input'];
+};
+
+/** select columns of table "gift_card_usage_line" */
+export type GiftCardUsageLineSelectColumn =
+  /** column name */
+  | 'amount'
+  /** column name */
+  | 'createdAt'
+  /** column name */
+  | 'createdBy'
+  /** column name */
+  | 'giftCardId'
+  /** column name */
+  | 'id'
+  /** column name */
+  | 'updatedAt';
+
+/** input type for updating data in table "gift_card_usage_line" */
+export type GiftCardUsageLineSetInput = {
+  amount?: InputMaybe<Scalars['Int']['input']>;
+  createdAt?: InputMaybe<Scalars['timestamptz']['input']>;
+  createdBy?: InputMaybe<Scalars['uuid']['input']>;
+  giftCardId?: InputMaybe<Scalars['uuid']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  updatedAt?: InputMaybe<Scalars['timestamptz']['input']>;
+};
+
+/** aggregate stddev on columns */
+export type GiftCardUsageLineStddevFields = {
+  amount?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by stddev() on columns of table "gift_card_usage_line" */
+export type GiftCardUsageLineStddevOrderBy = {
+  amount?: InputMaybe<OrderBy>;
+};
+
+/** aggregate stddevPop on columns */
+export type GiftCardUsageLineStddevPopFields = {
+  amount?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by stddevPop() on columns of table "gift_card_usage_line" */
+export type GiftCardUsageLineStddevPopOrderBy = {
+  amount?: InputMaybe<OrderBy>;
+};
+
+/** aggregate stddevSamp on columns */
+export type GiftCardUsageLineStddevSampFields = {
+  amount?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by stddevSamp() on columns of table "gift_card_usage_line" */
+export type GiftCardUsageLineStddevSampOrderBy = {
+  amount?: InputMaybe<OrderBy>;
+};
+
+/** Streaming cursor of the table "gift_card_usage_line" */
+export type GiftCardUsageLineStreamCursorInput = {
+  /** Stream column input with initial value */
+  initialValue: GiftCardUsageLineStreamCursorValueInput;
+  /** cursor ordering */
+  ordering?: InputMaybe<CursorOrdering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type GiftCardUsageLineStreamCursorValueInput = {
+  amount?: InputMaybe<Scalars['Int']['input']>;
+  createdAt?: InputMaybe<Scalars['timestamptz']['input']>;
+  createdBy?: InputMaybe<Scalars['uuid']['input']>;
+  giftCardId?: InputMaybe<Scalars['uuid']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  updatedAt?: InputMaybe<Scalars['timestamptz']['input']>;
+};
+
+/** aggregate sum on columns */
+export type GiftCardUsageLineSumFields = {
+  amount?: Maybe<Scalars['Int']['output']>;
+};
+
+/** order by sum() on columns of table "gift_card_usage_line" */
+export type GiftCardUsageLineSumOrderBy = {
+  amount?: InputMaybe<OrderBy>;
+};
+
+/** update columns of table "gift_card_usage_line" */
+export type GiftCardUsageLineUpdateColumn =
+  /** column name */
+  | 'amount'
+  /** column name */
+  | 'createdAt'
+  /** column name */
+  | 'createdBy'
+  /** column name */
+  | 'giftCardId'
+  /** column name */
+  | 'id'
+  /** column name */
+  | 'updatedAt';
+
+export type GiftCardUsageLineUpdates = {
+  /** increments the numeric columns with given value of the filtered values */
+  _inc?: InputMaybe<GiftCardUsageLineIncInput>;
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<GiftCardUsageLineSetInput>;
+  /** filter the rows which have to be updated */
+  where: GiftCardUsageLineBoolExp;
+};
+
+/** aggregate varPop on columns */
+export type GiftCardUsageLineVarPopFields = {
+  amount?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by varPop() on columns of table "gift_card_usage_line" */
+export type GiftCardUsageLineVarPopOrderBy = {
+  amount?: InputMaybe<OrderBy>;
+};
+
+/** aggregate varSamp on columns */
+export type GiftCardUsageLineVarSampFields = {
+  amount?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by varSamp() on columns of table "gift_card_usage_line" */
+export type GiftCardUsageLineVarSampOrderBy = {
+  amount?: InputMaybe<OrderBy>;
+};
+
+/** aggregate variance on columns */
+export type GiftCardUsageLineVarianceFields = {
+  amount?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by variance() on columns of table "gift_card_usage_line" */
+export type GiftCardUsageLineVarianceOrderBy = {
+  amount?: InputMaybe<OrderBy>;
+};
+
+/** aggregate varPop on columns */
+export type GiftCardVarPopFields = {
+  amount?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by varPop() on columns of table "gift_card" */
+export type GiftCardVarPopOrderBy = {
+  amount?: InputMaybe<OrderBy>;
+};
+
+/** aggregate varSamp on columns */
+export type GiftCardVarSampFields = {
+  amount?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by varSamp() on columns of table "gift_card" */
+export type GiftCardVarSampOrderBy = {
+  amount?: InputMaybe<OrderBy>;
+};
+
+/** aggregate variance on columns */
+export type GiftCardVarianceFields = {
+  amount?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by variance() on columns of table "gift_card" */
+export type GiftCardVarianceOrderBy = {
+  amount?: InputMaybe<OrderBy>;
+};
+
 /** Boolean expression to compare columns of type "Int". All fields are combined with logical 'AND'. */
 export type IntComparisonExp = {
   _eq?: InputMaybe<Scalars['Int']['input']>;
@@ -854,6 +1587,14 @@ export type TimestamptzComparisonExp = {
 export type User = {
   createdAt: Scalars['timestamptz']['output'];
   email: Scalars['String']['output'];
+  /** An array relationship */
+  giftCardUsageLines: Array<GiftCardUsageLine>;
+  /** An aggregate relationship */
+  giftCardUsageLinesAggregate: GiftCardUsageLineAggregate;
+  /** An array relationship */
+  giftCards: Array<GiftCard>;
+  /** An aggregate relationship */
+  giftCardsAggregate: GiftCardAggregate;
   id: Scalars['uuid']['output'];
   imageUrl?: Maybe<Scalars['String']['output']>;
   /** An array relationship */
@@ -870,6 +1611,46 @@ export type User = {
   /** An aggregate relationship */
   ownerOfWorkplacesAggregate: WorkplaceAggregate;
   updatedAt: Scalars['timestamptz']['output'];
+};
+
+
+/** columns and relationships of "user" */
+export type UserGiftCardUsageLinesArgs = {
+  distinctOn?: InputMaybe<Array<GiftCardUsageLineSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<GiftCardUsageLineOrderBy>>;
+  where?: InputMaybe<GiftCardUsageLineBoolExp>;
+};
+
+
+/** columns and relationships of "user" */
+export type UserGiftCardUsageLinesAggregateArgs = {
+  distinctOn?: InputMaybe<Array<GiftCardUsageLineSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<GiftCardUsageLineOrderBy>>;
+  where?: InputMaybe<GiftCardUsageLineBoolExp>;
+};
+
+
+/** columns and relationships of "user" */
+export type UserGiftCardsArgs = {
+  distinctOn?: InputMaybe<Array<GiftCardSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<GiftCardOrderBy>>;
+  where?: InputMaybe<GiftCardBoolExp>;
+};
+
+
+/** columns and relationships of "user" */
+export type UserGiftCardsAggregateArgs = {
+  distinctOn?: InputMaybe<Array<GiftCardSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<GiftCardOrderBy>>;
+  where?: InputMaybe<GiftCardBoolExp>;
 };
 
 
@@ -959,6 +1740,10 @@ export type UserBoolExp = {
   _or?: InputMaybe<Array<UserBoolExp>>;
   createdAt?: InputMaybe<TimestamptzComparisonExp>;
   email?: InputMaybe<StringComparisonExp>;
+  giftCardUsageLines?: InputMaybe<GiftCardUsageLineBoolExp>;
+  giftCardUsageLinesAggregate?: InputMaybe<GiftCardUsageLineAggregateBoolExp>;
+  giftCards?: InputMaybe<GiftCardBoolExp>;
+  giftCardsAggregate?: InputMaybe<GiftCardAggregateBoolExp>;
   id?: InputMaybe<UuidComparisonExp>;
   imageUrl?: InputMaybe<StringComparisonExp>;
   memberOfWorkplaces?: InputMaybe<WorkplaceMemberBoolExp>;
@@ -982,6 +1767,8 @@ export type UserConstraint =
 export type UserInsertInput = {
   createdAt?: InputMaybe<Scalars['timestamptz']['input']>;
   email?: InputMaybe<Scalars['String']['input']>;
+  giftCardUsageLines?: InputMaybe<GiftCardUsageLineArrRelInsertInput>;
+  giftCards?: InputMaybe<GiftCardArrRelInsertInput>;
   id?: InputMaybe<Scalars['uuid']['input']>;
   imageUrl?: InputMaybe<Scalars['String']['input']>;
   memberOfWorkplaces?: InputMaybe<WorkplaceMemberArrRelInsertInput>;
@@ -1037,6 +1824,8 @@ export type UserOnConflict = {
 export type UserOrderBy = {
   createdAt?: InputMaybe<OrderBy>;
   email?: InputMaybe<OrderBy>;
+  giftCardUsageLinesAggregate?: InputMaybe<GiftCardUsageLineAggregateOrderBy>;
+  giftCardsAggregate?: InputMaybe<GiftCardAggregateOrderBy>;
   id?: InputMaybe<OrderBy>;
   imageUrl?: InputMaybe<OrderBy>;
   memberOfWorkplacesAggregate?: InputMaybe<WorkplaceMemberAggregateOrderBy>;
@@ -1788,12 +2577,48 @@ export type WorkplaceUpdates = {
   where: WorkplaceBoolExp;
 };
 
+export type GiftCardAggregateBoolExpBool_And = {
+  arguments: GiftCardSelectColumnGiftCardAggregateBoolExpBool_AndArgumentsColumns;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+  filter?: InputMaybe<GiftCardBoolExp>;
+  predicate: BooleanComparisonExp;
+};
+
+export type GiftCardAggregateBoolExpBool_Or = {
+  arguments: GiftCardSelectColumnGiftCardAggregateBoolExpBool_OrArgumentsColumns;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+  filter?: InputMaybe<GiftCardBoolExp>;
+  predicate: BooleanComparisonExp;
+};
+
+export type GiftCardAggregateBoolExpCount = {
+  arguments?: InputMaybe<Array<GiftCardSelectColumn>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+  filter?: InputMaybe<GiftCardBoolExp>;
+  predicate: IntComparisonExp;
+};
+
+export type GiftCardUsageLineAggregateBoolExpCount = {
+  arguments?: InputMaybe<Array<GiftCardUsageLineSelectColumn>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+  filter?: InputMaybe<GiftCardUsageLineBoolExp>;
+  predicate: IntComparisonExp;
+};
+
 /** mutation root */
 export type Mutation_Root = {
   /** delete data from the table: "address" */
   deleteAddress?: Maybe<AddressMutationResponse>;
   /** delete single row from the table: "address" */
   deleteAddressByPk?: Maybe<Address>;
+  /** delete data from the table: "gift_card" */
+  deleteGiftCard?: Maybe<GiftCardMutationResponse>;
+  /** delete single row from the table: "gift_card" */
+  deleteGiftCardByPk?: Maybe<GiftCard>;
+  /** delete data from the table: "gift_card_usage_line" */
+  deleteGiftCardUsageLine?: Maybe<GiftCardUsageLineMutationResponse>;
+  /** delete single row from the table: "gift_card_usage_line" */
+  deleteGiftCardUsageLineByPk?: Maybe<GiftCardUsageLine>;
   /** delete data from the table: "organization" */
   deleteOrganization?: Maybe<OrganizationMutationResponse>;
   /** delete single row from the table: "organization" */
@@ -1822,6 +2647,14 @@ export type Mutation_Root = {
   insertAddress?: Maybe<AddressMutationResponse>;
   /** insert a single row into the table: "address" */
   insertAddressOne?: Maybe<Address>;
+  /** insert data into the table: "gift_card" */
+  insertGiftCard?: Maybe<GiftCardMutationResponse>;
+  /** insert a single row into the table: "gift_card" */
+  insertGiftCardOne?: Maybe<GiftCard>;
+  /** insert data into the table: "gift_card_usage_line" */
+  insertGiftCardUsageLine?: Maybe<GiftCardUsageLineMutationResponse>;
+  /** insert a single row into the table: "gift_card_usage_line" */
+  insertGiftCardUsageLineOne?: Maybe<GiftCardUsageLine>;
   /** insert data into the table: "organization" */
   insertOrganization?: Maybe<OrganizationMutationResponse>;
   /** insert a single row into the table: "organization" */
@@ -1852,6 +2685,18 @@ export type Mutation_Root = {
   updateAddressByPk?: Maybe<Address>;
   /** update multiples rows of table: "address" */
   updateAddressMany?: Maybe<Array<Maybe<AddressMutationResponse>>>;
+  /** update data of the table: "gift_card" */
+  updateGiftCard?: Maybe<GiftCardMutationResponse>;
+  /** update single row of the table: "gift_card" */
+  updateGiftCardByPk?: Maybe<GiftCard>;
+  /** update multiples rows of table: "gift_card" */
+  updateGiftCardMany?: Maybe<Array<Maybe<GiftCardMutationResponse>>>;
+  /** update data of the table: "gift_card_usage_line" */
+  updateGiftCardUsageLine?: Maybe<GiftCardUsageLineMutationResponse>;
+  /** update single row of the table: "gift_card_usage_line" */
+  updateGiftCardUsageLineByPk?: Maybe<GiftCardUsageLine>;
+  /** update multiples rows of table: "gift_card_usage_line" */
+  updateGiftCardUsageLineMany?: Maybe<Array<Maybe<GiftCardUsageLineMutationResponse>>>;
   /** update data of the table: "organization" */
   updateOrganization?: Maybe<OrganizationMutationResponse>;
   /** update single row of the table: "organization" */
@@ -1899,6 +2744,30 @@ export type Mutation_RootDeleteAddressArgs = {
 
 /** mutation root */
 export type Mutation_RootDeleteAddressByPkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDeleteGiftCardArgs = {
+  where: GiftCardBoolExp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDeleteGiftCardByPkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDeleteGiftCardUsageLineArgs = {
+  where: GiftCardUsageLineBoolExp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDeleteGiftCardUsageLineByPkArgs = {
   id: Scalars['uuid']['input'];
 };
 
@@ -1987,6 +2856,34 @@ export type Mutation_RootInsertAddressArgs = {
 export type Mutation_RootInsertAddressOneArgs = {
   object: AddressInsertInput;
   onConflict?: InputMaybe<AddressOnConflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsertGiftCardArgs = {
+  objects: Array<GiftCardInsertInput>;
+  onConflict?: InputMaybe<GiftCardOnConflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsertGiftCardOneArgs = {
+  object: GiftCardInsertInput;
+  onConflict?: InputMaybe<GiftCardOnConflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsertGiftCardUsageLineArgs = {
+  objects: Array<GiftCardUsageLineInsertInput>;
+  onConflict?: InputMaybe<GiftCardUsageLineOnConflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsertGiftCardUsageLineOneArgs = {
+  object: GiftCardUsageLineInsertInput;
+  onConflict?: InputMaybe<GiftCardUsageLineOnConflict>;
 };
 
 
@@ -2091,6 +2988,50 @@ export type Mutation_RootUpdateAddressByPkArgs = {
 /** mutation root */
 export type Mutation_RootUpdateAddressManyArgs = {
   updates: Array<AddressUpdates>;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdateGiftCardArgs = {
+  _inc?: InputMaybe<GiftCardIncInput>;
+  _set?: InputMaybe<GiftCardSetInput>;
+  where: GiftCardBoolExp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdateGiftCardByPkArgs = {
+  _inc?: InputMaybe<GiftCardIncInput>;
+  _set?: InputMaybe<GiftCardSetInput>;
+  pkColumns: GiftCardPkColumnsInput;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdateGiftCardManyArgs = {
+  updates: Array<GiftCardUpdates>;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdateGiftCardUsageLineArgs = {
+  _inc?: InputMaybe<GiftCardUsageLineIncInput>;
+  _set?: InputMaybe<GiftCardUsageLineSetInput>;
+  where: GiftCardUsageLineBoolExp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdateGiftCardUsageLineByPkArgs = {
+  _inc?: InputMaybe<GiftCardUsageLineIncInput>;
+  _set?: InputMaybe<GiftCardUsageLineSetInput>;
+  pkColumns: GiftCardUsageLinePkColumnsInput;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdateGiftCardUsageLineManyArgs = {
+  updates: Array<GiftCardUsageLineUpdates>;
 };
 
 
@@ -2241,6 +3182,18 @@ export type Query_Root = {
   addressAggregate: AddressAggregate;
   /** fetch data from the table: "address" using primary key columns */
   addressByPk?: Maybe<Address>;
+  /** fetch data from the table: "gift_card" */
+  giftCard: Array<GiftCard>;
+  /** fetch aggregated fields from the table: "gift_card" */
+  giftCardAggregate: GiftCardAggregate;
+  /** fetch data from the table: "gift_card" using primary key columns */
+  giftCardByPk?: Maybe<GiftCard>;
+  /** fetch data from the table: "gift_card_usage_line" */
+  giftCardUsageLine: Array<GiftCardUsageLine>;
+  /** fetch aggregated fields from the table: "gift_card_usage_line" */
+  giftCardUsageLineAggregate: GiftCardUsageLineAggregate;
+  /** fetch data from the table: "gift_card_usage_line" using primary key columns */
+  giftCardUsageLineByPk?: Maybe<GiftCardUsageLine>;
   /** fetch data from the table: "organization" */
   organization: Array<Organization>;
   /** fetch aggregated fields from the table: "organization" */
@@ -2299,6 +3252,52 @@ export type Query_RootAddressAggregateArgs = {
 
 
 export type Query_RootAddressByPkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+
+export type Query_RootGiftCardArgs = {
+  distinctOn?: InputMaybe<Array<GiftCardSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<GiftCardOrderBy>>;
+  where?: InputMaybe<GiftCardBoolExp>;
+};
+
+
+export type Query_RootGiftCardAggregateArgs = {
+  distinctOn?: InputMaybe<Array<GiftCardSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<GiftCardOrderBy>>;
+  where?: InputMaybe<GiftCardBoolExp>;
+};
+
+
+export type Query_RootGiftCardByPkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+
+export type Query_RootGiftCardUsageLineArgs = {
+  distinctOn?: InputMaybe<Array<GiftCardUsageLineSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<GiftCardUsageLineOrderBy>>;
+  where?: InputMaybe<GiftCardUsageLineBoolExp>;
+};
+
+
+export type Query_RootGiftCardUsageLineAggregateArgs = {
+  distinctOn?: InputMaybe<Array<GiftCardUsageLineSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<GiftCardUsageLineOrderBy>>;
+  where?: InputMaybe<GiftCardUsageLineBoolExp>;
+};
+
+
+export type Query_RootGiftCardUsageLineByPkArgs = {
   id: Scalars['uuid']['input'];
 };
 
@@ -2450,6 +3449,22 @@ export type Subscription_Root = {
   addressByPk?: Maybe<Address>;
   /** fetch data from the table in a streaming manner: "address" */
   addressStream: Array<Address>;
+  /** fetch data from the table: "gift_card" */
+  giftCard: Array<GiftCard>;
+  /** fetch aggregated fields from the table: "gift_card" */
+  giftCardAggregate: GiftCardAggregate;
+  /** fetch data from the table: "gift_card" using primary key columns */
+  giftCardByPk?: Maybe<GiftCard>;
+  /** fetch data from the table in a streaming manner: "gift_card" */
+  giftCardStream: Array<GiftCard>;
+  /** fetch data from the table: "gift_card_usage_line" */
+  giftCardUsageLine: Array<GiftCardUsageLine>;
+  /** fetch aggregated fields from the table: "gift_card_usage_line" */
+  giftCardUsageLineAggregate: GiftCardUsageLineAggregate;
+  /** fetch data from the table: "gift_card_usage_line" using primary key columns */
+  giftCardUsageLineByPk?: Maybe<GiftCardUsageLine>;
+  /** fetch data from the table in a streaming manner: "gift_card_usage_line" */
+  giftCardUsageLineStream: Array<GiftCardUsageLine>;
   /** fetch data from the table: "organization" */
   organization: Array<Organization>;
   /** fetch aggregated fields from the table: "organization" */
@@ -2528,6 +3543,66 @@ export type Subscription_RootAddressStreamArgs = {
   batchSize: Scalars['Int']['input'];
   cursor: Array<InputMaybe<AddressStreamCursorInput>>;
   where?: InputMaybe<AddressBoolExp>;
+};
+
+
+export type Subscription_RootGiftCardArgs = {
+  distinctOn?: InputMaybe<Array<GiftCardSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<GiftCardOrderBy>>;
+  where?: InputMaybe<GiftCardBoolExp>;
+};
+
+
+export type Subscription_RootGiftCardAggregateArgs = {
+  distinctOn?: InputMaybe<Array<GiftCardSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<GiftCardOrderBy>>;
+  where?: InputMaybe<GiftCardBoolExp>;
+};
+
+
+export type Subscription_RootGiftCardByPkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+
+export type Subscription_RootGiftCardStreamArgs = {
+  batchSize: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<GiftCardStreamCursorInput>>;
+  where?: InputMaybe<GiftCardBoolExp>;
+};
+
+
+export type Subscription_RootGiftCardUsageLineArgs = {
+  distinctOn?: InputMaybe<Array<GiftCardUsageLineSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<GiftCardUsageLineOrderBy>>;
+  where?: InputMaybe<GiftCardUsageLineBoolExp>;
+};
+
+
+export type Subscription_RootGiftCardUsageLineAggregateArgs = {
+  distinctOn?: InputMaybe<Array<GiftCardUsageLineSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<GiftCardUsageLineOrderBy>>;
+  where?: InputMaybe<GiftCardUsageLineBoolExp>;
+};
+
+
+export type Subscription_RootGiftCardUsageLineByPkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+
+export type Subscription_RootGiftCardUsageLineStreamArgs = {
+  batchSize: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<GiftCardUsageLineStreamCursorInput>>;
+  where?: InputMaybe<GiftCardUsageLineBoolExp>;
 };
 
 
@@ -2763,6 +3838,53 @@ export type DeleteUserMutationVariables = Exact<{
 
 export type DeleteUserMutation = { deleteUserByPk?: { id: string } | null };
 
+export type CreateGiftCardMutationVariables = Exact<{
+  amount: Scalars['Int']['input'];
+  isActive: Scalars['Boolean']['input'];
+  workplaceId: Scalars['uuid']['input'];
+  customerEmail?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+
+export type CreateGiftCardMutation = { insertGiftCard?: { returning: Array<{ id: string }> } | null };
+
+export type GetGiftCardsQueryVariables = Exact<{
+  workplaceId: Scalars['uuid']['input'];
+}>;
+
+
+export type GetGiftCardsQuery = { giftCard: Array<{ amount: number, createdAt: string, createdBy?: string | null, id: string, isActive: boolean, stripePaymentId?: string | null, updatedAt: string, workplaceId: string, customerEmail?: string | null, usageLines: Array<{ amount: number, createdAt: string, createdBy: string, giftCardId: string, id: string, updatedAt: string }>, creator?: { name: string, id: string, email: string, imageUrl?: string | null } | null }> };
+
+export type GetGiftCardsByCustomerQueryVariables = Exact<{
+  workplaceId: Scalars['uuid']['input'];
+  email?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+
+export type GetGiftCardsByCustomerQuery = { giftCard: Array<{ amount: number, createdAt: string, createdBy?: string | null, id: string, isActive: boolean, stripePaymentId?: string | null, updatedAt: string, workplaceId: string, customerEmail?: string | null, usageLines: Array<{ amount: number, createdAt: string, createdBy: string, giftCardId: string, id: string, updatedAt: string, creator: { email: string, id: string, imageUrl?: string | null, name: string } }>, creator?: { name: string, id: string, email: string, imageUrl?: string | null } | null }> };
+
+export type GetGiftCardByIdQueryVariables = Exact<{
+  id: Scalars['uuid']['input'];
+}>;
+
+
+export type GetGiftCardByIdQuery = { giftCardByPk?: { amount: number, createdAt: string, createdBy?: string | null, id: string, isActive: boolean, stripePaymentId?: string | null, updatedAt: string, workplaceId: string, customerEmail?: string | null, usageLines: Array<{ amount: number, createdAt: string, createdBy: string, giftCardId: string, id: string, updatedAt: string, creator: { email: string, imageUrl?: string | null, name: string } }>, creator?: { email: string, imageUrl?: string | null, name: string } | null } | null };
+
+export type GetPublicGiftCardByIdQueryVariables = Exact<{
+  id: Scalars['uuid']['input'];
+}>;
+
+
+export type GetPublicGiftCardByIdQuery = { giftCardByPk?: { amount: number, createdAt: string, createdBy?: string | null, id: string, isActive: boolean, stripePaymentId?: string | null, updatedAt: string, workplaceId: string, customerEmail?: string | null } | null };
+
+export type InsertGiftCardUsageLineMutationVariables = Exact<{
+  giftCardId: Scalars['uuid']['input'];
+  amount: Scalars['Int']['input'];
+}>;
+
+
+export type InsertGiftCardUsageLineMutation = { insertGiftCardUsageLine?: { returning: Array<{ id: string }> } | null };
+
 export type GetOwnedOrganizationsQueryVariables = Exact<{
   userId: Scalars['uuid']['input'];
 }>;
@@ -2927,6 +4049,12 @@ export const AddUserDocument = {"kind":"Document","definitions":[{"kind":"Operat
 export const GetUserByIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetUserById"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"userId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"user"},"name":{"kind":"Name","value":"userByPk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"imageUrl"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"organizations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"ownerId"}},{"kind":"Field","name":{"kind":"Name","value":"stripeAccountId"}},{"kind":"Field","name":{"kind":"Name","value":"stripeCustomerId"}},{"kind":"Field","name":{"kind":"Name","value":"stripeSubscriptionId"}},{"kind":"Field","name":{"kind":"Name","value":"stripeSubscriptionStatus"}}]}},{"kind":"Field","name":{"kind":"Name","value":"ownerOfWorkplaces"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"ownerId"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}}]}},{"kind":"Field","name":{"kind":"Name","value":"memberOfWorkplaces"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"workplace"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"ownerId"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_neq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId"}}}]}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"workplace"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"ownerId"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]}}]}}]} as unknown as DocumentNode<GetUserByIdQuery, GetUserByIdQueryVariables>;
 export const UpdateUserNameDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateUserName"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"name"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateUserByPk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pkColumns"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"_set"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"name"},"value":{"kind":"Variable","name":{"kind":"Name","value":"name"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]} as unknown as DocumentNode<UpdateUserNameMutation, UpdateUserNameMutationVariables>;
 export const DeleteUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"DeleteUser"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"userId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"deleteUserByPk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<DeleteUserMutation, DeleteUserMutationVariables>;
+export const CreateGiftCardDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CreateGiftCard"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"amount"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"isActive"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Boolean"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"workplaceId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"customerEmail"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"insertGiftCard"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"objects"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"amount"},"value":{"kind":"Variable","name":{"kind":"Name","value":"amount"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"isActive"},"value":{"kind":"Variable","name":{"kind":"Name","value":"isActive"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"workplaceId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"workplaceId"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"customerEmail"},"value":{"kind":"Variable","name":{"kind":"Name","value":"customerEmail"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"returning"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]}}]} as unknown as DocumentNode<CreateGiftCardMutation, CreateGiftCardMutationVariables>;
+export const GetGiftCardsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetGiftCards"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"workplaceId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"giftCard"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"workplaceId"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"workplaceId"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"amount"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"createdBy"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"isActive"}},{"kind":"Field","name":{"kind":"Name","value":"stripePaymentId"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"workplaceId"}},{"kind":"Field","name":{"kind":"Name","value":"customerEmail"}},{"kind":"Field","name":{"kind":"Name","value":"usageLines"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"amount"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"createdBy"}},{"kind":"Field","name":{"kind":"Name","value":"giftCardId"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}},{"kind":"Field","name":{"kind":"Name","value":"creator"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"imageUrl"}}]}}]}}]}}]} as unknown as DocumentNode<GetGiftCardsQuery, GetGiftCardsQueryVariables>;
+export const GetGiftCardsByCustomerDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetGiftCardsByCustomer"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"workplaceId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"email"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"giftCard"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"workplaceId"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"workplaceId"}}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"customerEmail"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_like"},"value":{"kind":"Variable","name":{"kind":"Name","value":"email"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"amount"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"createdBy"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"isActive"}},{"kind":"Field","name":{"kind":"Name","value":"stripePaymentId"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"workplaceId"}},{"kind":"Field","name":{"kind":"Name","value":"customerEmail"}},{"kind":"Field","name":{"kind":"Name","value":"usageLines"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"amount"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"createdBy"}},{"kind":"Field","name":{"kind":"Name","value":"giftCardId"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"creator"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"imageUrl"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"creator"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"imageUrl"}}]}}]}}]}}]} as unknown as DocumentNode<GetGiftCardsByCustomerQuery, GetGiftCardsByCustomerQueryVariables>;
+export const GetGiftCardByIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetGiftCardById"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"giftCardByPk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"amount"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"createdBy"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"isActive"}},{"kind":"Field","name":{"kind":"Name","value":"stripePaymentId"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"workplaceId"}},{"kind":"Field","name":{"kind":"Name","value":"customerEmail"}},{"kind":"Field","name":{"kind":"Name","value":"usageLines"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"amount"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"createdBy"}},{"kind":"Field","name":{"kind":"Name","value":"giftCardId"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"creator"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"imageUrl"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"creator"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"imageUrl"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]} as unknown as DocumentNode<GetGiftCardByIdQuery, GetGiftCardByIdQueryVariables>;
+export const GetPublicGiftCardByIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetPublicGiftCardById"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"giftCardByPk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"amount"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"createdBy"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"isActive"}},{"kind":"Field","name":{"kind":"Name","value":"stripePaymentId"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"workplaceId"}},{"kind":"Field","name":{"kind":"Name","value":"customerEmail"}}]}}]}}]} as unknown as DocumentNode<GetPublicGiftCardByIdQuery, GetPublicGiftCardByIdQueryVariables>;
+export const InsertGiftCardUsageLineDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"InsertGiftCardUsageLine"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"giftCardId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"amount"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"insertGiftCardUsageLine"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"objects"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"giftCardId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"giftCardId"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"amount"},"value":{"kind":"Variable","name":{"kind":"Name","value":"amount"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"returning"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]}}]} as unknown as DocumentNode<InsertGiftCardUsageLineMutation, InsertGiftCardUsageLineMutationVariables>;
 export const GetOwnedOrganizationsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetOwnedOrganizations"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"userId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"organizations"},"name":{"kind":"Name","value":"organization"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"ownerId"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"ownerId"}},{"kind":"Field","name":{"kind":"Name","value":"stripeAccountId"}},{"kind":"Field","name":{"kind":"Name","value":"stripeCustomerId"}},{"kind":"Field","name":{"kind":"Name","value":"stripeSubscriptionId"}},{"kind":"Field","name":{"kind":"Name","value":"stripeSubscriptionStatus"}},{"kind":"Field","name":{"kind":"Name","value":"chargesEnabled"}}]}}]}}]} as unknown as DocumentNode<GetOwnedOrganizationsQuery, GetOwnedOrganizationsQueryVariables>;
 export const GetOrganizationByIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetOrganizationById"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"organization"},"name":{"kind":"Name","value":"organizationByPk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"ownerId"}},{"kind":"Field","name":{"kind":"Name","value":"stripeAccountId"}},{"kind":"Field","name":{"kind":"Name","value":"stripeCustomerId"}},{"kind":"Field","name":{"kind":"Name","value":"stripeSubscriptionId"}},{"kind":"Field","name":{"kind":"Name","value":"stripeSubscriptionStatus"}},{"kind":"Field","name":{"kind":"Name","value":"chargesEnabled"}},{"kind":"Field","name":{"kind":"Name","value":"address"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line1"}},{"kind":"Field","name":{"kind":"Name","value":"line2"}},{"kind":"Field","name":{"kind":"Name","value":"city"}},{"kind":"Field","name":{"kind":"Name","value":"state"}},{"kind":"Field","name":{"kind":"Name","value":"postalCode"}},{"kind":"Field","name":{"kind":"Name","value":"country"}}]}}]}}]}}]} as unknown as DocumentNode<GetOrganizationByIdQuery, GetOrganizationByIdQueryVariables>;
 export const CreateOrganizationDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CreateOrganization"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"name"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"email"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"address"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"AddressInsertInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"insertOrganization"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"objects"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"name"},"value":{"kind":"Variable","name":{"kind":"Name","value":"name"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"email"},"value":{"kind":"Variable","name":{"kind":"Name","value":"email"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"address"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"address"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"onConflict"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"constraint"},"value":{"kind":"EnumValue","value":"address_pkey"}},{"kind":"ObjectField","name":{"kind":"Name","value":"updateColumns"},"value":{"kind":"ListValue","values":[]}}]}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"returning"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"ownerId"}},{"kind":"Field","name":{"kind":"Name","value":"stripeAccountId"}},{"kind":"Field","name":{"kind":"Name","value":"stripeCustomerId"}},{"kind":"Field","name":{"kind":"Name","value":"stripeSubscriptionId"}},{"kind":"Field","name":{"kind":"Name","value":"stripeSubscriptionStatus"}},{"kind":"Field","name":{"kind":"Name","value":"chargesEnabled"}},{"kind":"Field","name":{"kind":"Name","value":"address"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line1"}},{"kind":"Field","name":{"kind":"Name","value":"line2"}},{"kind":"Field","name":{"kind":"Name","value":"city"}},{"kind":"Field","name":{"kind":"Name","value":"state"}},{"kind":"Field","name":{"kind":"Name","value":"postalCode"}},{"kind":"Field","name":{"kind":"Name","value":"country"}}]}}]}}]}}]}}]} as unknown as DocumentNode<CreateOrganizationMutation, CreateOrganizationMutationVariables>;

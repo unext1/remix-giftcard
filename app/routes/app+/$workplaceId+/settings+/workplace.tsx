@@ -15,7 +15,6 @@ import { json, redirect, type ActionArgs, type LoaderArgs } from '@remix-run/nod
 import { requireUser } from '~/services/auth.server';
 import {
   addWorkplaceMember,
-  cancelInvitation,
   deleteWorkplace,
   deleteWorkplaceMember,
   getWorkplaceMembers

@@ -7,7 +7,7 @@ export const meta: V2_MetaFunction = () => {
 
 export default function Index() {
   return (
-    <div className="container mx-auto ">
+    <div className="container mx-auto max-w-7xl px-4 pt-12">
       <h1 className="text-7xl">hi</h1>
       <Link to="login" className="btn btn-primary btn-sm">
         Login

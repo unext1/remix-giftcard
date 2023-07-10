@@ -8,7 +8,7 @@ import { WorkplaceSwitcher } from './workplace-switcher';
 export const Navigation = ({ user }: { user: UserType }) => {
   const navLinks = [
     { icon: LayoutDashboard, label: 'Overview', href: '' },
-    { icon: GiftIcon, label: 'Coupon', href: 'coupon' },
+    { icon: GiftIcon, label: 'Gift Cards', href: 'giftCards' },
     { icon: SettingsIcon, label: 'Settings', href: 'settings' }
   ];
   return (
@@ -16,7 +16,7 @@ export const Navigation = ({ user }: { user: UserType }) => {
       <div className="flex flex-col justify-between h-full">
         <div>
           <Link to="/app">
-            <h2 className="text-neutral-50 font-bold text-xl pt-3 pb-8">
+            <h2 className="text-neutral-50 font-bold text-xl pb-8">
               <span className="text-primary">Q</span>Pong
             </h2>
           </Link>

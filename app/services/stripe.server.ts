@@ -5,6 +5,7 @@ import { hasuraAdminClient, hasuraClient } from './hasura.server';
 import { graphql } from '~/_gql';
 import { type OrganizationType } from './organization.server';
 import { type SubscriptionStatusEnum } from '~/_gql/graphql';
+import { CREATEGIFTCARD } from './gift.server.';
 
 const stripe = new Stripe(env.STRIPE_SECRET_KEY, {
   apiVersion: '2022-11-15'
@@ -165,7 +166,7 @@ export const stripeDashboard = async ({ accountId }: { accountId: string }) => {
   return dashboardLink;
 };
 
-export const stripeCheckout = async ({ accountId }: { accountId: string }) => {
+export const stripeCheckout = async ({ accountId, workplaceId }: { accountId: string; workplaceId: string }) => {
   const coupons = [
     {
       quantity: 1,
@@ -201,8 +202,12 @@ export const stripeCheckout = async ({ accountId }: { accountId: string }) => {
         destination: accountId
       }
     },
-    success_url: 'http://localhost:3000/app/workplace',
-    cancel_url: 'http://localhost:3000/app/workplace'
+    metadata: {
+      workplaceId: workplaceId,
+      labas: 'hiii'
+    },
+    success_url: 'http://localhost:3000/app/workplace/giftCards',
+    cancel_url: 'http://localhost:3000/app/workplace/giftCards'
   });
 
   return session;
@@ -305,28 +310,44 @@ export const webhookHandler = async (request: Request) => {
   const event = stripe.webhooks.constructEvent(body, signature, env.STRIPE_WEBHOOK_SECRET as string);
 
   switch (event.type) {
-    case 'payment_intent.succeeded':
+    case 'payment_intent.succeeded': {
       console.log('sucesss');
+
       break;
+    }
     case 'payment_intent.payment_failed':
       console.log('failed');
       break;
     case 'charge.succeeded': {
       console.log('pinigai gauti');
+      // console.log(event.data.object);
+
       break;
     }
     case 'checkout.session.completed': {
       const data = event.data.object as Stripe.Checkout.Session;
       const organizationId = data.metadata?.organizationId;
       const subscriptionId = data.subscription as string;
+      const workplaceId = data.metadata?.workplaceId as string;
 
-      if (!organizationId || !subscriptionId) break;
-
-      if (data.status === 'complete') {
-        await hasuraAdminClient().request(UPDATEORGANIZATIONSUBSCRIPTIONID, {
-          organizationId,
-          subscriptionId
+      if (data.mode === 'payment' && data.status === 'complete') {
+        await hasuraAdminClient().request(CREATEGIFTCARD, {
+          amount: (data && data.amount_total && data.amount_total / 100) || 0,
+          workplaceId: workplaceId,
+          isActive: true,
+          customerEmail: data.customer_details?.email
         });
+      }
+
+      if (data.mode === 'subscription') {
+        if (!organizationId || !subscriptionId) break;
+
+        if (data.status === 'complete') {
+          await hasuraAdminClient().request(UPDATEORGANIZATIONSUBSCRIPTIONID, {
+            organizationId,
+            subscriptionId
+          });
+        }
       }
       break;
     }
@@ -355,6 +376,7 @@ export const webhookHandler = async (request: Request) => {
       }
       break;
     }
+
     default:
       console.warn(`🤷‍♀️ Unhandled event type: ${event.type}`);
   }

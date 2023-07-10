@@ -22,7 +22,7 @@ export const hasuraAdminClient = () => {
   return hasuraClient({ token: '', headers: { 'x-hasura-admin-secret': env.HASURA_GRAPHQL_ADMIN_SECRET } });
 };
 
-export const hasuraClient = ({ token, headers }: { token: string; headers?: Record<any, any> }) => {
+export const hasuraClient = ({ token, headers }: { token?: string; headers?: Record<any, any> }) => {
   const userHeaders = token ? { Authorization: `Bearer ${token}` } : undefined;
   return new GraphQLClient(HASURA_URL, {
     method: 'post',

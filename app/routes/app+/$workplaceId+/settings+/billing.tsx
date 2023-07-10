@@ -68,6 +68,9 @@ export async function action({ request, params }: ActionArgs) {
       const { plan } = await zx.parseForm(request, {
         plan: z.enum(['monthly', 'yearly'])
       });
+
+      if (!user?.organizations?.stripeCustomerId)
+        throw redirect(`http://localhost:3000/app/${params.workplaceId}/settings/organization`);
       const data = await createStripeSubscription({ return_url: request.url, user, plan });
 
       if (data && data.url) {
@@ -96,7 +99,7 @@ export default function BillingSettings() {
 
   const { user } = useLoaderData<typeof loader>();
 
-  if (user.organizations.stripeSubscriptionId) {
+  if (user?.organizations?.stripeSubscriptionId) {
     return (
       <div>
         Billing
@@ -111,11 +114,6 @@ export default function BillingSettings() {
   return (
     <div>
       Billing
-      <Form method="post">
-        <button type="submit" name="_action" value="manage" className="btn btn-primary btn-sm">
-          Manage Subscriptions
-        </button>
-      </Form>
       <div className="px-6 lg:px-8">
         <div className="mt-16 flex justify-center">
           <RadioGroup

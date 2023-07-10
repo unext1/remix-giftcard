@@ -9,14 +9,17 @@ export async function action({ request, params }: ActionArgs) {
 export async function loader({ params, request }: LoaderArgs) {
   const user = await requireUser({ request, params });
 
-  return json({ user });
+  const workplaceId = params.workplaceId;
+
+  return json({ user, workplaceId });
 }
 
 const Dashbaord = () => {
-  const { user } = useLoaderData<typeof loader>();
+  const { user, workplaceId } = useLoaderData<typeof loader>();
   return (
     <div>
       <div>{user.name}</div>
+      <div>{workplaceId}</div>
     </div>
   );
 };

@@ -9,7 +9,7 @@ import { Button } from '~/components/ui/button';
 import { Input } from '~/components/ui/input';
 import { requireUser } from '~/services/auth.server';
 import { createNewOrganization } from '~/services/organization.server';
-import { getStripeAccountId, stripeCheckout, stripeDashboard, updateStripeAccount } from '~/services/stripe.server';
+import { stripeDashboard, updateStripeAccount } from '~/services/stripe.server';
 import { getWorkplaceOrganization } from '~/services/workplace.server';
 
 export async function loader({ request, params }: LoaderArgs) {
@@ -176,7 +176,7 @@ const OrganizationSettingsPage = () => {
           <Form method="post">
             <input type="hidden" name="stripeAccountId" value={data.organization.stripeAccountId || ''} />
             <div className="mt-4">
-              <button type="submit" name="_action" value="dashboard" className="btn btn-primary">
+              <button type="submit" name="_action" value="dashboard" className="btn btn-primary btn-sm">
                 Dashboard
               </button>
             </div>
