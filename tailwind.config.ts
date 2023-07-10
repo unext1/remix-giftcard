@@ -4,6 +4,9 @@ export default {
   content: ['./app/**/*.{js,jsx,ts,tsx}'],
   theme: {
     extend: {
+      fontFamily: {
+        poppins: ['Poppins', 'sans-serif']
+      },
       colors: {
         border: 'hsl(var(--n))',
         input: 'hsl(var(--n))',

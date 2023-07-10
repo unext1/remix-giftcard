@@ -45,7 +45,7 @@ export default function Hero() {
             <img
               src="https://cdn3d.iconscout.com/3d/premium/thumb/gift-card-5580691-4668671.png"
               alt="illustration"
-              className="rounded-xl w-[350px] opacity-80 hover:scale-110 transition hover:rotate-12 object-cover"
+              className="rounded-xl w-[350px] hover:scale-110 transition duration-500 hover:rotate-12 object-cover"
             />
           </div>
         </div>

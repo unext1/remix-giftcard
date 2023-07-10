@@ -10,19 +10,19 @@ export default function Navbar() {
           <div className="mx-auto max-w-7xl px-4 container">
             <div className="flex h-12 justify-between">
               <div className="flex my-auto">
-                <Link to="/" className="text-base uppercase tracking-widest text-primary">
+                <Link to="/" className="text-xl uppercase tracking-widest text-primary">
                   Q<span className="text-white">Pong</span>
                 </Link>
               </div>
               <div className="hidden sm:ml-6 sm:flex sm:space-x-8 items-center">
                 <Link to="/" className="inline-flex items-center px-1 pt-1 text-sm">
-                  Hem
+                  Home
                 </Link>
                 <Link to="/#om" className="inline-flex items-center px-1 pt-1 text-sm">
-                  Om Mig
+                  About
                 </Link>
-                <Link to="/#portfolio" className="inline-flex items-center px-1 pt-1 text-sm">
-                  Portfolio
+                <Link to="/kazkas" className="inline-flex items-center px-1 pt-1 text-sm">
+                  Kazkas
                 </Link>
 
                 <Link to="/login" className="inline-flex items-center text-sm btn btn-primary btn-sm">
@@ -43,23 +43,23 @@ export default function Navbar() {
             <div className="space-y-6 pb-3 pt-2">
               <Link to="/" className="w-full">
                 <Disclosure.Button className="block w-full py-1 pl-3 pr-4 text-base text-left font-medium ">
-                  Hem
+                  Home
                 </Disclosure.Button>
               </Link>
               <Link to="#om" className="w-full">
                 <Disclosure.Button className="block w-full py-1 pl-3 pr-4 text-base text-left font-medium ">
-                  Om Mig
+                  About
                 </Disclosure.Button>
               </Link>
-              <Link to="/#portfolio" className="w-full">
+              <Link to="/kazkas" className="w-full">
                 <Disclosure.Button className="block w-full py-1 pl-3 pr-4 text-base text-left font-medium ">
-                  Kontakta
+                  Kazkas
                 </Disclosure.Button>
               </Link>
 
-              <Link to="/#kontakta" className="w-full">
-                <Disclosure.Button className="block w-full py-1 pl-3 pr-4 text-base text-left font-medium ">
-                  Kontakta
+              <Link to="/login" className="w-full">
+                <Disclosure.Button className="inline-flex items-center text-sm btn btn-primary btn-sm">
+                  Login
                 </Disclosure.Button>
               </Link>
             </div>

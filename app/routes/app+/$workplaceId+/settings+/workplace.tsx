@@ -97,15 +97,15 @@ const WokrplaceSettings = () => {
 
   return (
     <div>
-      <div className="flex justify-between">
+      <div className="md:flex justify-between">
         <h1>Workplace Settings</h1>
         <Form method="post">
-          <div className="flex w-full max-w-sm items-center space-x-2">
+          <div className="flex w-full max-w-sm items-center space-x-2 mt-2 md:mt-0">
             <Input
               type="name"
               name="email"
               placeholder="Enter email..."
-              className="bg-background text-base-content w-fit"
+              className="bg-background text-base-content md:w-fit"
               required
             />
             <button name="_action" value="add" type="submit" className="btn btn-primary btn-sm">

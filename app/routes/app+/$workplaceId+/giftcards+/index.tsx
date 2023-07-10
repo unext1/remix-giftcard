@@ -90,11 +90,11 @@ const GiftCardIndex = () => {
       </Form>
 
       <div className="mt-5">
-        <div className="flex justify-between">
+        <div className="md:flex justify-between">
           <h1 className="font-semibold text-lg my-auto">Gift Cards</h1>
           <Form className="flex items-center space-x-2">
-            <Input name="email" placeholder="Enter email..." className="bg-neutral text-neutral-content w-fit" />
-            <button type="submit" className="btn btn-primary btn-sm">
+            <Input name="email" placeholder="Enter email..." className="bg-neutral text-neutral-content " />
+            <button type="submit" className="btn btn-primary btn-sm mt-2 md:mt-0">
               Search
             </button>
           </Form>

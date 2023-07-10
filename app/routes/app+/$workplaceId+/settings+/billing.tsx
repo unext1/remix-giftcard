@@ -4,11 +4,12 @@ import { CheckIcon } from 'lucide-react';
 
 import { json, type ActionArgs, type LoaderArgs, redirect } from '@remix-run/node';
 import { namedAction } from 'remix-utils';
-import { createStripeSubscription, manageSubscriptions, getStripeCustomerData } from '~/services/stripe.server';
+import { createStripeSubscription, manageSubscriptions } from '~/services/stripe.server';
 import { requireUser } from '~/services/auth.server';
 import { Form, useLoaderData } from '@remix-run/react';
 import { zx } from 'zodix';
 import { z } from 'zod';
+import { AnimatePresence, motion } from 'framer-motion';
 
 type Price = {
   [key: string]: string;
@@ -35,14 +36,7 @@ const tiers = [
     href: '#',
     price: { monthly: '49 SEK', yearly: '489 SEK' } as Price,
     description: 'The essentials to provide your buisness with the best possible experience.',
-    features: [
-      '14 Days Trial',
-      'Up to 5 Workplaces',
-      'Unlimited Users',
-      'Stripe Payouts',
-      'QR-Codes',
-      'Buisness Managment'
-    ],
+    features: ['14 Days Trial', 'Up to 5 Workplaces'],
     featured: false,
     cta: 'Buy Subscription'
   },
@@ -103,7 +97,7 @@ export default function BillingSettings() {
     return (
       <div>
         Billing
-        <Form method="post" className="mt-6">
+        <Form method="post" className="mt-4">
           <button type="submit" name="_action" value="manage" className="btn btn-primary btn-sm">
             Manage Subscriptions
           </button>
@@ -113,9 +107,8 @@ export default function BillingSettings() {
   }
   return (
     <div>
-      Billing
-      <div className="px-6 lg:px-8">
-        <div className="mt-16 flex justify-center">
+      <div className="px-6 mt-6 lg:px-8">
+        <div className="flex justify-center">
           <RadioGroup
             value={frequency}
             onChange={setFrequency}
@@ -177,7 +170,6 @@ export default function BillingSettings() {
             </div>
           ))}
         </div>
-        F
       </div>
     </div>
   );

@@ -66,7 +66,7 @@ const Settings = () => {
               type="name"
               name="name"
               placeholder="Name"
-              className="bg-background text-base-content w-fit"
+              className="bg-background text-base-content md:w-fit"
               defaultValue={user.name}
             />
             <button name="_action" value="change" type="submit" className="btn btn-primary btn-sm">
@@ -77,7 +77,7 @@ const Settings = () => {
         <div>
           <Label htmlFor="name">Email</Label>
 
-          <Input type="email" className="bg-background text-base-content w-fit" disabled value={user.email} />
+          <Input type="email" className="bg-background text-base-content md:w-fit" disabled value={user.email} />
         </div>
       </div>
 
