@@ -110,6 +110,7 @@ const GiftCardIndex = () => {
                       value={`http://localhost:3000/app/workplace/coupon${giftCard.id}`}
                       className="w-16 h-16 mb-4"
                     />
+                    <div className=" text-xs">{giftCard.customerEmail}</div>
                     <div className="flex justify-between ">
                       <p className="font-semibold text-lg">{giftCard.amount} SEK</p>
                       <p className="text-sm my-auto">{giftCard.isActive ? 'Active' : 'Inactive'}</p>
@@ -117,7 +118,7 @@ const GiftCardIndex = () => {
 
                     <div className="flex justify-between mt-4">
                       <p className="text-xs">{new Date(giftCard.createdAt).toDateString()}</p>
-                      <p className="text-xs">{new Date(giftCard.createdAt).toDateString()}</p>
+                      <p className="text-xs">{new Date(giftCard.createdAt).toDateString()}</p>d
                     </div>
                   </div>
                 </Link>

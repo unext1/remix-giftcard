@@ -26,7 +26,14 @@ const tiers = [
     href: '#',
     price: { monthly: '0 SEK', yearly: '0 SEK' } as Price,
     description: 'This Plan is dedicated to small buisnesses',
-    features: ['Limited to 1 workplace', 'Unlimited Users', 'Stripe Payouts', 'QR-Codes', 'Buisness Managment'],
+    features: [
+      'Limited to 1 workplace',
+      'Unlimited Users',
+      'Stripe Payouts',
+      'QR-Codes',
+      'Buisness Managment',
+      'Stripe payout Fee 3% + 15sek'
+    ],
     featured: true,
     cta: 'Current Plan'
   },

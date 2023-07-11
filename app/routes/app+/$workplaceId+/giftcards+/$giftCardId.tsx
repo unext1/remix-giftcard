@@ -1,5 +1,5 @@
 import { json, type ActionArgs, type LoaderArgs } from '@remix-run/node';
-import { Form, Link, useLoaderData, useNavigate } from '@remix-run/react';
+import { Form, Link, useLoaderData, useNavigate, useNavigation, useTransition } from '@remix-run/react';
 import { ArrowLeftIcon } from 'lucide-react';
 import { QRCodeSVG } from 'qrcode.react';
 import { namedAction } from 'remix-utils';
@@ -45,6 +45,10 @@ export async function action({ request, params }: ActionArgs) {
 const CouponPage = () => {
   const { giftCard, user, remainingAmount } = useLoaderData<typeof loader>();
 
+  const navigate = useNavigation();
+
+  const submitting = navigate.state === 'submitting';
+
   return (
     <div className="bg-neutral p-5 rounded-xl">
       <div className="w-full flex justify-between items-center">
@@ -79,9 +83,15 @@ const CouponPage = () => {
             <Label htmlFor="amount" className="my-auto text-xs uppercase mb-1">
               Amount
             </Label>
-            <Input name="amount" className="bg-background mt-1" required />
-            <button type="submit" name="_action" value="amount" className="btn btn-sm btn-primary mt-2 mr-4">
-              Use Gift Card
+            <Input name="amount" type="number" className="bg-background mt-1" required min="1" />
+            <button
+              type="submit"
+              name="_action"
+              value="amount"
+              className="btn btn-sm btn-primary mt-2 mr-4"
+              disabled={submitting}
+            >
+              {submitting ? 'Submitting...' : 'Use Gift Card'}
             </button>
           </div>
         </Form>
