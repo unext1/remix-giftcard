@@ -81,7 +81,7 @@ const GiftCardIndex = () => {
             <Label htmlFor="customerEmail" className="my-auto">
               Customer Email
             </Label>
-            <Input name="customerEmail" type="email" className="bg-neutral mt-1" placeholder="Enter Price" />
+            <Input name="customerEmail" type="email" className="bg-neutral mt-1" placeholder="Enter Customer Email" />
           </div>
         </div>
         <button type="submit" name="_action" value="add" className="btn btn-sm btn-primary mt-5">
@@ -118,7 +118,7 @@ const GiftCardIndex = () => {
 
                     <div className="flex justify-between mt-4">
                       <p className="text-xs">{new Date(giftCard.createdAt).toDateString()}</p>
-                      <p className="text-xs">{new Date(giftCard.createdAt).toDateString()}</p>d
+                      <p className="text-xs">{new Date(giftCard.createdAt).toDateString()}</p>
                     </div>
                   </div>
                 </Link>

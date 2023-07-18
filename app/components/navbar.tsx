@@ -1,8 +1,9 @@
 import { Disclosure } from '@headlessui/react';
 import { Link } from '@remix-run/react';
 import { MenuIcon, XIcon } from 'lucide-react';
+import { UserSession } from '~/services/auth.server';
 
-export default function Navbar() {
+export default function Navbar({ user }: { user: UserSession }) {
   return (
     <Disclosure as="nav" className=" shadow-sm fixed w-full bg-background z-50">
       {({ open }) => (
@@ -25,9 +26,15 @@ export default function Navbar() {
                   Kazkas
                 </Link>
 
-                <Link to="/login" className="inline-flex items-center text-sm btn btn-primary btn-sm">
-                  Login
-                </Link>
+                {user.id ? (
+                  <Link to="/app" className="inline-flex items-center text-sm btn btn-primary btn-sm">
+                    Go To App
+                  </Link>
+                ) : (
+                  <Link to="/login" className="inline-flex items-center text-sm btn btn-primary btn-sm">
+                    Login
+                  </Link>
+                )}
               </div>
 
               <div className="flex items-center sm:hidden">
@@ -57,11 +64,19 @@ export default function Navbar() {
                 </Disclosure.Button>
               </Link>
 
-              <Link to="/login" className="w-full">
-                <Disclosure.Button className="inline-flex items-center text-sm btn btn-primary btn-sm">
-                  Login
-                </Disclosure.Button>
-              </Link>
+              {user.id ? (
+                <Link to="/app" className="w-full">
+                  <Disclosure.Button className="inline-flex items-center text-sm btn btn-primary btn-sm">
+                    Go to App
+                  </Disclosure.Button>
+                </Link>
+              ) : (
+                <Link to="/login" className="w-full">
+                  <Disclosure.Button className="inline-flex items-center text-sm btn btn-primary btn-sm">
+                    Login
+                  </Disclosure.Button>
+                </Link>
+              )}
             </div>
           </Disclosure.Panel>
         </>

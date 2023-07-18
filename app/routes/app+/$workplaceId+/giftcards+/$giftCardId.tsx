@@ -59,6 +59,12 @@ const CouponPage = () => {
       <QRCodeSVG
         value={`http://localhost:3000/app/workplace/coupon${giftCard?.id}`}
         className="w-36 h-36 mt-4 mx-auto"
+        imageSettings={{
+          src: giftCard?.workplace.organization?.imageUrl || '',
+          height: 50,
+          width: 50,
+          excavate: true
+        }}
       />
       <h2 className="text-sm font-bold mt-2 mb-4 text-center">{giftCard?.id}</h2>
 

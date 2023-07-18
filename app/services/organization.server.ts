@@ -3,6 +3,25 @@ import { type UserType, type UserSession } from './auth.server';
 import { hasuraClient } from './hasura.server';
 import { createStripeAccount, updateOrganizationsCustomerId } from './stripe.server';
 
+const GETPUBLICORGANIZATIONS = graphql(`
+  query GetPublicOrganizations {
+    organization {
+      id
+      name
+      imageUrl
+    }
+  }
+`);
+
+const UPDATEORGANIZATIONIMAGE = graphql(`
+  mutation UpdateOrganizationImage($id: uuid!, $imageUrl: String!) {
+    updateOrganizationByPk(pkColumns: { id: $id }, _set: { imageUrl: $imageUrl }) {
+      imageUrl
+      id
+    }
+  }
+`);
+
 const GETOWNEDORGANIZATIONS = graphql(`
   query GetOwnedOrganizations($userId: uuid!) {
     organizations: organization(where: { ownerId: { _eq: $userId } }) {
@@ -17,6 +36,7 @@ const GETOWNEDORGANIZATIONS = graphql(`
       stripeSubscriptionId
       stripeSubscriptionStatus
       chargesEnabled
+      imageUrl
     }
   }
 `);
@@ -35,6 +55,7 @@ const GETORGANIZATIONBYID = graphql(`
       stripeSubscriptionId
       stripeSubscriptionStatus
       chargesEnabled
+      imageUrl
       address {
         line1
         line2
@@ -68,6 +89,7 @@ const CREATEORGANIZATION = graphql(`
         stripeSubscriptionId
         stripeSubscriptionStatus
         chargesEnabled
+        imageUrl
         address {
           line1
           line2
@@ -182,4 +204,27 @@ export const createNewOrganization = async ({
   });
 
   return stipeAccountLink;
+};
+
+export const updateOrganizationImage = async ({
+  user,
+  organizationId,
+  imageUrl
+}: {
+  user: UserSession;
+  organizationId: string;
+  imageUrl: string;
+}) => {
+  const { updateOrganizationByPk } = await hasuraClient({ token: user.token }).request(UPDATEORGANIZATIONIMAGE, {
+    id: organizationId,
+    imageUrl: imageUrl
+  });
+
+  return updateOrganizationByPk;
+};
+
+export const getPublicOrganizations = async () => {
+  const { organization } = await hasuraClient({}).request(GETPUBLICORGANIZATIONS);
+
+  return organization;
 };

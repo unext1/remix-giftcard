@@ -118,6 +118,7 @@ const GETWORKPLACESORGANIZATION = graphql(`
         stripeSubscriptionStatus
         updatedAt
         chargesEnabled
+        imageUrl
       }
     }
   }

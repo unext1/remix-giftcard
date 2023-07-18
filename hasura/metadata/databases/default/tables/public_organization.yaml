@@ -25,8 +25,17 @@ insert_permissions:
       columns:
         - address_id
         - email
+        - image_url
         - name
 select_permissions:
+  - role: public
+    permission:
+      columns:
+        - email
+        - id
+        - image_url
+        - name
+      filter: {}
   - role: user
     permission:
       columns:
@@ -35,6 +44,7 @@ select_permissions:
         - created_at
         - email
         - id
+        - image_url
         - name
         - owner_id
         - stripe_account_id
@@ -56,6 +66,7 @@ update_permissions:
       columns:
         - address_id
         - email
+        - image_url
         - name
         - stripe_account_id
         - stripe_customer_id

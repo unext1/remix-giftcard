@@ -9,6 +9,13 @@ object_relationships:
     using:
       foreign_key_constraint_on: owner_id
 array_relationships:
+  - name: giftCards
+    using:
+      foreign_key_constraint_on:
+        column: workplace_id
+        table:
+          name: gift_card
+          schema: public
   - name: workplaceInvitations
     using:
       foreign_key_constraint_on:
@@ -33,6 +40,12 @@ insert_permissions:
         - organization_id
         - title
 select_permissions:
+  - role: public
+    permission:
+      columns:
+        - id
+        - organization_id
+      filter: {}
   - role: user
     permission:
       columns:

@@ -8,7 +8,7 @@ import { zx } from 'zodix';
 import { Button } from '~/components/ui/button';
 import { Input } from '~/components/ui/input';
 import { requireUser } from '~/services/auth.server';
-import { createNewOrganization } from '~/services/organization.server';
+import { createNewOrganization, updateOrganizationImage } from '~/services/organization.server';
 import { stripeDashboard, updateStripeAccount } from '~/services/stripe.server';
 import { getWorkplaceOrganization } from '~/services/workplace.server';
 
@@ -82,6 +82,15 @@ export async function action({ request, params }: ActionArgs) {
       }
 
       return json({ message: 'no stripe account' });
+    },
+    async image() {
+      const { imageUrl, organizationId } = await zx.parseForm(request, {
+        imageUrl: z.string(),
+        organizationId: z.string()
+      });
+      await updateOrganizationImage({ user, organizationId, imageUrl });
+
+      return json({ message: 'uploaded' });
     }
   });
 }
@@ -97,6 +106,11 @@ const OrganizationSettingsPage = () => {
     return (
       <>
         <div className="mb-4">Organization's settings</div>
+        <img
+          src={data?.organization?.imageUrl || ''}
+          alt="Organization's Logo"
+          className="mt-4 w-16 rounded-full mb-4"
+        />
         {!data?.organization?.id ? (
           <Form method="post">
             <div className="grid grid-cols-2 gap-5">
@@ -173,14 +187,33 @@ const OrganizationSettingsPage = () => {
             </Button>
           </Form>
         ) : data.organization.chargesEnabled ? (
-          <Form method="post">
-            <input type="hidden" name="stripeAccountId" value={data.organization.stripeAccountId || ''} />
-            <div className="mt-4">
-              <button type="submit" name="_action" value="dashboard" className="btn btn-primary btn-sm">
-                Dashboard
-              </button>
-            </div>
-          </Form>
+          <div>
+            <Form method="post">
+              <input type="hidden" name="stripeAccountId" value={data.organization.stripeAccountId || ''} />
+              <div className="mt-4">
+                <button type="submit" name="_action" value="dashboard" className="btn btn-primary btn-sm">
+                  Manage
+                </button>
+              </div>
+            </Form>
+            <h2 className="mt-2 mb-4">Customize your organization</h2>
+
+            <Form method="post" className="mt-4">
+              <div className="flex w-full max-w-sm items-center mt-2 md:mt-0">
+                <input type="hidden" name="organizationId" value={data.organization.id} />
+                <Input
+                  type="name"
+                  name="imageUrl"
+                  placeholder="Enter image url..."
+                  className="bg-background text-base-content md:w-fit mr-2"
+                  required
+                />
+                <button name="_action" value="image" type="submit" className="btn btn-primary btn-sm">
+                  Upload Image
+                </button>
+              </div>
+            </Form>
+          </div>
         ) : (
           <Form method="post">
             <input type="hidden" name="stripeAccountId" value={data.organization.stripeAccountId || ''} />

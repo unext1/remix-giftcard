@@ -91,6 +91,11 @@ const GETGIFTCARDBYID = graphql(`
       updatedAt
       workplaceId
       customerEmail
+      workplace {
+        organization {
+          imageUrl
+        }
+      }
       usageLines {
         amount
         createdAt

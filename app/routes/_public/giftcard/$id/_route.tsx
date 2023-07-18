@@ -1,6 +1,5 @@
 import { json, type LoaderArgs } from '@remix-run/node';
 import { useLoaderData } from '@remix-run/react';
-import { ArrowLeftIcon } from 'lucide-react';
 import { QRCodeSVG } from 'qrcode.react';
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '~/components/ui/table';
 import { getGiftCardById } from '~/services/gift.server.';
@@ -24,6 +23,12 @@ const GiftCard = () => {
         <QRCodeSVG
           value={`http://localhost:3000/app/workplace/coupon${giftCard?.id}`}
           className="w-36 h-36 mt-4 mx-auto"
+          imageSettings={{
+            src: giftCard?.workplace.organization?.imageUrl || '',
+            height: 50,
+            width: 50,
+            excavate: true
+          }}
         />
         <h2 className="text-sm font-bold mt-2 mb-4 text-center">{giftCard?.id}</h2>
 
