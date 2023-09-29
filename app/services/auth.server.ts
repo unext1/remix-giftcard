@@ -23,7 +23,7 @@ const CREATEORUPDATEUSER = graphql(`
   mutation AddUser($email: String, $name: String, $image: String) {
     insertUser(
       objects: { email: $email, name: $name, imageUrl: $image }
-      onConflict: { constraint: user_email_key, updateColumns: [imageUrl] }
+      onConflict: { constraint: userEmailKey, updateColumns: [imageUrl] }
     ) {
       returning {
         id
@@ -35,7 +35,7 @@ const CREATEORUPDATEUSER = graphql(`
 `);
 
 const GETUSERBYID = graphql(`
-  query GetUserById($userId: uuid!) {
+  query GetUserById($userId: Uuid!) {
     user: userByPk(id: $userId) {
       createdAt
       email
@@ -74,7 +74,7 @@ const GETUSERBYID = graphql(`
 `);
 
 const UPDATEUSERNAME = graphql(`
-  mutation UpdateUserName($id: uuid!, $name: String!) {
+  mutation UpdateUserName($id: Uuid!, $name: String!) {
     updateUserByPk(pkColumns: { id: $id }, _set: { name: $name }) {
       name
     }
@@ -82,7 +82,7 @@ const UPDATEUSERNAME = graphql(`
 `);
 
 const DELETEUSER = graphql(`
-  mutation DeleteUser($userId: uuid!) {
+  mutation DeleteUser($userId: Uuid!) {
     deleteUserByPk(id: $userId) {
       id
     }
@@ -118,6 +118,7 @@ export const requireUser = async ({
   try {
     const sessionUser = await authenticator.isAuthenticated(request);
     if (!sessionUser || !sessionUser.id) {
+      console.log('hiiii');
       throw unauthorized({ messege: 'Unauthorized' });
     }
 

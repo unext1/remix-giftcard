@@ -2,7 +2,7 @@ import { graphql } from '~/_gql';
 import { hasuraClient } from './hasura.server';
 
 export const CREATEGIFTCARD = graphql(`
-  mutation CreateGiftCard($amount: Int!, $isActive: Boolean!, $workplaceId: uuid!, $customerEmail: String) {
+  mutation CreateGiftCard($amount: Int!, $isActive: Boolean!, $workplaceId: Uuid!, $customerEmail: String) {
     insertGiftCard(
       objects: { amount: $amount, isActive: $isActive, workplaceId: $workplaceId, customerEmail: $customerEmail }
     ) {
@@ -14,7 +14,7 @@ export const CREATEGIFTCARD = graphql(`
 `);
 
 const GETWORKPLACECARDS = graphql(`
-  query GetGiftCards($workplaceId: uuid!) {
+  query GetGiftCards($workplaceId: Uuid!) {
     giftCard(where: { workplaceId: { _eq: $workplaceId } }) {
       amount
       createdAt
@@ -44,8 +44,8 @@ const GETWORKPLACECARDS = graphql(`
 `);
 
 const GETGIFTCARDBYCUSTOMERID = graphql(`
-  query GetGiftCardsByCustomer($workplaceId: uuid!, $email: String) {
-    giftCard(where: { workplaceId: { _eq: $workplaceId }, customerEmail: { _like: $email } }) {
+  query GetGiftCardsByCustomer($workplaceId: Uuid!, $email: String) {
+    giftCard(where: { workplaceId: { _eq: $workplaceId }, customerEmail: { _ilike: $email } }) {
       amount
       createdAt
       createdBy
@@ -80,7 +80,7 @@ const GETGIFTCARDBYCUSTOMERID = graphql(`
 `);
 
 const GETGIFTCARDBYID = graphql(`
-  query GetGiftCardById($id: uuid!) {
+  query GetGiftCardById($id: Uuid!) {
     giftCardByPk(id: $id) {
       amount
       createdAt
@@ -119,7 +119,7 @@ const GETGIFTCARDBYID = graphql(`
 `);
 
 const GETPUBLICGIFT = graphql(`
-  query GetPublicGiftCardById($id: uuid!) {
+  query GetPublicGiftCardById($id: Uuid!) {
     giftCardByPk(id: $id) {
       amount
       createdAt
@@ -134,7 +134,7 @@ const GETPUBLICGIFT = graphql(`
   }
 `);
 const INSERTGIFTCARDUSAGELINE = graphql(`
-  mutation InsertGiftCardUsageLine($giftCardId: uuid!, $amount: Int!) {
+  mutation InsertGiftCardUsageLine($giftCardId: Uuid!, $amount: Int!) {
     insertGiftCardUsageLine(objects: { giftCardId: $giftCardId, amount: $amount }) {
       returning {
         id
@@ -179,7 +179,10 @@ export const getGiftCards = async ({
   let cards;
 
   if (customerEmail) {
-    cards = await hasuraClient({ token }).request(GETGIFTCARDBYCUSTOMERID, { workplaceId, email: customerEmail });
+    cards = await hasuraClient({ token }).request(GETGIFTCARDBYCUSTOMERID, {
+      workplaceId,
+      email: `%${customerEmail}%`
+    });
   } else {
     cards = await hasuraClient({ token }).request(GETWORKPLACECARDS, { workplaceId });
   }

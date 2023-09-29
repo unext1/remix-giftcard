@@ -1,14 +1,13 @@
-import { json, type ActionArgs, type LoaderArgs } from '@remix-run/node';
-import { Form, Link, useLoaderData, useNavigate, useNavigation, useTransition } from '@remix-run/react';
-import { ArrowLeftIcon } from 'lucide-react';
-import { QRCodeSVG } from 'qrcode.react';
+import { json, type DataFunctionArgs } from '@remix-run/node';
+import { Form, Link, useLoaderData, useNavigation } from '@remix-run/react';
 import { namedAction } from 'remix-utils';
 import { zx } from 'zodix';
 import { Input } from '~/components/ui/input';
 import { Label } from '~/components/ui/label';
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '~/components/ui/table';
 import { requireUser } from '~/services/auth.server';
-import { getGiftCardById, insertGiftCardUsageLine, type GiftCardType } from '~/services/gift.server.';
+import { getGiftCardById, insertGiftCardUsageLine } from '~/services/gift.server.';
+import { createQrSVG } from '~/services/qrcode';
 
 // const RemainingAmount = (giftCard: GiftCardType) => {
 //   const usedAmount = giftCard.usageLines.reduce((sum, usageLine) => sum + usageLine.amount, 0);
@@ -16,7 +15,7 @@ import { getGiftCardById, insertGiftCardUsageLine, type GiftCardType } from '~/s
 //   return remainingAmount;
 // };
 
-export async function loader({ params, request }: LoaderArgs) {
+export async function loader({ params, request }: DataFunctionArgs) {
   const user = await requireUser({ params, request });
 
   const giftCard = await getGiftCardById({ id: params.giftCardId || '', token: user.token });
@@ -25,9 +24,13 @@ export async function loader({ params, request }: LoaderArgs) {
   const usedAmount = giftCard?.usageLines.reduce((sum, line) => sum + (line.amount || 0), 0) || 0;
   const remainingAmount = totalAmount - usedAmount;
 
-  return json({ user, giftCard, remainingAmount });
+  return json({
+    user,
+    giftCard,
+    remainingAmount
+  });
 }
-export async function action({ request, params }: ActionArgs) {
+export async function action({ request, params }: DataFunctionArgs) {
   const user = await requireUser({ params, request });
 
   return namedAction(request, {
@@ -43,7 +46,7 @@ export async function action({ request, params }: ActionArgs) {
 }
 
 const CouponPage = () => {
-  const { giftCard, user, remainingAmount } = useLoaderData<typeof loader>();
+  const { giftCard, remainingAmount } = useLoaderData<typeof loader>();
 
   const navigate = useNavigation();
 
@@ -56,16 +59,8 @@ const CouponPage = () => {
           <button className="mb-4 btn px-2 btn-sm btn-primary">Public View </button>
         </Link>
       </div>
-      <QRCodeSVG
-        value={`http://localhost:3000/app/workplace/coupon${giftCard?.id}`}
-        className="w-36 h-36 mt-4 mx-auto"
-        imageSettings={{
-          src: giftCard?.workplace.organization?.imageUrl || '',
-          height: 50,
-          width: 50,
-          excavate: true
-        }}
-      />
+
+      <div className="w-36 h-36 mt-4 mx-auto" dangerouslySetInnerHTML={{ __html: createQrSVG(giftCard?.id) }} />
       <h2 className="text-sm font-bold mt-2 mb-4 text-center">{giftCard?.id}</h2>
 
       <div className="mt-4 sm:flex space-y-4 sm:space-y-0 items-center justify-between p-5 bg-background rounded-xl">
@@ -121,7 +116,7 @@ const CouponPage = () => {
                     <TableRow key={i.id}>
                       <TableCell>{i.amount} SEK</TableCell>
                       <TableCell>{new Date(i.createdAt).toDateString()}</TableCell>
-                      <TableCell className="text-right">{i.creator.name}</TableCell>
+                      <TableCell className="text-right">{i?.creator?.name ? i?.creator?.name : 'Unknown'}</TableCell>
                     </TableRow>
                   ))
               : null}

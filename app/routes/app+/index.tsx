@@ -1,5 +1,5 @@
 import { Label } from '@radix-ui/react-label';
-import { json, redirect, type ActionArgs, type LoaderArgs, type V2_MetaFunction } from '@remix-run/node';
+import { json, redirect, type DataFunctionArgs, type MetaFunction } from '@remix-run/node';
 import { Form, Link, useLoaderData } from '@remix-run/react';
 import { namedAction } from 'remix-utils';
 import { route } from 'routes-gen';
@@ -21,11 +21,11 @@ import {
   getYourInvitations
 } from '~/services/workplace.server';
 
-export const meta: V2_MetaFunction = () => {
+export const meta: MetaFunction = () => {
   return [{ title: 'New Remix App' }, { name: 'description', content: 'Welcome to Remix!' }];
 };
 
-export async function loader({ request, params }: LoaderArgs) {
+export async function loader({ request, params }: DataFunctionArgs) {
   await authenticator.isAuthenticated(request, { failureRedirect: '/login' });
 
   const user = await requireUser({ request, params, noRedirect: true });
@@ -39,7 +39,7 @@ export async function loader({ request, params }: LoaderArgs) {
   return json({ invitations, workplaces, organizations, user });
 }
 
-export async function action({ request, params }: ActionArgs) {
+export async function action({ request, params }: DataFunctionArgs) {
   const user = await requireUser({ request, params, noRedirect: true });
 
   return namedAction(request, {

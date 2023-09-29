@@ -1,5 +1,5 @@
 import { Label } from '@radix-ui/react-label';
-import { type ActionArgs, json, redirect, type LoaderArgs } from '@remix-run/node';
+import { json, redirect, type DataFunctionArgs } from '@remix-run/node';
 import { Form, useLoaderData, useNavigation } from '@remix-run/react';
 import { LoaderIcon } from 'lucide-react';
 import { namedAction } from 'remix-utils';
@@ -12,7 +12,7 @@ import { createNewOrganization, updateOrganizationImage } from '~/services/organ
 import { stripeDashboard, updateStripeAccount } from '~/services/stripe.server';
 import { getWorkplaceOrganization } from '~/services/workplace.server';
 
-export async function loader({ request, params }: LoaderArgs) {
+export async function loader({ request, params }: DataFunctionArgs) {
   const user = await requireUser({ request, params });
   const data = await getWorkplaceOrganization({
     token: user.token,
@@ -23,7 +23,7 @@ export async function loader({ request, params }: LoaderArgs) {
   return json({ data, user, isOwner });
 }
 
-export async function action({ request, params }: ActionArgs) {
+export async function action({ request, params }: DataFunctionArgs) {
   const user = await requireUser({ request, params });
 
   return namedAction(request, {
@@ -106,11 +106,6 @@ const OrganizationSettingsPage = () => {
     return (
       <>
         <div className="mb-4">Organization's settings</div>
-        <img
-          src={data?.organization?.imageUrl || ''}
-          alt="Organization's Logo"
-          className="mt-4 w-16 rounded-full mb-4"
-        />
         {!data?.organization?.id ? (
           <Form method="post">
             <div className="grid grid-cols-2 gap-5">
@@ -188,6 +183,14 @@ const OrganizationSettingsPage = () => {
           </Form>
         ) : data.organization.chargesEnabled ? (
           <div>
+            <img
+              src={
+                data?.organization?.imageUrl ||
+                'https://static.vecteezy.com/system/resources/previews/005/337/799/original/icon-image-not-found-free-vector.jpg'
+              }
+              alt="Organization's Logo"
+              className="mt-4 w-16 rounded-full mb-4"
+            />
             <Form method="post">
               <input type="hidden" name="stripeAccountId" value={data.organization.stripeAccountId || ''} />
               <div className="mt-4">
@@ -215,10 +218,10 @@ const OrganizationSettingsPage = () => {
             </Form>
           </div>
         ) : (
-          <Form method="post">
+          <Form method="post" className="p-4 bg-background rounded-xl w-fit">
             <input type="hidden" name="stripeAccountId" value={data.organization.stripeAccountId || ''} />
 
-            <h2 className="mt-4 font-medium ">You haven't finished setting up your organization yet !</h2>
+            <h2 className=" font-medium ">Organization is not fully setup.</h2>
             <div className="mt-4">
               <button type="submit" name="_action" value="update" className="btn btn-sm btn-primary">
                 Continue Setup

@@ -24,7 +24,7 @@ services:
       - apphasura
 
   hasura:
-    image: hasura/graphql-engine:v2.28.0
+    image: hasura/graphql-engine:v2.33.0
     container_name: hasura-engine
     ports:
       - 8080:8080

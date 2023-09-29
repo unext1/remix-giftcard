@@ -15,7 +15,7 @@ const GETALLWORKPLACES = graphql(`
 `);
 
 const CREATEWORKPLACE = graphql(`
-  mutation createWokrplace($title: String, $userId: uuid!, $organizationId: uuid) {
+  mutation createWokrplace($title: String, $userId: Uuid!, $organizationId: Uuid) {
     insertWorkplace(
       objects: { title: $title, organizationId: $organizationId, workplaceMembers: { data: { userId: $userId } } }
     ) {
@@ -31,7 +31,7 @@ const CREATEWORKPLACE = graphql(`
 `);
 
 const DELETEWORKPLACE = graphql(`
-  mutation DeleteWorkplace($workplaceId: uuid!) {
+  mutation DeleteWorkplace($workplaceId: Uuid!) {
     deleteWorkplace(where: { id: { _eq: $workplaceId } }) {
       affectedRows
     }
@@ -39,7 +39,7 @@ const DELETEWORKPLACE = graphql(`
 `);
 
 const GETWORKPLACEMEMBERS = graphql(`
-  query GetWorkplaceMembers($workplaceId: uuid!) {
+  query GetWorkplaceMembers($workplaceId: Uuid!) {
     workplaceMember(where: { workplaceId: { _eq: $workplaceId } }) {
       workplaceId
       workplace {
@@ -75,7 +75,7 @@ const GETWORKPLACEINVITATIONS = graphql(`
 `);
 
 const CANCELINVITATION = graphql(`
-  mutation CancelInvitation($invitationId: uuid!) {
+  mutation CancelInvitation($invitationId: Uuid!) {
     deleteWorkplaceInvitationByPk(id: $invitationId) {
       id
     }
@@ -83,7 +83,7 @@ const CANCELINVITATION = graphql(`
 `);
 
 const ACCEPTINVITATION = graphql(`
-  mutation AcceptInvitation($userId: uuid!, $workplaceId: uuid!, $invitationId: uuid!) {
+  mutation AcceptInvitation($userId: Uuid!, $workplaceId: Uuid!, $invitationId: Uuid!) {
     insertWorkplaceMember(objects: { workplaceId: $workplaceId, userId: $userId }) {
       affectedRows
     }
@@ -94,7 +94,7 @@ const ACCEPTINVITATION = graphql(`
 `);
 
 const ADDWORKPLACEMEMBER = graphql(`
-  mutation InviteUser($email: String!, $workplaceId: uuid!) {
+  mutation InviteUser($email: String!, $workplaceId: Uuid!) {
     insertWorkplaceInvitation(objects: { email: $email, workplaceId: $workplaceId }) {
       affectedRows
     }
@@ -102,7 +102,7 @@ const ADDWORKPLACEMEMBER = graphql(`
 `);
 
 const GETWORKPLACESORGANIZATION = graphql(`
-  query GetWorkplaceOrganization($id: uuid!) {
+  query GetWorkplaceOrganization($id: Uuid!) {
     workplaceByPk(id: $id) {
       ownerId
       organization {
@@ -125,7 +125,7 @@ const GETWORKPLACESORGANIZATION = graphql(`
 `);
 
 const DELETEWORKPLACEMEMBER = graphql(`
-  mutation DeleteWorkplaceMember($userId: uuid!, $workplaceId: uuid!) {
+  mutation DeleteWorkplaceMember($userId: Uuid!, $workplaceId: Uuid!) {
     deleteWorkplaceMember(where: { workplaceId: { _eq: $workplaceId }, userId: { _eq: $userId } }) {
       returning {
         userId

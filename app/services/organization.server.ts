@@ -14,7 +14,7 @@ const GETPUBLICORGANIZATIONS = graphql(`
 `);
 
 const UPDATEORGANIZATIONIMAGE = graphql(`
-  mutation UpdateOrganizationImage($id: uuid!, $imageUrl: String!) {
+  mutation UpdateOrganizationImage($id: Uuid!, $imageUrl: String!) {
     updateOrganizationByPk(pkColumns: { id: $id }, _set: { imageUrl: $imageUrl }) {
       imageUrl
       id
@@ -23,7 +23,7 @@ const UPDATEORGANIZATIONIMAGE = graphql(`
 `);
 
 const GETOWNEDORGANIZATIONS = graphql(`
-  query GetOwnedOrganizations($userId: uuid!) {
+  query GetOwnedOrganizations($userId: Uuid!) {
     organizations: organization(where: { ownerId: { _eq: $userId } }) {
       id
       createdAt
@@ -42,7 +42,7 @@ const GETOWNEDORGANIZATIONS = graphql(`
 `);
 
 const GETORGANIZATIONBYID = graphql(`
-  query GetOrganizationById($organizationId: uuid!) {
+  query GetOrganizationById($organizationId: Uuid!) {
     organization: organizationByPk(id: $organizationId) {
       id
       createdAt
@@ -74,7 +74,7 @@ const CREATEORGANIZATION = graphql(`
       objects: {
         name: $name
         email: $email
-        address: { data: $address, onConflict: { constraint: address_pkey, updateColumns: [] } }
+        address: { data: $address, onConflict: { constraint: addressPkey, updateColumns: [] } }
       }
     ) {
       returning {
@@ -104,7 +104,7 @@ const CREATEORGANIZATION = graphql(`
 `);
 
 const UPDATEWORKPLACEORGID = graphql(`
-  mutation UpdateWorkplaceorganizationId($id: uuid!, $organizationId: uuid!) {
+  mutation UpdateWorkplaceorganizationId($id: Uuid!, $organizationId: Uuid!) {
     updateWorkplaceByPk(pkColumns: { id: $id }, _set: { organizationId: $organizationId }) {
       id
     }

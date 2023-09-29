@@ -1,18 +1,17 @@
 import { Form, Link, useLoaderData } from '@remix-run/react';
 
-import type { ActionArgs, LoaderArgs } from '@remix-run/node';
-import { json, redirect } from '@remix-run/node';
-import { QRCodeSVG } from 'qrcode.react';
+import { json, redirect, type DataFunctionArgs } from '@remix-run/node';
 import { namedAction } from 'remix-utils';
+import { z } from 'zod';
 import { zx } from 'zodix';
 import { Input } from '~/components/ui/input';
 import { Label } from '~/components/ui/label';
 import { requireUser } from '~/services/auth.server';
 import { createGiftCard, getGiftCards } from '~/services/gift.server.';
+import { createQrSVG } from '~/services/qrcode';
 import { stripeCheckout } from '~/services/stripe.server';
-import { z } from 'zod';
 
-export async function action({ request, params }: ActionArgs) {
+export async function action({ request, params }: DataFunctionArgs) {
   const user = await requireUser({ request, params });
 
   return namedAction(request, {
@@ -47,7 +46,7 @@ export async function action({ request, params }: ActionArgs) {
   });
 }
 
-export async function loader({ params, request }: LoaderArgs) {
+export async function loader({ params, request }: DataFunctionArgs) {
   const user = await requireUser({ request, params });
   const emailQuery = new URL(request.url).searchParams.get('email');
 
@@ -75,7 +74,7 @@ const GiftCardIndex = () => {
             <Label htmlFor="amount" className="my-auto">
               Gift Card Price
             </Label>
-            <Input name="amount" type="number" className="bg-neutral mt-1" placeholder="Enter Price" />
+            <Input name="amount" type="number" className="bg-neutral mt-1" placeholder="Enter Price" min="1" />
           </div>
           <div className="mt-4">
             <Label htmlFor="customerEmail" className="my-auto">
@@ -106,11 +105,17 @@ const GiftCardIndex = () => {
               return (
                 <Link to={giftCard.id} key={giftCard.id}>
                   <div className="mt-6 p-5 rounded-xl bg-neutral">
-                    <QRCodeSVG
+                    {/* <QRCodeSVG
                       value={`http://localhost:3000/app/workplace/coupon${giftCard.id}`}
                       className="w-16 h-16 mb-4"
-                    />
-                    <div className=" text-xs">{giftCard.customerEmail}</div>
+                    /> */}
+                    {/* <img
+                      src={`http://localhost:3000/api/qrcode/${giftCard.id}.svg`}
+                      alt="qrcode"
+                      className="w-36 h-36 mb-4 bg-"
+                    /> */}
+                    <div className="w-28 h-28" dangerouslySetInnerHTML={{ __html: createQrSVG(giftCard.id) }} />
+                    <div className=" text-xs">{giftCard.customerEmail}d</div>
                     <div className="flex justify-between ">
                       <p className="font-semibold text-lg">{giftCard.amount} SEK</p>
                       <p className="text-sm my-auto">{giftCard.isActive ? 'Active' : 'Inactive'}</p>

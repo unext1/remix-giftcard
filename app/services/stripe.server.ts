@@ -12,7 +12,7 @@ const stripe = new Stripe(env.STRIPE_SECRET_KEY, {
 });
 
 const UPDATEORGANIZATIONSSTRIPECUSTOMERID = graphql(`
-  mutation UpdateOrgranizationsStripeCustomerId($organizationId: uuid!, $stripeCustomerId: String!) {
+  mutation UpdateOrgranizationsStripeCustomerId($organizationId: Uuid!, $stripeCustomerId: String!) {
     updateOrganizationByPk(pkColumns: { id: $organizationId }, _set: { stripeCustomerId: $stripeCustomerId }) {
       stripeCustomerId
     }
@@ -20,7 +20,7 @@ const UPDATEORGANIZATIONSSTRIPECUSTOMERID = graphql(`
 `);
 
 const UPDATECHARGESENEBLED = graphql(`
-  mutation UpdateOrganizationsChargesEnabled($id: uuid!) {
+  mutation UpdateOrganizationsChargesEnabled($id: Uuid!) {
     updateOrganizationByPk(pkColumns: { id: $id }, _set: { chargesEnabled: true }) {
       id
     }
@@ -28,7 +28,7 @@ const UPDATECHARGESENEBLED = graphql(`
 `);
 
 const UPDATEORGANIZATIONSTRIPEACCOUNT = graphql(`
-  mutation UpdateOrganizationStripeAccount($organizationId: uuid!, $stripeAccountId: String!) {
+  mutation UpdateOrganizationStripeAccount($organizationId: Uuid!, $stripeAccountId: String!) {
     updateOrganizationByPk(pkColumns: { id: $organizationId }, _set: { stripeAccountId: $stripeAccountId }) {
       stripeAccountId
     }
@@ -45,7 +45,7 @@ const SUBSCRIPTIONSTATUS = graphql(`
 `);
 
 const UPDATEORGANIZATIONSUBSCRIPTIONSTATUS = graphql(`
-  mutation UpdateSubscriptionStatus($organizationId: uuid!, $status: SubscriptionStatusEnum!) {
+  mutation UpdateSubscriptionStatus($organizationId: Uuid!, $status: SubscriptionStatusEnum!) {
     updateOrganization(where: { id: { _eq: $organizationId } }, _set: { stripeSubscriptionStatus: $status }) {
       returning {
         id
@@ -55,7 +55,7 @@ const UPDATEORGANIZATIONSUBSCRIPTIONSTATUS = graphql(`
 `);
 
 const UPDATEORGANIZATIONSUBSCRIPTIONID = graphql(`
-  mutation UpdateSubscriptionId($organizationId: uuid!, $subscriptionId: String!) {
+  mutation UpdateSubscriptionId($organizationId: Uuid!, $subscriptionId: String!) {
     updateOrganizationByPk(pkColumns: { id: $organizationId }, _set: { stripeSubscriptionId: $subscriptionId }) {
       id
     }

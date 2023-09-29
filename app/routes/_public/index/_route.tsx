@@ -23,10 +23,10 @@ export default function Index() {
         </Link>
         <div className="mt-6 h-96">
           <h1 className="text-2xl font-bold">Organizations</h1>
-          <div className="mt-2 grid grid-cols-4 gap-6">
+          <div className="mt-4 grid grid-cols-4 gap-6">
             {organizations.map((organization) => (
               <Link to={`/${organization.id}`} key={organization.id}>
-                <div className="bg-neutral rounded-xl p-5">
+                <div className="bg-neutral rounded-xl p-5 transition hover:scale-105">
                   <img
                     src={
                       organization.imageUrl

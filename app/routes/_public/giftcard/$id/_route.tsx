@@ -1,11 +1,11 @@
-import { json, type LoaderArgs } from '@remix-run/node';
+import { json, type DataFunctionArgs } from '@remix-run/node';
 import { useLoaderData } from '@remix-run/react';
-import { QRCodeSVG } from 'qrcode.react';
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '~/components/ui/table';
 import { getGiftCardById } from '~/services/gift.server.';
+import { createQrSVG } from '~/services/qrcode';
 
-export async function loader({ params }: LoaderArgs) {
-  const giftCard = await getGiftCardById({ id: '81bc7e1b-4abb-44ef-bcfd-7d66ad0244f8' });
+export async function loader({ params }: DataFunctionArgs) {
+  const giftCard = await getGiftCardById({ id: params.id || '' });
 
   const totalAmount = giftCard?.amount || 0;
   const usedAmount = giftCard?.usageLines.reduce((sum, line) => sum + (line.amount || 0), 0) || 0;
@@ -20,7 +20,7 @@ const GiftCard = () => {
   return (
     <div className="flex flex-col items-center justify-center h-screen w-full px-4 ">
       <div className="bg-neutral p-5 py-10 rounded-xl container mx-auto max-w-7xl">
-        <QRCodeSVG
+        {/* <QRCodeSVG
           value={`http://localhost:3000/app/workplace/coupon${giftCard?.id}`}
           className="w-36 h-36 mt-4 mx-auto"
           imageSettings={{
@@ -29,7 +29,8 @@ const GiftCard = () => {
             width: 50,
             excavate: true
           }}
-        />
+        /> */}
+        <div className="w-36 h-36 mt-4 mx-auto" dangerouslySetInnerHTML={{ __html: createQrSVG(giftCard?.id) }} />
         <h2 className="text-sm font-bold mt-2 mb-4 text-center">{giftCard?.id}</h2>
 
         <div className="mt-4 sm:flex space-y-4 sm:space-y-0 items-center justify-between p-5 bg-background rounded-xl">

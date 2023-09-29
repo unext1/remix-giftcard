@@ -14,16 +14,16 @@ export type Scalars = {
   Boolean: { input: boolean; output: boolean; }
   Int: { input: number; output: number; }
   Float: { input: number; output: number; }
-  timestamptz: { input: string; output: string; }
-  uuid: { input: string; output: string; }
+  Timestamptz: { input: any; output: any; }
+  Uuid: { input: any; output: any; }
 };
 
 /** columns and relationships of "address" */
 export type Address = {
   city: Scalars['String']['output'];
   country: Scalars['String']['output'];
-  createdAt: Scalars['timestamptz']['output'];
-  id: Scalars['uuid']['output'];
+  createdAt: Scalars['Timestamptz']['output'];
+  id: Scalars['Uuid']['output'];
   line1: Scalars['String']['output'];
   line2?: Maybe<Scalars['String']['output']>;
   /** An array relationship */
@@ -32,7 +32,7 @@ export type Address = {
   organizationsAggregate: OrganizationAggregate;
   postalCode: Scalars['String']['output'];
   state?: Maybe<Scalars['String']['output']>;
-  updatedAt: Scalars['timestamptz']['output'];
+  updatedAt: Scalars['Timestamptz']['output'];
 };
 
 
@@ -96,46 +96,46 @@ export type AddressBoolExp = {
 /** unique or primary key constraints on table "address" */
 export type AddressConstraint =
   /** unique or primary key constraint on columns "id" */
-  | 'address_pkey';
+  | 'addressPkey';
 
 /** input type for inserting data into table "address" */
 export type AddressInsertInput = {
   city?: InputMaybe<Scalars['String']['input']>;
   country?: InputMaybe<Scalars['String']['input']>;
-  createdAt?: InputMaybe<Scalars['timestamptz']['input']>;
-  id?: InputMaybe<Scalars['uuid']['input']>;
+  createdAt?: InputMaybe<Scalars['Timestamptz']['input']>;
+  id?: InputMaybe<Scalars['Uuid']['input']>;
   line1?: InputMaybe<Scalars['String']['input']>;
   line2?: InputMaybe<Scalars['String']['input']>;
   organizations?: InputMaybe<OrganizationArrRelInsertInput>;
   postalCode?: InputMaybe<Scalars['String']['input']>;
   state?: InputMaybe<Scalars['String']['input']>;
-  updatedAt?: InputMaybe<Scalars['timestamptz']['input']>;
+  updatedAt?: InputMaybe<Scalars['Timestamptz']['input']>;
 };
 
 /** aggregate max on columns */
 export type AddressMaxFields = {
   city?: Maybe<Scalars['String']['output']>;
   country?: Maybe<Scalars['String']['output']>;
-  createdAt?: Maybe<Scalars['timestamptz']['output']>;
-  id?: Maybe<Scalars['uuid']['output']>;
+  createdAt?: Maybe<Scalars['Timestamptz']['output']>;
+  id?: Maybe<Scalars['Uuid']['output']>;
   line1?: Maybe<Scalars['String']['output']>;
   line2?: Maybe<Scalars['String']['output']>;
   postalCode?: Maybe<Scalars['String']['output']>;
   state?: Maybe<Scalars['String']['output']>;
-  updatedAt?: Maybe<Scalars['timestamptz']['output']>;
+  updatedAt?: Maybe<Scalars['Timestamptz']['output']>;
 };
 
 /** aggregate min on columns */
 export type AddressMinFields = {
   city?: Maybe<Scalars['String']['output']>;
   country?: Maybe<Scalars['String']['output']>;
-  createdAt?: Maybe<Scalars['timestamptz']['output']>;
-  id?: Maybe<Scalars['uuid']['output']>;
+  createdAt?: Maybe<Scalars['Timestamptz']['output']>;
+  id?: Maybe<Scalars['Uuid']['output']>;
   line1?: Maybe<Scalars['String']['output']>;
   line2?: Maybe<Scalars['String']['output']>;
   postalCode?: Maybe<Scalars['String']['output']>;
   state?: Maybe<Scalars['String']['output']>;
-  updatedAt?: Maybe<Scalars['timestamptz']['output']>;
+  updatedAt?: Maybe<Scalars['Timestamptz']['output']>;
 };
 
 /** response of any mutation on the table "address" */
@@ -176,7 +176,7 @@ export type AddressOrderBy = {
 
 /** primary key columns input for table: address */
 export type AddressPkColumnsInput = {
-  id: Scalars['uuid']['input'];
+  id: Scalars['Uuid']['input'];
 };
 
 /** select columns of table "address" */
@@ -204,13 +204,13 @@ export type AddressSelectColumn =
 export type AddressSetInput = {
   city?: InputMaybe<Scalars['String']['input']>;
   country?: InputMaybe<Scalars['String']['input']>;
-  createdAt?: InputMaybe<Scalars['timestamptz']['input']>;
-  id?: InputMaybe<Scalars['uuid']['input']>;
+  createdAt?: InputMaybe<Scalars['Timestamptz']['input']>;
+  id?: InputMaybe<Scalars['Uuid']['input']>;
   line1?: InputMaybe<Scalars['String']['input']>;
   line2?: InputMaybe<Scalars['String']['input']>;
   postalCode?: InputMaybe<Scalars['String']['input']>;
   state?: InputMaybe<Scalars['String']['input']>;
-  updatedAt?: InputMaybe<Scalars['timestamptz']['input']>;
+  updatedAt?: InputMaybe<Scalars['Timestamptz']['input']>;
 };
 
 /** Streaming cursor of the table "address" */
@@ -225,13 +225,13 @@ export type AddressStreamCursorInput = {
 export type AddressStreamCursorValueInput = {
   city?: InputMaybe<Scalars['String']['input']>;
   country?: InputMaybe<Scalars['String']['input']>;
-  createdAt?: InputMaybe<Scalars['timestamptz']['input']>;
-  id?: InputMaybe<Scalars['uuid']['input']>;
+  createdAt?: InputMaybe<Scalars['Timestamptz']['input']>;
+  id?: InputMaybe<Scalars['Uuid']['input']>;
   line1?: InputMaybe<Scalars['String']['input']>;
   line2?: InputMaybe<Scalars['String']['input']>;
   postalCode?: InputMaybe<Scalars['String']['input']>;
   state?: InputMaybe<Scalars['String']['input']>;
-  updatedAt?: InputMaybe<Scalars['timestamptz']['input']>;
+  updatedAt?: InputMaybe<Scalars['Timestamptz']['input']>;
 };
 
 /** update columns of table "address" */
@@ -285,22 +285,22 @@ export type CursorOrdering =
 /** columns and relationships of "gift_card" */
 export type GiftCard = {
   amount: Scalars['Int']['output'];
-  createdAt: Scalars['timestamptz']['output'];
-  createdBy?: Maybe<Scalars['uuid']['output']>;
+  createdAt: Scalars['Timestamptz']['output'];
+  createdBy?: Maybe<Scalars['Uuid']['output']>;
   /** An object relationship */
   creator?: Maybe<User>;
   customerEmail?: Maybe<Scalars['String']['output']>;
-  id: Scalars['uuid']['output'];
+  id: Scalars['Uuid']['output'];
   isActive: Scalars['Boolean']['output'];
   stripePaymentId?: Maybe<Scalars['String']['output']>;
-  updatedAt: Scalars['timestamptz']['output'];
+  updatedAt: Scalars['Timestamptz']['output'];
   /** An array relationship */
   usageLines: Array<GiftCardUsageLine>;
   /** An aggregate relationship */
   usageLinesAggregate: GiftCardUsageLineAggregate;
   /** An object relationship */
   workplace: Workplace;
-  workplaceId: Scalars['uuid']['output'];
+  workplaceId: Scalars['Uuid']['output'];
 };
 
 
@@ -412,7 +412,7 @@ export type GiftCardBoolExp = {
 /** unique or primary key constraints on table "gift_card" */
 export type GiftCardConstraint =
   /** unique or primary key constraint on columns "id" */
-  | 'gift_card_pkey';
+  | 'giftCardPkey';
 
 /** input type for incrementing numeric columns in table "gift_card" */
 export type GiftCardIncInput = {
@@ -422,29 +422,29 @@ export type GiftCardIncInput = {
 /** input type for inserting data into table "gift_card" */
 export type GiftCardInsertInput = {
   amount?: InputMaybe<Scalars['Int']['input']>;
-  createdAt?: InputMaybe<Scalars['timestamptz']['input']>;
-  createdBy?: InputMaybe<Scalars['uuid']['input']>;
+  createdAt?: InputMaybe<Scalars['Timestamptz']['input']>;
+  createdBy?: InputMaybe<Scalars['Uuid']['input']>;
   creator?: InputMaybe<UserObjRelInsertInput>;
   customerEmail?: InputMaybe<Scalars['String']['input']>;
-  id?: InputMaybe<Scalars['uuid']['input']>;
+  id?: InputMaybe<Scalars['Uuid']['input']>;
   isActive?: InputMaybe<Scalars['Boolean']['input']>;
   stripePaymentId?: InputMaybe<Scalars['String']['input']>;
-  updatedAt?: InputMaybe<Scalars['timestamptz']['input']>;
+  updatedAt?: InputMaybe<Scalars['Timestamptz']['input']>;
   usageLines?: InputMaybe<GiftCardUsageLineArrRelInsertInput>;
   workplace?: InputMaybe<WorkplaceObjRelInsertInput>;
-  workplaceId?: InputMaybe<Scalars['uuid']['input']>;
+  workplaceId?: InputMaybe<Scalars['Uuid']['input']>;
 };
 
 /** aggregate max on columns */
 export type GiftCardMaxFields = {
   amount?: Maybe<Scalars['Int']['output']>;
-  createdAt?: Maybe<Scalars['timestamptz']['output']>;
-  createdBy?: Maybe<Scalars['uuid']['output']>;
+  createdAt?: Maybe<Scalars['Timestamptz']['output']>;
+  createdBy?: Maybe<Scalars['Uuid']['output']>;
   customerEmail?: Maybe<Scalars['String']['output']>;
-  id?: Maybe<Scalars['uuid']['output']>;
+  id?: Maybe<Scalars['Uuid']['output']>;
   stripePaymentId?: Maybe<Scalars['String']['output']>;
-  updatedAt?: Maybe<Scalars['timestamptz']['output']>;
-  workplaceId?: Maybe<Scalars['uuid']['output']>;
+  updatedAt?: Maybe<Scalars['Timestamptz']['output']>;
+  workplaceId?: Maybe<Scalars['Uuid']['output']>;
 };
 
 /** order by max() on columns of table "gift_card" */
@@ -462,13 +462,13 @@ export type GiftCardMaxOrderBy = {
 /** aggregate min on columns */
 export type GiftCardMinFields = {
   amount?: Maybe<Scalars['Int']['output']>;
-  createdAt?: Maybe<Scalars['timestamptz']['output']>;
-  createdBy?: Maybe<Scalars['uuid']['output']>;
+  createdAt?: Maybe<Scalars['Timestamptz']['output']>;
+  createdBy?: Maybe<Scalars['Uuid']['output']>;
   customerEmail?: Maybe<Scalars['String']['output']>;
-  id?: Maybe<Scalars['uuid']['output']>;
+  id?: Maybe<Scalars['Uuid']['output']>;
   stripePaymentId?: Maybe<Scalars['String']['output']>;
-  updatedAt?: Maybe<Scalars['timestamptz']['output']>;
-  workplaceId?: Maybe<Scalars['uuid']['output']>;
+  updatedAt?: Maybe<Scalars['Timestamptz']['output']>;
+  workplaceId?: Maybe<Scalars['Uuid']['output']>;
 };
 
 /** order by min() on columns of table "gift_card" */
@@ -523,7 +523,7 @@ export type GiftCardOrderBy = {
 
 /** primary key columns input for table: gift_card */
 export type GiftCardPkColumnsInput = {
-  id: Scalars['uuid']['input'];
+  id: Scalars['Uuid']['input'];
 };
 
 /** select columns of table "gift_card" */
@@ -560,14 +560,14 @@ export type GiftCardSelectColumnGiftCardAggregateBoolExpBool_OrArgumentsColumns 
 /** input type for updating data in table "gift_card" */
 export type GiftCardSetInput = {
   amount?: InputMaybe<Scalars['Int']['input']>;
-  createdAt?: InputMaybe<Scalars['timestamptz']['input']>;
-  createdBy?: InputMaybe<Scalars['uuid']['input']>;
+  createdAt?: InputMaybe<Scalars['Timestamptz']['input']>;
+  createdBy?: InputMaybe<Scalars['Uuid']['input']>;
   customerEmail?: InputMaybe<Scalars['String']['input']>;
-  id?: InputMaybe<Scalars['uuid']['input']>;
+  id?: InputMaybe<Scalars['Uuid']['input']>;
   isActive?: InputMaybe<Scalars['Boolean']['input']>;
   stripePaymentId?: InputMaybe<Scalars['String']['input']>;
-  updatedAt?: InputMaybe<Scalars['timestamptz']['input']>;
-  workplaceId?: InputMaybe<Scalars['uuid']['input']>;
+  updatedAt?: InputMaybe<Scalars['Timestamptz']['input']>;
+  workplaceId?: InputMaybe<Scalars['Uuid']['input']>;
 };
 
 /** aggregate stddev on columns */
@@ -611,14 +611,14 @@ export type GiftCardStreamCursorInput = {
 /** Initial value of the column from where the streaming should start */
 export type GiftCardStreamCursorValueInput = {
   amount?: InputMaybe<Scalars['Int']['input']>;
-  createdAt?: InputMaybe<Scalars['timestamptz']['input']>;
-  createdBy?: InputMaybe<Scalars['uuid']['input']>;
+  createdAt?: InputMaybe<Scalars['Timestamptz']['input']>;
+  createdBy?: InputMaybe<Scalars['Uuid']['input']>;
   customerEmail?: InputMaybe<Scalars['String']['input']>;
-  id?: InputMaybe<Scalars['uuid']['input']>;
+  id?: InputMaybe<Scalars['Uuid']['input']>;
   isActive?: InputMaybe<Scalars['Boolean']['input']>;
   stripePaymentId?: InputMaybe<Scalars['String']['input']>;
-  updatedAt?: InputMaybe<Scalars['timestamptz']['input']>;
-  workplaceId?: InputMaybe<Scalars['uuid']['input']>;
+  updatedAt?: InputMaybe<Scalars['Timestamptz']['input']>;
+  workplaceId?: InputMaybe<Scalars['Uuid']['input']>;
 };
 
 /** aggregate sum on columns */
@@ -664,15 +664,15 @@ export type GiftCardUpdates = {
 /** columns and relationships of "gift_card_usage_line" */
 export type GiftCardUsageLine = {
   amount: Scalars['Int']['output'];
-  createdAt: Scalars['timestamptz']['output'];
-  createdBy: Scalars['uuid']['output'];
+  createdAt: Scalars['Timestamptz']['output'];
+  createdBy: Scalars['Uuid']['output'];
   /** An object relationship */
   creator: User;
   /** An object relationship */
   giftCard: GiftCard;
-  giftCardId: Scalars['uuid']['output'];
-  id: Scalars['uuid']['output'];
-  updatedAt: Scalars['timestamptz']['output'];
+  giftCardId: Scalars['Uuid']['output'];
+  id: Scalars['Uuid']['output'];
+  updatedAt: Scalars['Timestamptz']['output'];
 };
 
 /** aggregated selection of "gift_card_usage_line" */
@@ -757,7 +757,7 @@ export type GiftCardUsageLineBoolExp = {
 /** unique or primary key constraints on table "gift_card_usage_line" */
 export type GiftCardUsageLineConstraint =
   /** unique or primary key constraint on columns "id" */
-  | 'gift_card_usage_line_pkey';
+  | 'giftCardUsageLinePkey';
 
 /** input type for incrementing numeric columns in table "gift_card_usage_line" */
 export type GiftCardUsageLineIncInput = {
@@ -767,23 +767,23 @@ export type GiftCardUsageLineIncInput = {
 /** input type for inserting data into table "gift_card_usage_line" */
 export type GiftCardUsageLineInsertInput = {
   amount?: InputMaybe<Scalars['Int']['input']>;
-  createdAt?: InputMaybe<Scalars['timestamptz']['input']>;
-  createdBy?: InputMaybe<Scalars['uuid']['input']>;
+  createdAt?: InputMaybe<Scalars['Timestamptz']['input']>;
+  createdBy?: InputMaybe<Scalars['Uuid']['input']>;
   creator?: InputMaybe<UserObjRelInsertInput>;
   giftCard?: InputMaybe<GiftCardObjRelInsertInput>;
-  giftCardId?: InputMaybe<Scalars['uuid']['input']>;
-  id?: InputMaybe<Scalars['uuid']['input']>;
-  updatedAt?: InputMaybe<Scalars['timestamptz']['input']>;
+  giftCardId?: InputMaybe<Scalars['Uuid']['input']>;
+  id?: InputMaybe<Scalars['Uuid']['input']>;
+  updatedAt?: InputMaybe<Scalars['Timestamptz']['input']>;
 };
 
 /** aggregate max on columns */
 export type GiftCardUsageLineMaxFields = {
   amount?: Maybe<Scalars['Int']['output']>;
-  createdAt?: Maybe<Scalars['timestamptz']['output']>;
-  createdBy?: Maybe<Scalars['uuid']['output']>;
-  giftCardId?: Maybe<Scalars['uuid']['output']>;
-  id?: Maybe<Scalars['uuid']['output']>;
-  updatedAt?: Maybe<Scalars['timestamptz']['output']>;
+  createdAt?: Maybe<Scalars['Timestamptz']['output']>;
+  createdBy?: Maybe<Scalars['Uuid']['output']>;
+  giftCardId?: Maybe<Scalars['Uuid']['output']>;
+  id?: Maybe<Scalars['Uuid']['output']>;
+  updatedAt?: Maybe<Scalars['Timestamptz']['output']>;
 };
 
 /** order by max() on columns of table "gift_card_usage_line" */
@@ -799,11 +799,11 @@ export type GiftCardUsageLineMaxOrderBy = {
 /** aggregate min on columns */
 export type GiftCardUsageLineMinFields = {
   amount?: Maybe<Scalars['Int']['output']>;
-  createdAt?: Maybe<Scalars['timestamptz']['output']>;
-  createdBy?: Maybe<Scalars['uuid']['output']>;
-  giftCardId?: Maybe<Scalars['uuid']['output']>;
-  id?: Maybe<Scalars['uuid']['output']>;
-  updatedAt?: Maybe<Scalars['timestamptz']['output']>;
+  createdAt?: Maybe<Scalars['Timestamptz']['output']>;
+  createdBy?: Maybe<Scalars['Uuid']['output']>;
+  giftCardId?: Maybe<Scalars['Uuid']['output']>;
+  id?: Maybe<Scalars['Uuid']['output']>;
+  updatedAt?: Maybe<Scalars['Timestamptz']['output']>;
 };
 
 /** order by min() on columns of table "gift_card_usage_line" */
@@ -845,7 +845,7 @@ export type GiftCardUsageLineOrderBy = {
 
 /** primary key columns input for table: gift_card_usage_line */
 export type GiftCardUsageLinePkColumnsInput = {
-  id: Scalars['uuid']['input'];
+  id: Scalars['Uuid']['input'];
 };
 
 /** select columns of table "gift_card_usage_line" */
@@ -866,11 +866,11 @@ export type GiftCardUsageLineSelectColumn =
 /** input type for updating data in table "gift_card_usage_line" */
 export type GiftCardUsageLineSetInput = {
   amount?: InputMaybe<Scalars['Int']['input']>;
-  createdAt?: InputMaybe<Scalars['timestamptz']['input']>;
-  createdBy?: InputMaybe<Scalars['uuid']['input']>;
-  giftCardId?: InputMaybe<Scalars['uuid']['input']>;
-  id?: InputMaybe<Scalars['uuid']['input']>;
-  updatedAt?: InputMaybe<Scalars['timestamptz']['input']>;
+  createdAt?: InputMaybe<Scalars['Timestamptz']['input']>;
+  createdBy?: InputMaybe<Scalars['Uuid']['input']>;
+  giftCardId?: InputMaybe<Scalars['Uuid']['input']>;
+  id?: InputMaybe<Scalars['Uuid']['input']>;
+  updatedAt?: InputMaybe<Scalars['Timestamptz']['input']>;
 };
 
 /** aggregate stddev on columns */
@@ -914,11 +914,11 @@ export type GiftCardUsageLineStreamCursorInput = {
 /** Initial value of the column from where the streaming should start */
 export type GiftCardUsageLineStreamCursorValueInput = {
   amount?: InputMaybe<Scalars['Int']['input']>;
-  createdAt?: InputMaybe<Scalars['timestamptz']['input']>;
-  createdBy?: InputMaybe<Scalars['uuid']['input']>;
-  giftCardId?: InputMaybe<Scalars['uuid']['input']>;
-  id?: InputMaybe<Scalars['uuid']['input']>;
-  updatedAt?: InputMaybe<Scalars['timestamptz']['input']>;
+  createdAt?: InputMaybe<Scalars['Timestamptz']['input']>;
+  createdBy?: InputMaybe<Scalars['Uuid']['input']>;
+  giftCardId?: InputMaybe<Scalars['Uuid']['input']>;
+  id?: InputMaybe<Scalars['Uuid']['input']>;
+  updatedAt?: InputMaybe<Scalars['Timestamptz']['input']>;
 };
 
 /** aggregate sum on columns */
@@ -1047,21 +1047,21 @@ export type OrderBy =
 export type Organization = {
   /** An object relationship */
   address: Address;
-  addressId: Scalars['uuid']['output'];
+  addressId: Scalars['Uuid']['output'];
   chargesEnabled?: Maybe<Scalars['Boolean']['output']>;
-  createdAt: Scalars['timestamptz']['output'];
+  createdAt: Scalars['Timestamptz']['output'];
   email: Scalars['String']['output'];
-  id: Scalars['uuid']['output'];
+  id: Scalars['Uuid']['output'];
   imageUrl?: Maybe<Scalars['String']['output']>;
   name: Scalars['String']['output'];
   /** An object relationship */
   owner: User;
-  ownerId: Scalars['uuid']['output'];
+  ownerId: Scalars['Uuid']['output'];
   stripeAccountId?: Maybe<Scalars['String']['output']>;
   stripeCustomerId?: Maybe<Scalars['String']['output']>;
   stripeSubscriptionId?: Maybe<Scalars['String']['output']>;
   stripeSubscriptionStatus?: Maybe<SubscriptionStatusEnum>;
-  updatedAt: Scalars['timestamptz']['output'];
+  updatedAt: Scalars['Timestamptz']['output'];
   /** An array relationship */
   workplaces: Array<Workplace>;
   /** An aggregate relationship */
@@ -1155,41 +1155,41 @@ export type OrganizationBoolExp = {
 /** unique or primary key constraints on table "organization" */
 export type OrganizationConstraint =
   /** unique or primary key constraint on columns "id" */
-  | 'organization_pkey';
+  | 'organizationPkey';
 
 /** input type for inserting data into table "organization" */
 export type OrganizationInsertInput = {
   address?: InputMaybe<AddressObjRelInsertInput>;
-  addressId?: InputMaybe<Scalars['uuid']['input']>;
+  addressId?: InputMaybe<Scalars['Uuid']['input']>;
   chargesEnabled?: InputMaybe<Scalars['Boolean']['input']>;
-  createdAt?: InputMaybe<Scalars['timestamptz']['input']>;
+  createdAt?: InputMaybe<Scalars['Timestamptz']['input']>;
   email?: InputMaybe<Scalars['String']['input']>;
-  id?: InputMaybe<Scalars['uuid']['input']>;
+  id?: InputMaybe<Scalars['Uuid']['input']>;
   imageUrl?: InputMaybe<Scalars['String']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
   owner?: InputMaybe<UserObjRelInsertInput>;
-  ownerId?: InputMaybe<Scalars['uuid']['input']>;
+  ownerId?: InputMaybe<Scalars['Uuid']['input']>;
   stripeAccountId?: InputMaybe<Scalars['String']['input']>;
   stripeCustomerId?: InputMaybe<Scalars['String']['input']>;
   stripeSubscriptionId?: InputMaybe<Scalars['String']['input']>;
   stripeSubscriptionStatus?: InputMaybe<SubscriptionStatusEnum>;
-  updatedAt?: InputMaybe<Scalars['timestamptz']['input']>;
+  updatedAt?: InputMaybe<Scalars['Timestamptz']['input']>;
   workplaces?: InputMaybe<WorkplaceArrRelInsertInput>;
 };
 
 /** aggregate max on columns */
 export type OrganizationMaxFields = {
-  addressId?: Maybe<Scalars['uuid']['output']>;
-  createdAt?: Maybe<Scalars['timestamptz']['output']>;
+  addressId?: Maybe<Scalars['Uuid']['output']>;
+  createdAt?: Maybe<Scalars['Timestamptz']['output']>;
   email?: Maybe<Scalars['String']['output']>;
-  id?: Maybe<Scalars['uuid']['output']>;
+  id?: Maybe<Scalars['Uuid']['output']>;
   imageUrl?: Maybe<Scalars['String']['output']>;
   name?: Maybe<Scalars['String']['output']>;
-  ownerId?: Maybe<Scalars['uuid']['output']>;
+  ownerId?: Maybe<Scalars['Uuid']['output']>;
   stripeAccountId?: Maybe<Scalars['String']['output']>;
   stripeCustomerId?: Maybe<Scalars['String']['output']>;
   stripeSubscriptionId?: Maybe<Scalars['String']['output']>;
-  updatedAt?: Maybe<Scalars['timestamptz']['output']>;
+  updatedAt?: Maybe<Scalars['Timestamptz']['output']>;
 };
 
 /** order by max() on columns of table "organization" */
@@ -1209,17 +1209,17 @@ export type OrganizationMaxOrderBy = {
 
 /** aggregate min on columns */
 export type OrganizationMinFields = {
-  addressId?: Maybe<Scalars['uuid']['output']>;
-  createdAt?: Maybe<Scalars['timestamptz']['output']>;
+  addressId?: Maybe<Scalars['Uuid']['output']>;
+  createdAt?: Maybe<Scalars['Timestamptz']['output']>;
   email?: Maybe<Scalars['String']['output']>;
-  id?: Maybe<Scalars['uuid']['output']>;
+  id?: Maybe<Scalars['Uuid']['output']>;
   imageUrl?: Maybe<Scalars['String']['output']>;
   name?: Maybe<Scalars['String']['output']>;
-  ownerId?: Maybe<Scalars['uuid']['output']>;
+  ownerId?: Maybe<Scalars['Uuid']['output']>;
   stripeAccountId?: Maybe<Scalars['String']['output']>;
   stripeCustomerId?: Maybe<Scalars['String']['output']>;
   stripeSubscriptionId?: Maybe<Scalars['String']['output']>;
-  updatedAt?: Maybe<Scalars['timestamptz']['output']>;
+  updatedAt?: Maybe<Scalars['Timestamptz']['output']>;
 };
 
 /** order by min() on columns of table "organization" */
@@ -1281,7 +1281,7 @@ export type OrganizationOrderBy = {
 
 /** primary key columns input for table: organization */
 export type OrganizationPkColumnsInput = {
-  id: Scalars['uuid']['input'];
+  id: Scalars['Uuid']['input'];
 };
 
 /** select columns of table "organization" */
@@ -1325,19 +1325,19 @@ export type OrganizationSelectColumnOrganizationAggregateBoolExpBool_OrArguments
 
 /** input type for updating data in table "organization" */
 export type OrganizationSetInput = {
-  addressId?: InputMaybe<Scalars['uuid']['input']>;
+  addressId?: InputMaybe<Scalars['Uuid']['input']>;
   chargesEnabled?: InputMaybe<Scalars['Boolean']['input']>;
-  createdAt?: InputMaybe<Scalars['timestamptz']['input']>;
+  createdAt?: InputMaybe<Scalars['Timestamptz']['input']>;
   email?: InputMaybe<Scalars['String']['input']>;
-  id?: InputMaybe<Scalars['uuid']['input']>;
+  id?: InputMaybe<Scalars['Uuid']['input']>;
   imageUrl?: InputMaybe<Scalars['String']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
-  ownerId?: InputMaybe<Scalars['uuid']['input']>;
+  ownerId?: InputMaybe<Scalars['Uuid']['input']>;
   stripeAccountId?: InputMaybe<Scalars['String']['input']>;
   stripeCustomerId?: InputMaybe<Scalars['String']['input']>;
   stripeSubscriptionId?: InputMaybe<Scalars['String']['input']>;
   stripeSubscriptionStatus?: InputMaybe<SubscriptionStatusEnum>;
-  updatedAt?: InputMaybe<Scalars['timestamptz']['input']>;
+  updatedAt?: InputMaybe<Scalars['Timestamptz']['input']>;
 };
 
 /** Streaming cursor of the table "organization" */
@@ -1350,19 +1350,19 @@ export type OrganizationStreamCursorInput = {
 
 /** Initial value of the column from where the streaming should start */
 export type OrganizationStreamCursorValueInput = {
-  addressId?: InputMaybe<Scalars['uuid']['input']>;
+  addressId?: InputMaybe<Scalars['Uuid']['input']>;
   chargesEnabled?: InputMaybe<Scalars['Boolean']['input']>;
-  createdAt?: InputMaybe<Scalars['timestamptz']['input']>;
+  createdAt?: InputMaybe<Scalars['Timestamptz']['input']>;
   email?: InputMaybe<Scalars['String']['input']>;
-  id?: InputMaybe<Scalars['uuid']['input']>;
+  id?: InputMaybe<Scalars['Uuid']['input']>;
   imageUrl?: InputMaybe<Scalars['String']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
-  ownerId?: InputMaybe<Scalars['uuid']['input']>;
+  ownerId?: InputMaybe<Scalars['Uuid']['input']>;
   stripeAccountId?: InputMaybe<Scalars['String']['input']>;
   stripeCustomerId?: InputMaybe<Scalars['String']['input']>;
   stripeSubscriptionId?: InputMaybe<Scalars['String']['input']>;
   stripeSubscriptionStatus?: InputMaybe<SubscriptionStatusEnum>;
-  updatedAt?: InputMaybe<Scalars['timestamptz']['input']>;
+  updatedAt?: InputMaybe<Scalars['Timestamptz']['input']>;
 };
 
 /** update columns of table "organization" */
@@ -1472,7 +1472,7 @@ export type SubscriptionStatusBoolExp = {
 /** unique or primary key constraints on table "subscription_status" */
 export type SubscriptionStatusConstraint =
   /** unique or primary key constraint on columns "status" */
-  | 'subscription_status_pkey';
+  | 'subscriptionStatusPkey';
 
 export type SubscriptionStatusEnum =
   /** The subscription is in good standing and the most recent payment is successful. It’s safe to provision your product for your customer. */
@@ -1586,22 +1586,22 @@ export type SubscriptionStatusUpdates = {
   where: SubscriptionStatusBoolExp;
 };
 
-/** Boolean expression to compare columns of type "timestamptz". All fields are combined with logical 'AND'. */
+/** Boolean expression to compare columns of type "Timestamptz". All fields are combined with logical 'AND'. */
 export type TimestamptzComparisonExp = {
-  _eq?: InputMaybe<Scalars['timestamptz']['input']>;
-  _gt?: InputMaybe<Scalars['timestamptz']['input']>;
-  _gte?: InputMaybe<Scalars['timestamptz']['input']>;
-  _in?: InputMaybe<Array<Scalars['timestamptz']['input']>>;
+  _eq?: InputMaybe<Scalars['Timestamptz']['input']>;
+  _gt?: InputMaybe<Scalars['Timestamptz']['input']>;
+  _gte?: InputMaybe<Scalars['Timestamptz']['input']>;
+  _in?: InputMaybe<Array<Scalars['Timestamptz']['input']>>;
   _isNull?: InputMaybe<Scalars['Boolean']['input']>;
-  _lt?: InputMaybe<Scalars['timestamptz']['input']>;
-  _lte?: InputMaybe<Scalars['timestamptz']['input']>;
-  _neq?: InputMaybe<Scalars['timestamptz']['input']>;
-  _nin?: InputMaybe<Array<Scalars['timestamptz']['input']>>;
+  _lt?: InputMaybe<Scalars['Timestamptz']['input']>;
+  _lte?: InputMaybe<Scalars['Timestamptz']['input']>;
+  _neq?: InputMaybe<Scalars['Timestamptz']['input']>;
+  _nin?: InputMaybe<Array<Scalars['Timestamptz']['input']>>;
 };
 
 /** columns and relationships of "user" */
 export type User = {
-  createdAt: Scalars['timestamptz']['output'];
+  createdAt: Scalars['Timestamptz']['output'];
   email: Scalars['String']['output'];
   /** An array relationship */
   giftCardUsageLines: Array<GiftCardUsageLine>;
@@ -1611,7 +1611,7 @@ export type User = {
   giftCards: Array<GiftCard>;
   /** An aggregate relationship */
   giftCardsAggregate: GiftCardAggregate;
-  id: Scalars['uuid']['output'];
+  id: Scalars['Uuid']['output'];
   imageUrl?: Maybe<Scalars['String']['output']>;
   /** An array relationship */
   memberOfWorkplaces: Array<WorkplaceMember>;
@@ -1626,7 +1626,7 @@ export type User = {
   ownerOfWorkplaces: Array<Workplace>;
   /** An aggregate relationship */
   ownerOfWorkplacesAggregate: WorkplaceAggregate;
-  updatedAt: Scalars['timestamptz']['output'];
+  updatedAt: Scalars['Timestamptz']['output'];
 };
 
 
@@ -1775,43 +1775,43 @@ export type UserBoolExp = {
 /** unique or primary key constraints on table "user" */
 export type UserConstraint =
   /** unique or primary key constraint on columns "email" */
-  | 'user_email_key'
+  | 'userEmailKey'
   /** unique or primary key constraint on columns "id" */
-  | 'user_pkey';
+  | 'userPkey';
 
 /** input type for inserting data into table "user" */
 export type UserInsertInput = {
-  createdAt?: InputMaybe<Scalars['timestamptz']['input']>;
+  createdAt?: InputMaybe<Scalars['Timestamptz']['input']>;
   email?: InputMaybe<Scalars['String']['input']>;
   giftCardUsageLines?: InputMaybe<GiftCardUsageLineArrRelInsertInput>;
   giftCards?: InputMaybe<GiftCardArrRelInsertInput>;
-  id?: InputMaybe<Scalars['uuid']['input']>;
+  id?: InputMaybe<Scalars['Uuid']['input']>;
   imageUrl?: InputMaybe<Scalars['String']['input']>;
   memberOfWorkplaces?: InputMaybe<WorkplaceMemberArrRelInsertInput>;
   name?: InputMaybe<Scalars['String']['input']>;
   organizations?: InputMaybe<OrganizationArrRelInsertInput>;
   ownerOfWorkplaces?: InputMaybe<WorkplaceArrRelInsertInput>;
-  updatedAt?: InputMaybe<Scalars['timestamptz']['input']>;
+  updatedAt?: InputMaybe<Scalars['Timestamptz']['input']>;
 };
 
 /** aggregate max on columns */
 export type UserMaxFields = {
-  createdAt?: Maybe<Scalars['timestamptz']['output']>;
+  createdAt?: Maybe<Scalars['Timestamptz']['output']>;
   email?: Maybe<Scalars['String']['output']>;
-  id?: Maybe<Scalars['uuid']['output']>;
+  id?: Maybe<Scalars['Uuid']['output']>;
   imageUrl?: Maybe<Scalars['String']['output']>;
   name?: Maybe<Scalars['String']['output']>;
-  updatedAt?: Maybe<Scalars['timestamptz']['output']>;
+  updatedAt?: Maybe<Scalars['Timestamptz']['output']>;
 };
 
 /** aggregate min on columns */
 export type UserMinFields = {
-  createdAt?: Maybe<Scalars['timestamptz']['output']>;
+  createdAt?: Maybe<Scalars['Timestamptz']['output']>;
   email?: Maybe<Scalars['String']['output']>;
-  id?: Maybe<Scalars['uuid']['output']>;
+  id?: Maybe<Scalars['Uuid']['output']>;
   imageUrl?: Maybe<Scalars['String']['output']>;
   name?: Maybe<Scalars['String']['output']>;
-  updatedAt?: Maybe<Scalars['timestamptz']['output']>;
+  updatedAt?: Maybe<Scalars['Timestamptz']['output']>;
 };
 
 /** response of any mutation on the table "user" */
@@ -1853,7 +1853,7 @@ export type UserOrderBy = {
 
 /** primary key columns input for table: user */
 export type UserPkColumnsInput = {
-  id: Scalars['uuid']['input'];
+  id: Scalars['Uuid']['input'];
 };
 
 /** select columns of table "user" */
@@ -1873,12 +1873,12 @@ export type UserSelectColumn =
 
 /** input type for updating data in table "user" */
 export type UserSetInput = {
-  createdAt?: InputMaybe<Scalars['timestamptz']['input']>;
+  createdAt?: InputMaybe<Scalars['Timestamptz']['input']>;
   email?: InputMaybe<Scalars['String']['input']>;
-  id?: InputMaybe<Scalars['uuid']['input']>;
+  id?: InputMaybe<Scalars['Uuid']['input']>;
   imageUrl?: InputMaybe<Scalars['String']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
-  updatedAt?: InputMaybe<Scalars['timestamptz']['input']>;
+  updatedAt?: InputMaybe<Scalars['Timestamptz']['input']>;
 };
 
 /** Streaming cursor of the table "user" */
@@ -1891,12 +1891,12 @@ export type UserStreamCursorInput = {
 
 /** Initial value of the column from where the streaming should start */
 export type UserStreamCursorValueInput = {
-  createdAt?: InputMaybe<Scalars['timestamptz']['input']>;
+  createdAt?: InputMaybe<Scalars['Timestamptz']['input']>;
   email?: InputMaybe<Scalars['String']['input']>;
-  id?: InputMaybe<Scalars['uuid']['input']>;
+  id?: InputMaybe<Scalars['Uuid']['input']>;
   imageUrl?: InputMaybe<Scalars['String']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
-  updatedAt?: InputMaybe<Scalars['timestamptz']['input']>;
+  updatedAt?: InputMaybe<Scalars['Timestamptz']['input']>;
 };
 
 /** update columns of table "user" */
@@ -1921,35 +1921,35 @@ export type UserUpdates = {
   where: UserBoolExp;
 };
 
-/** Boolean expression to compare columns of type "uuid". All fields are combined with logical 'AND'. */
+/** Boolean expression to compare columns of type "Uuid". All fields are combined with logical 'AND'. */
 export type UuidComparisonExp = {
-  _eq?: InputMaybe<Scalars['uuid']['input']>;
-  _gt?: InputMaybe<Scalars['uuid']['input']>;
-  _gte?: InputMaybe<Scalars['uuid']['input']>;
-  _in?: InputMaybe<Array<Scalars['uuid']['input']>>;
+  _eq?: InputMaybe<Scalars['Uuid']['input']>;
+  _gt?: InputMaybe<Scalars['Uuid']['input']>;
+  _gte?: InputMaybe<Scalars['Uuid']['input']>;
+  _in?: InputMaybe<Array<Scalars['Uuid']['input']>>;
   _isNull?: InputMaybe<Scalars['Boolean']['input']>;
-  _lt?: InputMaybe<Scalars['uuid']['input']>;
-  _lte?: InputMaybe<Scalars['uuid']['input']>;
-  _neq?: InputMaybe<Scalars['uuid']['input']>;
-  _nin?: InputMaybe<Array<Scalars['uuid']['input']>>;
+  _lt?: InputMaybe<Scalars['Uuid']['input']>;
+  _lte?: InputMaybe<Scalars['Uuid']['input']>;
+  _neq?: InputMaybe<Scalars['Uuid']['input']>;
+  _nin?: InputMaybe<Array<Scalars['Uuid']['input']>>;
 };
 
 /** columns and relationships of "workplace" */
 export type Workplace = {
-  createdAt: Scalars['timestamptz']['output'];
+  createdAt: Scalars['Timestamptz']['output'];
   /** An array relationship */
   giftCards: Array<GiftCard>;
   /** An aggregate relationship */
   giftCardsAggregate: GiftCardAggregate;
-  id: Scalars['uuid']['output'];
+  id: Scalars['Uuid']['output'];
   /** An object relationship */
   organization?: Maybe<Organization>;
-  organizationId?: Maybe<Scalars['uuid']['output']>;
+  organizationId?: Maybe<Scalars['Uuid']['output']>;
   /** An object relationship */
   owner: User;
-  ownerId: Scalars['uuid']['output'];
+  ownerId: Scalars['Uuid']['output'];
   title: Scalars['String']['output'];
-  updatedAt: Scalars['timestamptz']['output'];
+  updatedAt: Scalars['Timestamptz']['output'];
   /** An array relationship */
   workplaceInvitations: Array<WorkplaceInvitation>;
   /** An aggregate relationship */
@@ -2082,34 +2082,34 @@ export type WorkplaceBoolExp = {
 /** unique or primary key constraints on table "workplace" */
 export type WorkplaceConstraint =
   /** unique or primary key constraint on columns "id" */
-  | 'workplace_pkey';
+  | 'workplacePkey';
 
 /** input type for inserting data into table "workplace" */
 export type WorkplaceInsertInput = {
-  createdAt?: InputMaybe<Scalars['timestamptz']['input']>;
+  createdAt?: InputMaybe<Scalars['Timestamptz']['input']>;
   giftCards?: InputMaybe<GiftCardArrRelInsertInput>;
-  id?: InputMaybe<Scalars['uuid']['input']>;
+  id?: InputMaybe<Scalars['Uuid']['input']>;
   organization?: InputMaybe<OrganizationObjRelInsertInput>;
-  organizationId?: InputMaybe<Scalars['uuid']['input']>;
+  organizationId?: InputMaybe<Scalars['Uuid']['input']>;
   owner?: InputMaybe<UserObjRelInsertInput>;
-  ownerId?: InputMaybe<Scalars['uuid']['input']>;
+  ownerId?: InputMaybe<Scalars['Uuid']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
-  updatedAt?: InputMaybe<Scalars['timestamptz']['input']>;
+  updatedAt?: InputMaybe<Scalars['Timestamptz']['input']>;
   workplaceInvitations?: InputMaybe<WorkplaceInvitationArrRelInsertInput>;
   workplaceMembers?: InputMaybe<WorkplaceMemberArrRelInsertInput>;
 };
 
 /** columns and relationships of "workplace_invitation" */
 export type WorkplaceInvitation = {
-  createdAt: Scalars['timestamptz']['output'];
+  createdAt: Scalars['Timestamptz']['output'];
   email: Scalars['String']['output'];
-  id: Scalars['uuid']['output'];
-  updatedAt: Scalars['timestamptz']['output'];
+  id: Scalars['Uuid']['output'];
+  updatedAt: Scalars['Timestamptz']['output'];
   /** An object relationship */
   user?: Maybe<User>;
   /** An object relationship */
   workplace: Workplace;
-  workplaceId: Scalars['uuid']['output'];
+  workplaceId: Scalars['Uuid']['output'];
 };
 
 /** aggregated selection of "workplace_invitation" */
@@ -2167,28 +2167,28 @@ export type WorkplaceInvitationBoolExp = {
 /** unique or primary key constraints on table "workplace_invitation" */
 export type WorkplaceInvitationConstraint =
   /** unique or primary key constraint on columns "workplace_id", "email" */
-  | 'workplace_invitation_email_workplace_id_key'
+  | 'workplaceInvitationEmailWorkplaceIdKey'
   /** unique or primary key constraint on columns "id" */
-  | 'workplace_invitation_pkey';
+  | 'workplaceInvitationPkey';
 
 /** input type for inserting data into table "workplace_invitation" */
 export type WorkplaceInvitationInsertInput = {
-  createdAt?: InputMaybe<Scalars['timestamptz']['input']>;
+  createdAt?: InputMaybe<Scalars['Timestamptz']['input']>;
   email?: InputMaybe<Scalars['String']['input']>;
-  id?: InputMaybe<Scalars['uuid']['input']>;
-  updatedAt?: InputMaybe<Scalars['timestamptz']['input']>;
+  id?: InputMaybe<Scalars['Uuid']['input']>;
+  updatedAt?: InputMaybe<Scalars['Timestamptz']['input']>;
   user?: InputMaybe<UserObjRelInsertInput>;
   workplace?: InputMaybe<WorkplaceObjRelInsertInput>;
-  workplaceId?: InputMaybe<Scalars['uuid']['input']>;
+  workplaceId?: InputMaybe<Scalars['Uuid']['input']>;
 };
 
 /** aggregate max on columns */
 export type WorkplaceInvitationMaxFields = {
-  createdAt?: Maybe<Scalars['timestamptz']['output']>;
+  createdAt?: Maybe<Scalars['Timestamptz']['output']>;
   email?: Maybe<Scalars['String']['output']>;
-  id?: Maybe<Scalars['uuid']['output']>;
-  updatedAt?: Maybe<Scalars['timestamptz']['output']>;
-  workplaceId?: Maybe<Scalars['uuid']['output']>;
+  id?: Maybe<Scalars['Uuid']['output']>;
+  updatedAt?: Maybe<Scalars['Timestamptz']['output']>;
+  workplaceId?: Maybe<Scalars['Uuid']['output']>;
 };
 
 /** order by max() on columns of table "workplace_invitation" */
@@ -2202,11 +2202,11 @@ export type WorkplaceInvitationMaxOrderBy = {
 
 /** aggregate min on columns */
 export type WorkplaceInvitationMinFields = {
-  createdAt?: Maybe<Scalars['timestamptz']['output']>;
+  createdAt?: Maybe<Scalars['Timestamptz']['output']>;
   email?: Maybe<Scalars['String']['output']>;
-  id?: Maybe<Scalars['uuid']['output']>;
-  updatedAt?: Maybe<Scalars['timestamptz']['output']>;
-  workplaceId?: Maybe<Scalars['uuid']['output']>;
+  id?: Maybe<Scalars['Uuid']['output']>;
+  updatedAt?: Maybe<Scalars['Timestamptz']['output']>;
+  workplaceId?: Maybe<Scalars['Uuid']['output']>;
 };
 
 /** order by min() on columns of table "workplace_invitation" */
@@ -2246,7 +2246,7 @@ export type WorkplaceInvitationOrderBy = {
 
 /** primary key columns input for table: workplace_invitation */
 export type WorkplaceInvitationPkColumnsInput = {
-  id: Scalars['uuid']['input'];
+  id: Scalars['Uuid']['input'];
 };
 
 /** select columns of table "workplace_invitation" */
@@ -2264,11 +2264,11 @@ export type WorkplaceInvitationSelectColumn =
 
 /** input type for updating data in table "workplace_invitation" */
 export type WorkplaceInvitationSetInput = {
-  createdAt?: InputMaybe<Scalars['timestamptz']['input']>;
+  createdAt?: InputMaybe<Scalars['Timestamptz']['input']>;
   email?: InputMaybe<Scalars['String']['input']>;
-  id?: InputMaybe<Scalars['uuid']['input']>;
-  updatedAt?: InputMaybe<Scalars['timestamptz']['input']>;
-  workplaceId?: InputMaybe<Scalars['uuid']['input']>;
+  id?: InputMaybe<Scalars['Uuid']['input']>;
+  updatedAt?: InputMaybe<Scalars['Timestamptz']['input']>;
+  workplaceId?: InputMaybe<Scalars['Uuid']['input']>;
 };
 
 /** Streaming cursor of the table "workplace_invitation" */
@@ -2281,11 +2281,11 @@ export type WorkplaceInvitationStreamCursorInput = {
 
 /** Initial value of the column from where the streaming should start */
 export type WorkplaceInvitationStreamCursorValueInput = {
-  createdAt?: InputMaybe<Scalars['timestamptz']['input']>;
+  createdAt?: InputMaybe<Scalars['Timestamptz']['input']>;
   email?: InputMaybe<Scalars['String']['input']>;
-  id?: InputMaybe<Scalars['uuid']['input']>;
-  updatedAt?: InputMaybe<Scalars['timestamptz']['input']>;
-  workplaceId?: InputMaybe<Scalars['uuid']['input']>;
+  id?: InputMaybe<Scalars['Uuid']['input']>;
+  updatedAt?: InputMaybe<Scalars['Timestamptz']['input']>;
+  workplaceId?: InputMaybe<Scalars['Uuid']['input']>;
 };
 
 /** update columns of table "workplace_invitation" */
@@ -2310,12 +2310,12 @@ export type WorkplaceInvitationUpdates = {
 
 /** aggregate max on columns */
 export type WorkplaceMaxFields = {
-  createdAt?: Maybe<Scalars['timestamptz']['output']>;
-  id?: Maybe<Scalars['uuid']['output']>;
-  organizationId?: Maybe<Scalars['uuid']['output']>;
-  ownerId?: Maybe<Scalars['uuid']['output']>;
+  createdAt?: Maybe<Scalars['Timestamptz']['output']>;
+  id?: Maybe<Scalars['Uuid']['output']>;
+  organizationId?: Maybe<Scalars['Uuid']['output']>;
+  ownerId?: Maybe<Scalars['Uuid']['output']>;
   title?: Maybe<Scalars['String']['output']>;
-  updatedAt?: Maybe<Scalars['timestamptz']['output']>;
+  updatedAt?: Maybe<Scalars['Timestamptz']['output']>;
 };
 
 /** order by max() on columns of table "workplace" */
@@ -2332,10 +2332,10 @@ export type WorkplaceMaxOrderBy = {
 export type WorkplaceMember = {
   /** An object relationship */
   user: User;
-  userId: Scalars['uuid']['output'];
+  userId: Scalars['Uuid']['output'];
   /** An object relationship */
   workplace: Workplace;
-  workplaceId: Scalars['uuid']['output'];
+  workplaceId: Scalars['Uuid']['output'];
 };
 
 /** aggregated selection of "workplace_member" */
@@ -2390,20 +2390,20 @@ export type WorkplaceMemberBoolExp = {
 /** unique or primary key constraints on table "workplace_member" */
 export type WorkplaceMemberConstraint =
   /** unique or primary key constraint on columns "user_id", "workplace_id" */
-  | 'workplace_member_pkey';
+  | 'workplaceMemberPkey';
 
 /** input type for inserting data into table "workplace_member" */
 export type WorkplaceMemberInsertInput = {
   user?: InputMaybe<UserObjRelInsertInput>;
-  userId?: InputMaybe<Scalars['uuid']['input']>;
+  userId?: InputMaybe<Scalars['Uuid']['input']>;
   workplace?: InputMaybe<WorkplaceObjRelInsertInput>;
-  workplaceId?: InputMaybe<Scalars['uuid']['input']>;
+  workplaceId?: InputMaybe<Scalars['Uuid']['input']>;
 };
 
 /** aggregate max on columns */
 export type WorkplaceMemberMaxFields = {
-  userId?: Maybe<Scalars['uuid']['output']>;
-  workplaceId?: Maybe<Scalars['uuid']['output']>;
+  userId?: Maybe<Scalars['Uuid']['output']>;
+  workplaceId?: Maybe<Scalars['Uuid']['output']>;
 };
 
 /** order by max() on columns of table "workplace_member" */
@@ -2414,8 +2414,8 @@ export type WorkplaceMemberMaxOrderBy = {
 
 /** aggregate min on columns */
 export type WorkplaceMemberMinFields = {
-  userId?: Maybe<Scalars['uuid']['output']>;
-  workplaceId?: Maybe<Scalars['uuid']['output']>;
+  userId?: Maybe<Scalars['Uuid']['output']>;
+  workplaceId?: Maybe<Scalars['Uuid']['output']>;
 };
 
 /** order by min() on columns of table "workplace_member" */
@@ -2449,8 +2449,8 @@ export type WorkplaceMemberOrderBy = {
 
 /** primary key columns input for table: workplace_member */
 export type WorkplaceMemberPkColumnsInput = {
-  userId: Scalars['uuid']['input'];
-  workplaceId: Scalars['uuid']['input'];
+  userId: Scalars['Uuid']['input'];
+  workplaceId: Scalars['Uuid']['input'];
 };
 
 /** select columns of table "workplace_member" */
@@ -2462,8 +2462,8 @@ export type WorkplaceMemberSelectColumn =
 
 /** input type for updating data in table "workplace_member" */
 export type WorkplaceMemberSetInput = {
-  userId?: InputMaybe<Scalars['uuid']['input']>;
-  workplaceId?: InputMaybe<Scalars['uuid']['input']>;
+  userId?: InputMaybe<Scalars['Uuid']['input']>;
+  workplaceId?: InputMaybe<Scalars['Uuid']['input']>;
 };
 
 /** Streaming cursor of the table "workplace_member" */
@@ -2476,8 +2476,8 @@ export type WorkplaceMemberStreamCursorInput = {
 
 /** Initial value of the column from where the streaming should start */
 export type WorkplaceMemberStreamCursorValueInput = {
-  userId?: InputMaybe<Scalars['uuid']['input']>;
-  workplaceId?: InputMaybe<Scalars['uuid']['input']>;
+  userId?: InputMaybe<Scalars['Uuid']['input']>;
+  workplaceId?: InputMaybe<Scalars['Uuid']['input']>;
 };
 
 /** update columns of table "workplace_member" */
@@ -2496,12 +2496,12 @@ export type WorkplaceMemberUpdates = {
 
 /** aggregate min on columns */
 export type WorkplaceMinFields = {
-  createdAt?: Maybe<Scalars['timestamptz']['output']>;
-  id?: Maybe<Scalars['uuid']['output']>;
-  organizationId?: Maybe<Scalars['uuid']['output']>;
-  ownerId?: Maybe<Scalars['uuid']['output']>;
+  createdAt?: Maybe<Scalars['Timestamptz']['output']>;
+  id?: Maybe<Scalars['Uuid']['output']>;
+  organizationId?: Maybe<Scalars['Uuid']['output']>;
+  ownerId?: Maybe<Scalars['Uuid']['output']>;
   title?: Maybe<Scalars['String']['output']>;
-  updatedAt?: Maybe<Scalars['timestamptz']['output']>;
+  updatedAt?: Maybe<Scalars['Timestamptz']['output']>;
 };
 
 /** order by min() on columns of table "workplace" */
@@ -2553,7 +2553,7 @@ export type WorkplaceOrderBy = {
 
 /** primary key columns input for table: workplace */
 export type WorkplacePkColumnsInput = {
-  id: Scalars['uuid']['input'];
+  id: Scalars['Uuid']['input'];
 };
 
 /** select columns of table "workplace" */
@@ -2573,12 +2573,12 @@ export type WorkplaceSelectColumn =
 
 /** input type for updating data in table "workplace" */
 export type WorkplaceSetInput = {
-  createdAt?: InputMaybe<Scalars['timestamptz']['input']>;
-  id?: InputMaybe<Scalars['uuid']['input']>;
-  organizationId?: InputMaybe<Scalars['uuid']['input']>;
-  ownerId?: InputMaybe<Scalars['uuid']['input']>;
+  createdAt?: InputMaybe<Scalars['Timestamptz']['input']>;
+  id?: InputMaybe<Scalars['Uuid']['input']>;
+  organizationId?: InputMaybe<Scalars['Uuid']['input']>;
+  ownerId?: InputMaybe<Scalars['Uuid']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
-  updatedAt?: InputMaybe<Scalars['timestamptz']['input']>;
+  updatedAt?: InputMaybe<Scalars['Timestamptz']['input']>;
 };
 
 /** Streaming cursor of the table "workplace" */
@@ -2591,12 +2591,12 @@ export type WorkplaceStreamCursorInput = {
 
 /** Initial value of the column from where the streaming should start */
 export type WorkplaceStreamCursorValueInput = {
-  createdAt?: InputMaybe<Scalars['timestamptz']['input']>;
-  id?: InputMaybe<Scalars['uuid']['input']>;
-  organizationId?: InputMaybe<Scalars['uuid']['input']>;
-  ownerId?: InputMaybe<Scalars['uuid']['input']>;
+  createdAt?: InputMaybe<Scalars['Timestamptz']['input']>;
+  id?: InputMaybe<Scalars['Uuid']['input']>;
+  organizationId?: InputMaybe<Scalars['Uuid']['input']>;
+  ownerId?: InputMaybe<Scalars['Uuid']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
-  updatedAt?: InputMaybe<Scalars['timestamptz']['input']>;
+  updatedAt?: InputMaybe<Scalars['Timestamptz']['input']>;
 };
 
 /** update columns of table "workplace" */
@@ -2788,7 +2788,7 @@ export type Mutation_RootDeleteAddressArgs = {
 
 /** mutation root */
 export type Mutation_RootDeleteAddressByPkArgs = {
-  id: Scalars['uuid']['input'];
+  id: Scalars['Uuid']['input'];
 };
 
 
@@ -2800,7 +2800,7 @@ export type Mutation_RootDeleteGiftCardArgs = {
 
 /** mutation root */
 export type Mutation_RootDeleteGiftCardByPkArgs = {
-  id: Scalars['uuid']['input'];
+  id: Scalars['Uuid']['input'];
 };
 
 
@@ -2812,7 +2812,7 @@ export type Mutation_RootDeleteGiftCardUsageLineArgs = {
 
 /** mutation root */
 export type Mutation_RootDeleteGiftCardUsageLineByPkArgs = {
-  id: Scalars['uuid']['input'];
+  id: Scalars['Uuid']['input'];
 };
 
 
@@ -2824,7 +2824,7 @@ export type Mutation_RootDeleteOrganizationArgs = {
 
 /** mutation root */
 export type Mutation_RootDeleteOrganizationByPkArgs = {
-  id: Scalars['uuid']['input'];
+  id: Scalars['Uuid']['input'];
 };
 
 
@@ -2848,7 +2848,7 @@ export type Mutation_RootDeleteUserArgs = {
 
 /** mutation root */
 export type Mutation_RootDeleteUserByPkArgs = {
-  id: Scalars['uuid']['input'];
+  id: Scalars['Uuid']['input'];
 };
 
 
@@ -2860,7 +2860,7 @@ export type Mutation_RootDeleteWorkplaceArgs = {
 
 /** mutation root */
 export type Mutation_RootDeleteWorkplaceByPkArgs = {
-  id: Scalars['uuid']['input'];
+  id: Scalars['Uuid']['input'];
 };
 
 
@@ -2872,7 +2872,7 @@ export type Mutation_RootDeleteWorkplaceInvitationArgs = {
 
 /** mutation root */
 export type Mutation_RootDeleteWorkplaceInvitationByPkArgs = {
-  id: Scalars['uuid']['input'];
+  id: Scalars['Uuid']['input'];
 };
 
 
@@ -2884,8 +2884,8 @@ export type Mutation_RootDeleteWorkplaceMemberArgs = {
 
 /** mutation root */
 export type Mutation_RootDeleteWorkplaceMemberByPkArgs = {
-  userId: Scalars['uuid']['input'];
-  workplaceId: Scalars['uuid']['input'];
+  userId: Scalars['Uuid']['input'];
+  workplaceId: Scalars['Uuid']['input'];
 };
 
 
@@ -3296,7 +3296,7 @@ export type Query_RootAddressAggregateArgs = {
 
 
 export type Query_RootAddressByPkArgs = {
-  id: Scalars['uuid']['input'];
+  id: Scalars['Uuid']['input'];
 };
 
 
@@ -3319,7 +3319,7 @@ export type Query_RootGiftCardAggregateArgs = {
 
 
 export type Query_RootGiftCardByPkArgs = {
-  id: Scalars['uuid']['input'];
+  id: Scalars['Uuid']['input'];
 };
 
 
@@ -3342,7 +3342,7 @@ export type Query_RootGiftCardUsageLineAggregateArgs = {
 
 
 export type Query_RootGiftCardUsageLineByPkArgs = {
-  id: Scalars['uuid']['input'];
+  id: Scalars['Uuid']['input'];
 };
 
 
@@ -3365,7 +3365,7 @@ export type Query_RootOrganizationAggregateArgs = {
 
 
 export type Query_RootOrganizationByPkArgs = {
-  id: Scalars['uuid']['input'];
+  id: Scalars['Uuid']['input'];
 };
 
 
@@ -3411,7 +3411,7 @@ export type Query_RootUserAggregateArgs = {
 
 
 export type Query_RootUserByPkArgs = {
-  id: Scalars['uuid']['input'];
+  id: Scalars['Uuid']['input'];
 };
 
 
@@ -3434,7 +3434,7 @@ export type Query_RootWorkplaceAggregateArgs = {
 
 
 export type Query_RootWorkplaceByPkArgs = {
-  id: Scalars['uuid']['input'];
+  id: Scalars['Uuid']['input'];
 };
 
 
@@ -3457,7 +3457,7 @@ export type Query_RootWorkplaceInvitationAggregateArgs = {
 
 
 export type Query_RootWorkplaceInvitationByPkArgs = {
-  id: Scalars['uuid']['input'];
+  id: Scalars['Uuid']['input'];
 };
 
 
@@ -3480,8 +3480,8 @@ export type Query_RootWorkplaceMemberAggregateArgs = {
 
 
 export type Query_RootWorkplaceMemberByPkArgs = {
-  userId: Scalars['uuid']['input'];
-  workplaceId: Scalars['uuid']['input'];
+  userId: Scalars['Uuid']['input'];
+  workplaceId: Scalars['Uuid']['input'];
 };
 
 export type Subscription_Root = {
@@ -3579,7 +3579,7 @@ export type Subscription_RootAddressAggregateArgs = {
 
 
 export type Subscription_RootAddressByPkArgs = {
-  id: Scalars['uuid']['input'];
+  id: Scalars['Uuid']['input'];
 };
 
 
@@ -3609,7 +3609,7 @@ export type Subscription_RootGiftCardAggregateArgs = {
 
 
 export type Subscription_RootGiftCardByPkArgs = {
-  id: Scalars['uuid']['input'];
+  id: Scalars['Uuid']['input'];
 };
 
 
@@ -3639,7 +3639,7 @@ export type Subscription_RootGiftCardUsageLineAggregateArgs = {
 
 
 export type Subscription_RootGiftCardUsageLineByPkArgs = {
-  id: Scalars['uuid']['input'];
+  id: Scalars['Uuid']['input'];
 };
 
 
@@ -3669,7 +3669,7 @@ export type Subscription_RootOrganizationAggregateArgs = {
 
 
 export type Subscription_RootOrganizationByPkArgs = {
-  id: Scalars['uuid']['input'];
+  id: Scalars['Uuid']['input'];
 };
 
 
@@ -3729,7 +3729,7 @@ export type Subscription_RootUserAggregateArgs = {
 
 
 export type Subscription_RootUserByPkArgs = {
-  id: Scalars['uuid']['input'];
+  id: Scalars['Uuid']['input'];
 };
 
 
@@ -3759,7 +3759,7 @@ export type Subscription_RootWorkplaceAggregateArgs = {
 
 
 export type Subscription_RootWorkplaceByPkArgs = {
-  id: Scalars['uuid']['input'];
+  id: Scalars['Uuid']['input'];
 };
 
 
@@ -3782,7 +3782,7 @@ export type Subscription_RootWorkplaceInvitationAggregateArgs = {
 
 
 export type Subscription_RootWorkplaceInvitationByPkArgs = {
-  id: Scalars['uuid']['input'];
+  id: Scalars['Uuid']['input'];
 };
 
 
@@ -3812,8 +3812,8 @@ export type Subscription_RootWorkplaceMemberAggregateArgs = {
 
 
 export type Subscription_RootWorkplaceMemberByPkArgs = {
-  userId: Scalars['uuid']['input'];
-  workplaceId: Scalars['uuid']['input'];
+  userId: Scalars['Uuid']['input'];
+  workplaceId: Scalars['Uuid']['input'];
 };
 
 
@@ -3858,17 +3858,17 @@ export type AddUserMutationVariables = Exact<{
 }>;
 
 
-export type AddUserMutation = { insertUser?: { returning: Array<{ id: string, email: string, name: string }> } | null };
+export type AddUserMutation = { insertUser?: { returning: Array<{ id: any, email: string, name: string }> } | null };
 
 export type GetUserByIdQueryVariables = Exact<{
-  userId: Scalars['uuid']['input'];
+  userId: Scalars['Uuid']['input'];
 }>;
 
 
-export type GetUserByIdQuery = { user?: { createdAt: string, email: string, imageUrl?: string | null, id: string, name: string, organizations: Array<{ id: string, createdAt: string, updatedAt: string, name: string, ownerId: string, stripeAccountId?: string | null, stripeCustomerId?: string | null, stripeSubscriptionId?: string | null, stripeSubscriptionStatus?: SubscriptionStatusEnum | null }>, ownerOfWorkplaces: Array<{ id: string, title: string, updatedAt: string, ownerId: string, createdAt: string }>, memberOfWorkplaces: Array<{ workplace: { createdAt: string, id: string, ownerId: string, title: string, updatedAt: string } }> } | null };
+export type GetUserByIdQuery = { user?: { createdAt: any, email: string, imageUrl?: string | null, id: any, name: string, organizations: Array<{ id: any, createdAt: any, updatedAt: any, name: string, ownerId: any, stripeAccountId?: string | null, stripeCustomerId?: string | null, stripeSubscriptionId?: string | null, stripeSubscriptionStatus?: SubscriptionStatusEnum | null }>, ownerOfWorkplaces: Array<{ id: any, title: string, updatedAt: any, ownerId: any, createdAt: any }>, memberOfWorkplaces: Array<{ workplace: { createdAt: any, id: any, ownerId: any, title: string, updatedAt: any } }> } | null };
 
 export type UpdateUserNameMutationVariables = Exact<{
-  id: Scalars['uuid']['input'];
+  id: Scalars['Uuid']['input'];
   name: Scalars['String']['input'];
 }>;
 
@@ -3876,85 +3876,85 @@ export type UpdateUserNameMutationVariables = Exact<{
 export type UpdateUserNameMutation = { updateUserByPk?: { name: string } | null };
 
 export type DeleteUserMutationVariables = Exact<{
-  userId: Scalars['uuid']['input'];
+  userId: Scalars['Uuid']['input'];
 }>;
 
 
-export type DeleteUserMutation = { deleteUserByPk?: { id: string } | null };
+export type DeleteUserMutation = { deleteUserByPk?: { id: any } | null };
 
 export type CreateGiftCardMutationVariables = Exact<{
   amount: Scalars['Int']['input'];
   isActive: Scalars['Boolean']['input'];
-  workplaceId: Scalars['uuid']['input'];
+  workplaceId: Scalars['Uuid']['input'];
   customerEmail?: InputMaybe<Scalars['String']['input']>;
 }>;
 
 
-export type CreateGiftCardMutation = { insertGiftCard?: { returning: Array<{ id: string }> } | null };
+export type CreateGiftCardMutation = { insertGiftCard?: { returning: Array<{ id: any }> } | null };
 
 export type GetGiftCardsQueryVariables = Exact<{
-  workplaceId: Scalars['uuid']['input'];
+  workplaceId: Scalars['Uuid']['input'];
 }>;
 
 
-export type GetGiftCardsQuery = { giftCard: Array<{ amount: number, createdAt: string, createdBy?: string | null, id: string, isActive: boolean, stripePaymentId?: string | null, updatedAt: string, workplaceId: string, customerEmail?: string | null, usageLines: Array<{ amount: number, createdAt: string, createdBy: string, giftCardId: string, id: string, updatedAt: string }>, creator?: { name: string, id: string, email: string, imageUrl?: string | null } | null }> };
+export type GetGiftCardsQuery = { giftCard: Array<{ amount: number, createdAt: any, createdBy?: any | null, id: any, isActive: boolean, stripePaymentId?: string | null, updatedAt: any, workplaceId: any, customerEmail?: string | null, usageLines: Array<{ amount: number, createdAt: any, createdBy: any, giftCardId: any, id: any, updatedAt: any }>, creator?: { name: string, id: any, email: string, imageUrl?: string | null } | null }> };
 
 export type GetGiftCardsByCustomerQueryVariables = Exact<{
-  workplaceId: Scalars['uuid']['input'];
+  workplaceId: Scalars['Uuid']['input'];
   email?: InputMaybe<Scalars['String']['input']>;
 }>;
 
 
-export type GetGiftCardsByCustomerQuery = { giftCard: Array<{ amount: number, createdAt: string, createdBy?: string | null, id: string, isActive: boolean, stripePaymentId?: string | null, updatedAt: string, workplaceId: string, customerEmail?: string | null, usageLines: Array<{ amount: number, createdAt: string, createdBy: string, giftCardId: string, id: string, updatedAt: string, creator: { email: string, id: string, imageUrl?: string | null, name: string } }>, creator?: { name: string, id: string, email: string, imageUrl?: string | null } | null }> };
+export type GetGiftCardsByCustomerQuery = { giftCard: Array<{ amount: number, createdAt: any, createdBy?: any | null, id: any, isActive: boolean, stripePaymentId?: string | null, updatedAt: any, workplaceId: any, customerEmail?: string | null, usageLines: Array<{ amount: number, createdAt: any, createdBy: any, giftCardId: any, id: any, updatedAt: any, creator: { email: string, id: any, imageUrl?: string | null, name: string } }>, creator?: { name: string, id: any, email: string, imageUrl?: string | null } | null }> };
 
 export type GetGiftCardByIdQueryVariables = Exact<{
-  id: Scalars['uuid']['input'];
+  id: Scalars['Uuid']['input'];
 }>;
 
 
-export type GetGiftCardByIdQuery = { giftCardByPk?: { amount: number, createdAt: string, createdBy?: string | null, id: string, isActive: boolean, stripePaymentId?: string | null, updatedAt: string, workplaceId: string, customerEmail?: string | null, workplace: { organization?: { imageUrl?: string | null } | null }, usageLines: Array<{ amount: number, createdAt: string, createdBy: string, giftCardId: string, id: string, updatedAt: string, creator: { email: string, imageUrl?: string | null, name: string } }>, creator?: { email: string, imageUrl?: string | null, name: string } | null } | null };
+export type GetGiftCardByIdQuery = { giftCardByPk?: { amount: number, createdAt: any, createdBy?: any | null, id: any, isActive: boolean, stripePaymentId?: string | null, updatedAt: any, workplaceId: any, customerEmail?: string | null, workplace: { organization?: { imageUrl?: string | null } | null }, usageLines: Array<{ amount: number, createdAt: any, createdBy: any, giftCardId: any, id: any, updatedAt: any, creator: { email: string, imageUrl?: string | null, name: string } }>, creator?: { email: string, imageUrl?: string | null, name: string } | null } | null };
 
 export type GetPublicGiftCardByIdQueryVariables = Exact<{
-  id: Scalars['uuid']['input'];
+  id: Scalars['Uuid']['input'];
 }>;
 
 
-export type GetPublicGiftCardByIdQuery = { giftCardByPk?: { amount: number, createdAt: string, createdBy?: string | null, id: string, isActive: boolean, stripePaymentId?: string | null, updatedAt: string, workplaceId: string, customerEmail?: string | null } | null };
+export type GetPublicGiftCardByIdQuery = { giftCardByPk?: { amount: number, createdAt: any, createdBy?: any | null, id: any, isActive: boolean, stripePaymentId?: string | null, updatedAt: any, workplaceId: any, customerEmail?: string | null } | null };
 
 export type InsertGiftCardUsageLineMutationVariables = Exact<{
-  giftCardId: Scalars['uuid']['input'];
+  giftCardId: Scalars['Uuid']['input'];
   amount: Scalars['Int']['input'];
 }>;
 
 
-export type InsertGiftCardUsageLineMutation = { insertGiftCardUsageLine?: { returning: Array<{ id: string }> } | null };
+export type InsertGiftCardUsageLineMutation = { insertGiftCardUsageLine?: { returning: Array<{ id: any }> } | null };
 
 export type GetPublicOrganizationsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetPublicOrganizationsQuery = { organization: Array<{ id: string, name: string, imageUrl?: string | null }> };
+export type GetPublicOrganizationsQuery = { organization: Array<{ id: any, name: string, imageUrl?: string | null }> };
 
 export type UpdateOrganizationImageMutationVariables = Exact<{
-  id: Scalars['uuid']['input'];
+  id: Scalars['Uuid']['input'];
   imageUrl: Scalars['String']['input'];
 }>;
 
 
-export type UpdateOrganizationImageMutation = { updateOrganizationByPk?: { imageUrl?: string | null, id: string } | null };
+export type UpdateOrganizationImageMutation = { updateOrganizationByPk?: { imageUrl?: string | null, id: any } | null };
 
 export type GetOwnedOrganizationsQueryVariables = Exact<{
-  userId: Scalars['uuid']['input'];
+  userId: Scalars['Uuid']['input'];
 }>;
 
 
-export type GetOwnedOrganizationsQuery = { organizations: Array<{ id: string, createdAt: string, updatedAt: string, name: string, email: string, ownerId: string, stripeAccountId?: string | null, stripeCustomerId?: string | null, stripeSubscriptionId?: string | null, stripeSubscriptionStatus?: SubscriptionStatusEnum | null, chargesEnabled?: boolean | null, imageUrl?: string | null }> };
+export type GetOwnedOrganizationsQuery = { organizations: Array<{ id: any, createdAt: any, updatedAt: any, name: string, email: string, ownerId: any, stripeAccountId?: string | null, stripeCustomerId?: string | null, stripeSubscriptionId?: string | null, stripeSubscriptionStatus?: SubscriptionStatusEnum | null, chargesEnabled?: boolean | null, imageUrl?: string | null }> };
 
 export type GetOrganizationByIdQueryVariables = Exact<{
-  organizationId: Scalars['uuid']['input'];
+  organizationId: Scalars['Uuid']['input'];
 }>;
 
 
-export type GetOrganizationByIdQuery = { organization?: { id: string, createdAt: string, updatedAt: string, name: string, email: string, ownerId: string, stripeAccountId?: string | null, stripeCustomerId?: string | null, stripeSubscriptionId?: string | null, stripeSubscriptionStatus?: SubscriptionStatusEnum | null, chargesEnabled?: boolean | null, imageUrl?: string | null, address: { line1: string, line2?: string | null, city: string, state?: string | null, postalCode: string, country: string } } | null };
+export type GetOrganizationByIdQuery = { organization?: { id: any, createdAt: any, updatedAt: any, name: string, email: string, ownerId: any, stripeAccountId?: string | null, stripeCustomerId?: string | null, stripeSubscriptionId?: string | null, stripeSubscriptionStatus?: SubscriptionStatusEnum | null, chargesEnabled?: boolean | null, imageUrl?: string | null, address: { line1: string, line2?: string | null, city: string, state?: string | null, postalCode: string, country: string } } | null };
 
 export type CreateOrganizationMutationVariables = Exact<{
   name: Scalars['String']['input'];
@@ -3963,15 +3963,15 @@ export type CreateOrganizationMutationVariables = Exact<{
 }>;
 
 
-export type CreateOrganizationMutation = { insertOrganization?: { returning: Array<{ id: string, createdAt: string, updatedAt: string, name: string, email: string, ownerId: string, stripeAccountId?: string | null, stripeCustomerId?: string | null, stripeSubscriptionId?: string | null, stripeSubscriptionStatus?: SubscriptionStatusEnum | null, chargesEnabled?: boolean | null, imageUrl?: string | null, address: { line1: string, line2?: string | null, city: string, state?: string | null, postalCode: string, country: string } }> } | null };
+export type CreateOrganizationMutation = { insertOrganization?: { returning: Array<{ id: any, createdAt: any, updatedAt: any, name: string, email: string, ownerId: any, stripeAccountId?: string | null, stripeCustomerId?: string | null, stripeSubscriptionId?: string | null, stripeSubscriptionStatus?: SubscriptionStatusEnum | null, chargesEnabled?: boolean | null, imageUrl?: string | null, address: { line1: string, line2?: string | null, city: string, state?: string | null, postalCode: string, country: string } }> } | null };
 
 export type UpdateWorkplaceorganizationIdMutationVariables = Exact<{
-  id: Scalars['uuid']['input'];
-  organizationId: Scalars['uuid']['input'];
+  id: Scalars['Uuid']['input'];
+  organizationId: Scalars['Uuid']['input'];
 }>;
 
 
-export type UpdateWorkplaceorganizationIdMutation = { updateWorkplaceByPk?: { id: string } | null };
+export type UpdateWorkplaceorganizationIdMutation = { updateWorkplaceByPk?: { id: any } | null };
 
 export type CreateAddressMutationVariables = Exact<{
   state?: InputMaybe<Scalars['String']['input']>;
@@ -3983,10 +3983,10 @@ export type CreateAddressMutationVariables = Exact<{
 }>;
 
 
-export type CreateAddressMutation = { insertAddress?: { returning: Array<{ id: string }> } | null };
+export type CreateAddressMutation = { insertAddress?: { returning: Array<{ id: any }> } | null };
 
 export type UpdateOrgranizationsStripeCustomerIdMutationVariables = Exact<{
-  organizationId: Scalars['uuid']['input'];
+  organizationId: Scalars['Uuid']['input'];
   stripeCustomerId: Scalars['String']['input'];
 }>;
 
@@ -3994,14 +3994,14 @@ export type UpdateOrgranizationsStripeCustomerIdMutationVariables = Exact<{
 export type UpdateOrgranizationsStripeCustomerIdMutation = { updateOrganizationByPk?: { stripeCustomerId?: string | null } | null };
 
 export type UpdateOrganizationsChargesEnabledMutationVariables = Exact<{
-  id: Scalars['uuid']['input'];
+  id: Scalars['Uuid']['input'];
 }>;
 
 
-export type UpdateOrganizationsChargesEnabledMutation = { updateOrganizationByPk?: { id: string } | null };
+export type UpdateOrganizationsChargesEnabledMutation = { updateOrganizationByPk?: { id: any } | null };
 
 export type UpdateOrganizationStripeAccountMutationVariables = Exact<{
-  organizationId: Scalars['uuid']['input'];
+  organizationId: Scalars['Uuid']['input'];
   stripeAccountId: Scalars['String']['input'];
 }>;
 
@@ -4014,124 +4014,124 @@ export type SubscriptionStatusQueryVariables = Exact<{ [key: string]: never; }>;
 export type SubscriptionStatusQuery = { subscriptionStatus: Array<{ status: string, description?: string | null }> };
 
 export type UpdateSubscriptionStatusMutationVariables = Exact<{
-  organizationId: Scalars['uuid']['input'];
+  organizationId: Scalars['Uuid']['input'];
   status: SubscriptionStatusEnum;
 }>;
 
 
-export type UpdateSubscriptionStatusMutation = { updateOrganization?: { returning: Array<{ id: string }> } | null };
+export type UpdateSubscriptionStatusMutation = { updateOrganization?: { returning: Array<{ id: any }> } | null };
 
 export type UpdateSubscriptionIdMutationVariables = Exact<{
-  organizationId: Scalars['uuid']['input'];
+  organizationId: Scalars['Uuid']['input'];
   subscriptionId: Scalars['String']['input'];
 }>;
 
 
-export type UpdateSubscriptionIdMutation = { updateOrganizationByPk?: { id: string } | null };
+export type UpdateSubscriptionIdMutation = { updateOrganizationByPk?: { id: any } | null };
 
 export type GetAllWorkplacesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAllWorkplacesQuery = { workplace: Array<{ id: string, title: string, createdAt: string, updatedAt: string, ownerId: string }> };
+export type GetAllWorkplacesQuery = { workplace: Array<{ id: any, title: string, createdAt: any, updatedAt: any, ownerId: any }> };
 
 export type CreateWokrplaceMutationVariables = Exact<{
   title?: InputMaybe<Scalars['String']['input']>;
-  userId: Scalars['uuid']['input'];
-  organizationId?: InputMaybe<Scalars['uuid']['input']>;
+  userId: Scalars['Uuid']['input'];
+  organizationId?: InputMaybe<Scalars['Uuid']['input']>;
 }>;
 
 
-export type CreateWokrplaceMutation = { insertWorkplace?: { returning: Array<{ title: string, id: string, createdAt: string, ownerId: string, updatedAt: string }> } | null };
+export type CreateWokrplaceMutation = { insertWorkplace?: { returning: Array<{ title: string, id: any, createdAt: any, ownerId: any, updatedAt: any }> } | null };
 
 export type DeleteWorkplaceMutationVariables = Exact<{
-  workplaceId: Scalars['uuid']['input'];
+  workplaceId: Scalars['Uuid']['input'];
 }>;
 
 
 export type DeleteWorkplaceMutation = { deleteWorkplace?: { affectedRows: number } | null };
 
 export type GetWorkplaceMembersQueryVariables = Exact<{
-  workplaceId: Scalars['uuid']['input'];
+  workplaceId: Scalars['Uuid']['input'];
 }>;
 
 
-export type GetWorkplaceMembersQuery = { workplaceMember: Array<{ workplaceId: string, workplace: { ownerId: string }, workplaceMembers: { id: string, name: string, email: string, imageUrl?: string | null } }> };
+export type GetWorkplaceMembersQuery = { workplaceMember: Array<{ workplaceId: any, workplace: { ownerId: any }, workplaceMembers: { id: any, name: string, email: string, imageUrl?: string | null } }> };
 
 export type GetWorkplaceInvitationsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetWorkplaceInvitationsQuery = { workplaceInvitation: Array<{ id: string, workplaceId: string, createdAt: string, workplace: { title: string }, workplaceInvitations?: { id: string, name: string, email: string, imageUrl?: string | null } | null }> };
+export type GetWorkplaceInvitationsQuery = { workplaceInvitation: Array<{ id: any, workplaceId: any, createdAt: any, workplace: { title: string }, workplaceInvitations?: { id: any, name: string, email: string, imageUrl?: string | null } | null }> };
 
 export type CancelInvitationMutationVariables = Exact<{
-  invitationId: Scalars['uuid']['input'];
+  invitationId: Scalars['Uuid']['input'];
 }>;
 
 
-export type CancelInvitationMutation = { deleteWorkplaceInvitationByPk?: { id: string } | null };
+export type CancelInvitationMutation = { deleteWorkplaceInvitationByPk?: { id: any } | null };
 
 export type AcceptInvitationMutationVariables = Exact<{
-  userId: Scalars['uuid']['input'];
-  workplaceId: Scalars['uuid']['input'];
-  invitationId: Scalars['uuid']['input'];
+  userId: Scalars['Uuid']['input'];
+  workplaceId: Scalars['Uuid']['input'];
+  invitationId: Scalars['Uuid']['input'];
 }>;
 
 
-export type AcceptInvitationMutation = { insertWorkplaceMember?: { affectedRows: number } | null, deleteWorkplaceInvitationByPk?: { id: string } | null };
+export type AcceptInvitationMutation = { insertWorkplaceMember?: { affectedRows: number } | null, deleteWorkplaceInvitationByPk?: { id: any } | null };
 
 export type InviteUserMutationVariables = Exact<{
   email: Scalars['String']['input'];
-  workplaceId: Scalars['uuid']['input'];
+  workplaceId: Scalars['Uuid']['input'];
 }>;
 
 
 export type InviteUserMutation = { insertWorkplaceInvitation?: { affectedRows: number } | null };
 
 export type GetWorkplaceOrganizationQueryVariables = Exact<{
-  id: Scalars['uuid']['input'];
+  id: Scalars['Uuid']['input'];
 }>;
 
 
-export type GetWorkplaceOrganizationQuery = { workplaceByPk?: { ownerId: string, organization?: { name: string, id: string, email: string, createdAt: string, addressId: string, ownerId: string, stripeAccountId?: string | null, stripeCustomerId?: string | null, stripeSubscriptionId?: string | null, stripeSubscriptionStatus?: SubscriptionStatusEnum | null, updatedAt: string, chargesEnabled?: boolean | null, imageUrl?: string | null } | null } | null };
+export type GetWorkplaceOrganizationQuery = { workplaceByPk?: { ownerId: any, organization?: { name: string, id: any, email: string, createdAt: any, addressId: any, ownerId: any, stripeAccountId?: string | null, stripeCustomerId?: string | null, stripeSubscriptionId?: string | null, stripeSubscriptionStatus?: SubscriptionStatusEnum | null, updatedAt: any, chargesEnabled?: boolean | null, imageUrl?: string | null } | null } | null };
 
 export type DeleteWorkplaceMemberMutationVariables = Exact<{
-  userId: Scalars['uuid']['input'];
-  workplaceId: Scalars['uuid']['input'];
+  userId: Scalars['Uuid']['input'];
+  workplaceId: Scalars['Uuid']['input'];
 }>;
 
 
-export type DeleteWorkplaceMemberMutation = { deleteWorkplaceMember?: { returning: Array<{ userId: string }> } | null };
+export type DeleteWorkplaceMemberMutation = { deleteWorkplaceMember?: { returning: Array<{ userId: any }> } | null };
 
 
-export const AddUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"AddUser"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"email"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"name"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"image"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"insertUser"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"objects"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"email"},"value":{"kind":"Variable","name":{"kind":"Name","value":"email"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"name"},"value":{"kind":"Variable","name":{"kind":"Name","value":"name"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"imageUrl"},"value":{"kind":"Variable","name":{"kind":"Name","value":"image"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"onConflict"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"constraint"},"value":{"kind":"EnumValue","value":"user_email_key"}},{"kind":"ObjectField","name":{"kind":"Name","value":"updateColumns"},"value":{"kind":"ListValue","values":[{"kind":"EnumValue","value":"imageUrl"}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"returning"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]} as unknown as DocumentNode<AddUserMutation, AddUserMutationVariables>;
-export const GetUserByIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetUserById"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"userId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"user"},"name":{"kind":"Name","value":"userByPk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"imageUrl"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"organizations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"ownerId"}},{"kind":"Field","name":{"kind":"Name","value":"stripeAccountId"}},{"kind":"Field","name":{"kind":"Name","value":"stripeCustomerId"}},{"kind":"Field","name":{"kind":"Name","value":"stripeSubscriptionId"}},{"kind":"Field","name":{"kind":"Name","value":"stripeSubscriptionStatus"}}]}},{"kind":"Field","name":{"kind":"Name","value":"ownerOfWorkplaces"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"ownerId"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}}]}},{"kind":"Field","name":{"kind":"Name","value":"memberOfWorkplaces"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"workplace"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"ownerId"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_neq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId"}}}]}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"workplace"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"ownerId"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]}}]}}]} as unknown as DocumentNode<GetUserByIdQuery, GetUserByIdQueryVariables>;
-export const UpdateUserNameDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateUserName"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"name"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateUserByPk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pkColumns"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"_set"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"name"},"value":{"kind":"Variable","name":{"kind":"Name","value":"name"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]} as unknown as DocumentNode<UpdateUserNameMutation, UpdateUserNameMutationVariables>;
-export const DeleteUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"DeleteUser"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"userId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"deleteUserByPk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<DeleteUserMutation, DeleteUserMutationVariables>;
-export const CreateGiftCardDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CreateGiftCard"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"amount"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"isActive"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Boolean"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"workplaceId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"customerEmail"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"insertGiftCard"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"objects"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"amount"},"value":{"kind":"Variable","name":{"kind":"Name","value":"amount"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"isActive"},"value":{"kind":"Variable","name":{"kind":"Name","value":"isActive"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"workplaceId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"workplaceId"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"customerEmail"},"value":{"kind":"Variable","name":{"kind":"Name","value":"customerEmail"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"returning"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]}}]} as unknown as DocumentNode<CreateGiftCardMutation, CreateGiftCardMutationVariables>;
-export const GetGiftCardsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetGiftCards"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"workplaceId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"giftCard"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"workplaceId"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"workplaceId"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"amount"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"createdBy"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"isActive"}},{"kind":"Field","name":{"kind":"Name","value":"stripePaymentId"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"workplaceId"}},{"kind":"Field","name":{"kind":"Name","value":"customerEmail"}},{"kind":"Field","name":{"kind":"Name","value":"usageLines"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"amount"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"createdBy"}},{"kind":"Field","name":{"kind":"Name","value":"giftCardId"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}},{"kind":"Field","name":{"kind":"Name","value":"creator"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"imageUrl"}}]}}]}}]}}]} as unknown as DocumentNode<GetGiftCardsQuery, GetGiftCardsQueryVariables>;
-export const GetGiftCardsByCustomerDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetGiftCardsByCustomer"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"workplaceId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"email"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"giftCard"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"workplaceId"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"workplaceId"}}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"customerEmail"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_like"},"value":{"kind":"Variable","name":{"kind":"Name","value":"email"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"amount"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"createdBy"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"isActive"}},{"kind":"Field","name":{"kind":"Name","value":"stripePaymentId"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"workplaceId"}},{"kind":"Field","name":{"kind":"Name","value":"customerEmail"}},{"kind":"Field","name":{"kind":"Name","value":"usageLines"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"amount"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"createdBy"}},{"kind":"Field","name":{"kind":"Name","value":"giftCardId"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"creator"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"imageUrl"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"creator"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"imageUrl"}}]}}]}}]}}]} as unknown as DocumentNode<GetGiftCardsByCustomerQuery, GetGiftCardsByCustomerQueryVariables>;
-export const GetGiftCardByIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetGiftCardById"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"giftCardByPk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"amount"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"createdBy"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"isActive"}},{"kind":"Field","name":{"kind":"Name","value":"stripePaymentId"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"workplaceId"}},{"kind":"Field","name":{"kind":"Name","value":"customerEmail"}},{"kind":"Field","name":{"kind":"Name","value":"workplace"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"organization"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"imageUrl"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"usageLines"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"amount"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"createdBy"}},{"kind":"Field","name":{"kind":"Name","value":"giftCardId"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"creator"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"imageUrl"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"creator"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"imageUrl"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]} as unknown as DocumentNode<GetGiftCardByIdQuery, GetGiftCardByIdQueryVariables>;
-export const GetPublicGiftCardByIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetPublicGiftCardById"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"giftCardByPk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"amount"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"createdBy"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"isActive"}},{"kind":"Field","name":{"kind":"Name","value":"stripePaymentId"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"workplaceId"}},{"kind":"Field","name":{"kind":"Name","value":"customerEmail"}}]}}]}}]} as unknown as DocumentNode<GetPublicGiftCardByIdQuery, GetPublicGiftCardByIdQueryVariables>;
-export const InsertGiftCardUsageLineDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"InsertGiftCardUsageLine"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"giftCardId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"amount"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"insertGiftCardUsageLine"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"objects"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"giftCardId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"giftCardId"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"amount"},"value":{"kind":"Variable","name":{"kind":"Name","value":"amount"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"returning"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]}}]} as unknown as DocumentNode<InsertGiftCardUsageLineMutation, InsertGiftCardUsageLineMutationVariables>;
+export const AddUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"AddUser"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"email"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"name"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"image"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"insertUser"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"objects"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"email"},"value":{"kind":"Variable","name":{"kind":"Name","value":"email"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"name"},"value":{"kind":"Variable","name":{"kind":"Name","value":"name"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"imageUrl"},"value":{"kind":"Variable","name":{"kind":"Name","value":"image"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"onConflict"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"constraint"},"value":{"kind":"EnumValue","value":"userEmailKey"}},{"kind":"ObjectField","name":{"kind":"Name","value":"updateColumns"},"value":{"kind":"ListValue","values":[{"kind":"EnumValue","value":"imageUrl"}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"returning"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]} as unknown as DocumentNode<AddUserMutation, AddUserMutationVariables>;
+export const GetUserByIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetUserById"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"userId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"user"},"name":{"kind":"Name","value":"userByPk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"imageUrl"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"organizations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"ownerId"}},{"kind":"Field","name":{"kind":"Name","value":"stripeAccountId"}},{"kind":"Field","name":{"kind":"Name","value":"stripeCustomerId"}},{"kind":"Field","name":{"kind":"Name","value":"stripeSubscriptionId"}},{"kind":"Field","name":{"kind":"Name","value":"stripeSubscriptionStatus"}}]}},{"kind":"Field","name":{"kind":"Name","value":"ownerOfWorkplaces"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"ownerId"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}}]}},{"kind":"Field","name":{"kind":"Name","value":"memberOfWorkplaces"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"workplace"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"ownerId"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_neq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId"}}}]}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"workplace"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"ownerId"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]}}]}}]} as unknown as DocumentNode<GetUserByIdQuery, GetUserByIdQueryVariables>;
+export const UpdateUserNameDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateUserName"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"name"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateUserByPk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pkColumns"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"_set"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"name"},"value":{"kind":"Variable","name":{"kind":"Name","value":"name"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]} as unknown as DocumentNode<UpdateUserNameMutation, UpdateUserNameMutationVariables>;
+export const DeleteUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"DeleteUser"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"userId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"deleteUserByPk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<DeleteUserMutation, DeleteUserMutationVariables>;
+export const CreateGiftCardDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CreateGiftCard"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"amount"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"isActive"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Boolean"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"workplaceId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"customerEmail"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"insertGiftCard"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"objects"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"amount"},"value":{"kind":"Variable","name":{"kind":"Name","value":"amount"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"isActive"},"value":{"kind":"Variable","name":{"kind":"Name","value":"isActive"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"workplaceId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"workplaceId"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"customerEmail"},"value":{"kind":"Variable","name":{"kind":"Name","value":"customerEmail"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"returning"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]}}]} as unknown as DocumentNode<CreateGiftCardMutation, CreateGiftCardMutationVariables>;
+export const GetGiftCardsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetGiftCards"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"workplaceId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"giftCard"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"workplaceId"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"workplaceId"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"amount"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"createdBy"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"isActive"}},{"kind":"Field","name":{"kind":"Name","value":"stripePaymentId"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"workplaceId"}},{"kind":"Field","name":{"kind":"Name","value":"customerEmail"}},{"kind":"Field","name":{"kind":"Name","value":"usageLines"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"amount"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"createdBy"}},{"kind":"Field","name":{"kind":"Name","value":"giftCardId"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}},{"kind":"Field","name":{"kind":"Name","value":"creator"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"imageUrl"}}]}}]}}]}}]} as unknown as DocumentNode<GetGiftCardsQuery, GetGiftCardsQueryVariables>;
+export const GetGiftCardsByCustomerDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetGiftCardsByCustomer"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"workplaceId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"email"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"giftCard"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"workplaceId"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"workplaceId"}}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"customerEmail"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_ilike"},"value":{"kind":"Variable","name":{"kind":"Name","value":"email"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"amount"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"createdBy"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"isActive"}},{"kind":"Field","name":{"kind":"Name","value":"stripePaymentId"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"workplaceId"}},{"kind":"Field","name":{"kind":"Name","value":"customerEmail"}},{"kind":"Field","name":{"kind":"Name","value":"usageLines"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"amount"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"createdBy"}},{"kind":"Field","name":{"kind":"Name","value":"giftCardId"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"creator"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"imageUrl"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"creator"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"imageUrl"}}]}}]}}]}}]} as unknown as DocumentNode<GetGiftCardsByCustomerQuery, GetGiftCardsByCustomerQueryVariables>;
+export const GetGiftCardByIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetGiftCardById"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"giftCardByPk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"amount"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"createdBy"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"isActive"}},{"kind":"Field","name":{"kind":"Name","value":"stripePaymentId"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"workplaceId"}},{"kind":"Field","name":{"kind":"Name","value":"customerEmail"}},{"kind":"Field","name":{"kind":"Name","value":"workplace"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"organization"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"imageUrl"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"usageLines"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"amount"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"createdBy"}},{"kind":"Field","name":{"kind":"Name","value":"giftCardId"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"creator"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"imageUrl"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"creator"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"imageUrl"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]} as unknown as DocumentNode<GetGiftCardByIdQuery, GetGiftCardByIdQueryVariables>;
+export const GetPublicGiftCardByIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetPublicGiftCardById"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"giftCardByPk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"amount"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"createdBy"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"isActive"}},{"kind":"Field","name":{"kind":"Name","value":"stripePaymentId"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"workplaceId"}},{"kind":"Field","name":{"kind":"Name","value":"customerEmail"}}]}}]}}]} as unknown as DocumentNode<GetPublicGiftCardByIdQuery, GetPublicGiftCardByIdQueryVariables>;
+export const InsertGiftCardUsageLineDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"InsertGiftCardUsageLine"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"giftCardId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"amount"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"insertGiftCardUsageLine"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"objects"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"giftCardId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"giftCardId"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"amount"},"value":{"kind":"Variable","name":{"kind":"Name","value":"amount"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"returning"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]}}]} as unknown as DocumentNode<InsertGiftCardUsageLineMutation, InsertGiftCardUsageLineMutationVariables>;
 export const GetPublicOrganizationsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetPublicOrganizations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"organization"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"imageUrl"}}]}}]}}]} as unknown as DocumentNode<GetPublicOrganizationsQuery, GetPublicOrganizationsQueryVariables>;
-export const UpdateOrganizationImageDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateOrganizationImage"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"imageUrl"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateOrganizationByPk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pkColumns"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"_set"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"imageUrl"},"value":{"kind":"Variable","name":{"kind":"Name","value":"imageUrl"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"imageUrl"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<UpdateOrganizationImageMutation, UpdateOrganizationImageMutationVariables>;
-export const GetOwnedOrganizationsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetOwnedOrganizations"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"userId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"organizations"},"name":{"kind":"Name","value":"organization"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"ownerId"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"ownerId"}},{"kind":"Field","name":{"kind":"Name","value":"stripeAccountId"}},{"kind":"Field","name":{"kind":"Name","value":"stripeCustomerId"}},{"kind":"Field","name":{"kind":"Name","value":"stripeSubscriptionId"}},{"kind":"Field","name":{"kind":"Name","value":"stripeSubscriptionStatus"}},{"kind":"Field","name":{"kind":"Name","value":"chargesEnabled"}},{"kind":"Field","name":{"kind":"Name","value":"imageUrl"}}]}}]}}]} as unknown as DocumentNode<GetOwnedOrganizationsQuery, GetOwnedOrganizationsQueryVariables>;
-export const GetOrganizationByIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetOrganizationById"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"organization"},"name":{"kind":"Name","value":"organizationByPk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"ownerId"}},{"kind":"Field","name":{"kind":"Name","value":"stripeAccountId"}},{"kind":"Field","name":{"kind":"Name","value":"stripeCustomerId"}},{"kind":"Field","name":{"kind":"Name","value":"stripeSubscriptionId"}},{"kind":"Field","name":{"kind":"Name","value":"stripeSubscriptionStatus"}},{"kind":"Field","name":{"kind":"Name","value":"chargesEnabled"}},{"kind":"Field","name":{"kind":"Name","value":"imageUrl"}},{"kind":"Field","name":{"kind":"Name","value":"address"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line1"}},{"kind":"Field","name":{"kind":"Name","value":"line2"}},{"kind":"Field","name":{"kind":"Name","value":"city"}},{"kind":"Field","name":{"kind":"Name","value":"state"}},{"kind":"Field","name":{"kind":"Name","value":"postalCode"}},{"kind":"Field","name":{"kind":"Name","value":"country"}}]}}]}}]}}]} as unknown as DocumentNode<GetOrganizationByIdQuery, GetOrganizationByIdQueryVariables>;
-export const CreateOrganizationDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CreateOrganization"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"name"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"email"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"address"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"AddressInsertInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"insertOrganization"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"objects"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"name"},"value":{"kind":"Variable","name":{"kind":"Name","value":"name"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"email"},"value":{"kind":"Variable","name":{"kind":"Name","value":"email"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"address"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"address"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"onConflict"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"constraint"},"value":{"kind":"EnumValue","value":"address_pkey"}},{"kind":"ObjectField","name":{"kind":"Name","value":"updateColumns"},"value":{"kind":"ListValue","values":[]}}]}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"returning"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"ownerId"}},{"kind":"Field","name":{"kind":"Name","value":"stripeAccountId"}},{"kind":"Field","name":{"kind":"Name","value":"stripeCustomerId"}},{"kind":"Field","name":{"kind":"Name","value":"stripeSubscriptionId"}},{"kind":"Field","name":{"kind":"Name","value":"stripeSubscriptionStatus"}},{"kind":"Field","name":{"kind":"Name","value":"chargesEnabled"}},{"kind":"Field","name":{"kind":"Name","value":"imageUrl"}},{"kind":"Field","name":{"kind":"Name","value":"address"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line1"}},{"kind":"Field","name":{"kind":"Name","value":"line2"}},{"kind":"Field","name":{"kind":"Name","value":"city"}},{"kind":"Field","name":{"kind":"Name","value":"state"}},{"kind":"Field","name":{"kind":"Name","value":"postalCode"}},{"kind":"Field","name":{"kind":"Name","value":"country"}}]}}]}}]}}]}}]} as unknown as DocumentNode<CreateOrganizationMutation, CreateOrganizationMutationVariables>;
-export const UpdateWorkplaceorganizationIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateWorkplaceorganizationId"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateWorkplaceByPk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pkColumns"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"_set"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"organizationId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<UpdateWorkplaceorganizationIdMutation, UpdateWorkplaceorganizationIdMutationVariables>;
+export const UpdateOrganizationImageDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateOrganizationImage"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"imageUrl"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateOrganizationByPk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pkColumns"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"_set"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"imageUrl"},"value":{"kind":"Variable","name":{"kind":"Name","value":"imageUrl"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"imageUrl"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<UpdateOrganizationImageMutation, UpdateOrganizationImageMutationVariables>;
+export const GetOwnedOrganizationsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetOwnedOrganizations"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"userId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"organizations"},"name":{"kind":"Name","value":"organization"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"ownerId"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"ownerId"}},{"kind":"Field","name":{"kind":"Name","value":"stripeAccountId"}},{"kind":"Field","name":{"kind":"Name","value":"stripeCustomerId"}},{"kind":"Field","name":{"kind":"Name","value":"stripeSubscriptionId"}},{"kind":"Field","name":{"kind":"Name","value":"stripeSubscriptionStatus"}},{"kind":"Field","name":{"kind":"Name","value":"chargesEnabled"}},{"kind":"Field","name":{"kind":"Name","value":"imageUrl"}}]}}]}}]} as unknown as DocumentNode<GetOwnedOrganizationsQuery, GetOwnedOrganizationsQueryVariables>;
+export const GetOrganizationByIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetOrganizationById"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"organization"},"name":{"kind":"Name","value":"organizationByPk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"ownerId"}},{"kind":"Field","name":{"kind":"Name","value":"stripeAccountId"}},{"kind":"Field","name":{"kind":"Name","value":"stripeCustomerId"}},{"kind":"Field","name":{"kind":"Name","value":"stripeSubscriptionId"}},{"kind":"Field","name":{"kind":"Name","value":"stripeSubscriptionStatus"}},{"kind":"Field","name":{"kind":"Name","value":"chargesEnabled"}},{"kind":"Field","name":{"kind":"Name","value":"imageUrl"}},{"kind":"Field","name":{"kind":"Name","value":"address"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line1"}},{"kind":"Field","name":{"kind":"Name","value":"line2"}},{"kind":"Field","name":{"kind":"Name","value":"city"}},{"kind":"Field","name":{"kind":"Name","value":"state"}},{"kind":"Field","name":{"kind":"Name","value":"postalCode"}},{"kind":"Field","name":{"kind":"Name","value":"country"}}]}}]}}]}}]} as unknown as DocumentNode<GetOrganizationByIdQuery, GetOrganizationByIdQueryVariables>;
+export const CreateOrganizationDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CreateOrganization"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"name"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"email"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"address"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"AddressInsertInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"insertOrganization"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"objects"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"name"},"value":{"kind":"Variable","name":{"kind":"Name","value":"name"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"email"},"value":{"kind":"Variable","name":{"kind":"Name","value":"email"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"address"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"address"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"onConflict"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"constraint"},"value":{"kind":"EnumValue","value":"addressPkey"}},{"kind":"ObjectField","name":{"kind":"Name","value":"updateColumns"},"value":{"kind":"ListValue","values":[]}}]}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"returning"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"ownerId"}},{"kind":"Field","name":{"kind":"Name","value":"stripeAccountId"}},{"kind":"Field","name":{"kind":"Name","value":"stripeCustomerId"}},{"kind":"Field","name":{"kind":"Name","value":"stripeSubscriptionId"}},{"kind":"Field","name":{"kind":"Name","value":"stripeSubscriptionStatus"}},{"kind":"Field","name":{"kind":"Name","value":"chargesEnabled"}},{"kind":"Field","name":{"kind":"Name","value":"imageUrl"}},{"kind":"Field","name":{"kind":"Name","value":"address"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"line1"}},{"kind":"Field","name":{"kind":"Name","value":"line2"}},{"kind":"Field","name":{"kind":"Name","value":"city"}},{"kind":"Field","name":{"kind":"Name","value":"state"}},{"kind":"Field","name":{"kind":"Name","value":"postalCode"}},{"kind":"Field","name":{"kind":"Name","value":"country"}}]}}]}}]}}]}}]} as unknown as DocumentNode<CreateOrganizationMutation, CreateOrganizationMutationVariables>;
+export const UpdateWorkplaceorganizationIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateWorkplaceorganizationId"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateWorkplaceByPk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pkColumns"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"_set"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"organizationId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<UpdateWorkplaceorganizationIdMutation, UpdateWorkplaceorganizationIdMutationVariables>;
 export const CreateAddressDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CreateAddress"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"state"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"postalCode"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"line2"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"line1"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"country"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"city"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"insertAddress"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"objects"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"city"},"value":{"kind":"Variable","name":{"kind":"Name","value":"city"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"country"},"value":{"kind":"Variable","name":{"kind":"Name","value":"country"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"line1"},"value":{"kind":"Variable","name":{"kind":"Name","value":"line1"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"postalCode"},"value":{"kind":"Variable","name":{"kind":"Name","value":"postalCode"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"state"},"value":{"kind":"Variable","name":{"kind":"Name","value":"state"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"line2"},"value":{"kind":"Variable","name":{"kind":"Name","value":"line2"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"returning"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]}}]} as unknown as DocumentNode<CreateAddressMutation, CreateAddressMutationVariables>;
-export const UpdateOrgranizationsStripeCustomerIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateOrgranizationsStripeCustomerId"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"stripeCustomerId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateOrganizationByPk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pkColumns"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"_set"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"stripeCustomerId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"stripeCustomerId"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"stripeCustomerId"}}]}}]}}]} as unknown as DocumentNode<UpdateOrgranizationsStripeCustomerIdMutation, UpdateOrgranizationsStripeCustomerIdMutationVariables>;
-export const UpdateOrganizationsChargesEnabledDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateOrganizationsChargesEnabled"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateOrganizationByPk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pkColumns"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"_set"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"chargesEnabled"},"value":{"kind":"BooleanValue","value":true}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<UpdateOrganizationsChargesEnabledMutation, UpdateOrganizationsChargesEnabledMutationVariables>;
-export const UpdateOrganizationStripeAccountDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateOrganizationStripeAccount"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"stripeAccountId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateOrganizationByPk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pkColumns"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"_set"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"stripeAccountId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"stripeAccountId"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"stripeAccountId"}}]}}]}}]} as unknown as DocumentNode<UpdateOrganizationStripeAccountMutation, UpdateOrganizationStripeAccountMutationVariables>;
+export const UpdateOrgranizationsStripeCustomerIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateOrgranizationsStripeCustomerId"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"stripeCustomerId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateOrganizationByPk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pkColumns"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"_set"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"stripeCustomerId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"stripeCustomerId"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"stripeCustomerId"}}]}}]}}]} as unknown as DocumentNode<UpdateOrgranizationsStripeCustomerIdMutation, UpdateOrgranizationsStripeCustomerIdMutationVariables>;
+export const UpdateOrganizationsChargesEnabledDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateOrganizationsChargesEnabled"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateOrganizationByPk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pkColumns"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"_set"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"chargesEnabled"},"value":{"kind":"BooleanValue","value":true}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<UpdateOrganizationsChargesEnabledMutation, UpdateOrganizationsChargesEnabledMutationVariables>;
+export const UpdateOrganizationStripeAccountDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateOrganizationStripeAccount"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"stripeAccountId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateOrganizationByPk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pkColumns"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"_set"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"stripeAccountId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"stripeAccountId"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"stripeAccountId"}}]}}]}}]} as unknown as DocumentNode<UpdateOrganizationStripeAccountMutation, UpdateOrganizationStripeAccountMutationVariables>;
 export const SubscriptionStatusDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"SubscriptionStatus"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"subscriptionStatus"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"description"}}]}}]}}]} as unknown as DocumentNode<SubscriptionStatusQuery, SubscriptionStatusQueryVariables>;
-export const UpdateSubscriptionStatusDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateSubscriptionStatus"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"status"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SubscriptionStatusEnum"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateOrganization"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}}}]}}]}},{"kind":"Argument","name":{"kind":"Name","value":"_set"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"stripeSubscriptionStatus"},"value":{"kind":"Variable","name":{"kind":"Name","value":"status"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"returning"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]}}]} as unknown as DocumentNode<UpdateSubscriptionStatusMutation, UpdateSubscriptionStatusMutationVariables>;
-export const UpdateSubscriptionIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateSubscriptionId"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"subscriptionId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateOrganizationByPk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pkColumns"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"_set"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"stripeSubscriptionId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"subscriptionId"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<UpdateSubscriptionIdMutation, UpdateSubscriptionIdMutationVariables>;
+export const UpdateSubscriptionStatusDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateSubscriptionStatus"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"status"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SubscriptionStatusEnum"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateOrganization"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}}}]}}]}},{"kind":"Argument","name":{"kind":"Name","value":"_set"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"stripeSubscriptionStatus"},"value":{"kind":"Variable","name":{"kind":"Name","value":"status"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"returning"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]}}]} as unknown as DocumentNode<UpdateSubscriptionStatusMutation, UpdateSubscriptionStatusMutationVariables>;
+export const UpdateSubscriptionIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateSubscriptionId"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"subscriptionId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateOrganizationByPk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pkColumns"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"_set"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"stripeSubscriptionId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"subscriptionId"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<UpdateSubscriptionIdMutation, UpdateSubscriptionIdMutationVariables>;
 export const GetAllWorkplacesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetAllWorkplaces"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"workplace"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"ownerId"}}]}}]}}]} as unknown as DocumentNode<GetAllWorkplacesQuery, GetAllWorkplacesQueryVariables>;
-export const CreateWokrplaceDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"createWokrplace"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"title"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"userId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"insertWorkplace"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"objects"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"title"},"value":{"kind":"Variable","name":{"kind":"Name","value":"title"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"organizationId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"workplaceMembers"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"data"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"userId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId"}}}]}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"returning"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"ownerId"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]}}]} as unknown as DocumentNode<CreateWokrplaceMutation, CreateWokrplaceMutationVariables>;
-export const DeleteWorkplaceDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"DeleteWorkplace"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"workplaceId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"deleteWorkplace"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"workplaceId"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"affectedRows"}}]}}]}}]} as unknown as DocumentNode<DeleteWorkplaceMutation, DeleteWorkplaceMutationVariables>;
-export const GetWorkplaceMembersDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetWorkplaceMembers"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"workplaceId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"workplaceMember"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"workplaceId"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"workplaceId"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"workplaceId"}},{"kind":"Field","name":{"kind":"Name","value":"workplace"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"ownerId"}}]}},{"kind":"Field","alias":{"kind":"Name","value":"workplaceMembers"},"name":{"kind":"Name","value":"user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"imageUrl"}}]}}]}}]}}]} as unknown as DocumentNode<GetWorkplaceMembersQuery, GetWorkplaceMembersQueryVariables>;
+export const CreateWokrplaceDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"createWokrplace"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"title"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"userId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Uuid"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"insertWorkplace"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"objects"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"title"},"value":{"kind":"Variable","name":{"kind":"Name","value":"title"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"organizationId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"workplaceMembers"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"data"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"userId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId"}}}]}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"returning"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"ownerId"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]}}]} as unknown as DocumentNode<CreateWokrplaceMutation, CreateWokrplaceMutationVariables>;
+export const DeleteWorkplaceDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"DeleteWorkplace"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"workplaceId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"deleteWorkplace"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"workplaceId"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"affectedRows"}}]}}]}}]} as unknown as DocumentNode<DeleteWorkplaceMutation, DeleteWorkplaceMutationVariables>;
+export const GetWorkplaceMembersDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetWorkplaceMembers"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"workplaceId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"workplaceMember"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"workplaceId"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"workplaceId"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"workplaceId"}},{"kind":"Field","name":{"kind":"Name","value":"workplace"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"ownerId"}}]}},{"kind":"Field","alias":{"kind":"Name","value":"workplaceMembers"},"name":{"kind":"Name","value":"user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"imageUrl"}}]}}]}}]}}]} as unknown as DocumentNode<GetWorkplaceMembersQuery, GetWorkplaceMembersQueryVariables>;
 export const GetWorkplaceInvitationsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetWorkplaceInvitations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"workplaceInvitation"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"workplaceId"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"workplace"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}}]}},{"kind":"Field","alias":{"kind":"Name","value":"workplaceInvitations"},"name":{"kind":"Name","value":"user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"imageUrl"}}]}}]}}]}}]} as unknown as DocumentNode<GetWorkplaceInvitationsQuery, GetWorkplaceInvitationsQueryVariables>;
-export const CancelInvitationDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CancelInvitation"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"invitationId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"deleteWorkplaceInvitationByPk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"invitationId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<CancelInvitationMutation, CancelInvitationMutationVariables>;
-export const AcceptInvitationDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"AcceptInvitation"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"userId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"workplaceId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"invitationId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"insertWorkplaceMember"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"objects"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"workplaceId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"workplaceId"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"userId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"affectedRows"}}]}},{"kind":"Field","name":{"kind":"Name","value":"deleteWorkplaceInvitationByPk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"invitationId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<AcceptInvitationMutation, AcceptInvitationMutationVariables>;
-export const InviteUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"InviteUser"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"email"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"workplaceId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"insertWorkplaceInvitation"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"objects"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"email"},"value":{"kind":"Variable","name":{"kind":"Name","value":"email"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"workplaceId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"workplaceId"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"affectedRows"}}]}}]}}]} as unknown as DocumentNode<InviteUserMutation, InviteUserMutationVariables>;
-export const GetWorkplaceOrganizationDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetWorkplaceOrganization"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"workplaceByPk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"ownerId"}},{"kind":"Field","name":{"kind":"Name","value":"organization"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"addressId"}},{"kind":"Field","name":{"kind":"Name","value":"ownerId"}},{"kind":"Field","name":{"kind":"Name","value":"stripeAccountId"}},{"kind":"Field","name":{"kind":"Name","value":"stripeCustomerId"}},{"kind":"Field","name":{"kind":"Name","value":"stripeSubscriptionId"}},{"kind":"Field","name":{"kind":"Name","value":"stripeSubscriptionStatus"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"chargesEnabled"}},{"kind":"Field","name":{"kind":"Name","value":"imageUrl"}}]}}]}}]}}]} as unknown as DocumentNode<GetWorkplaceOrganizationQuery, GetWorkplaceOrganizationQueryVariables>;
-export const DeleteWorkplaceMemberDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"DeleteWorkplaceMember"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"userId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"workplaceId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"deleteWorkplaceMember"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"workplaceId"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"workplaceId"}}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"userId"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"returning"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"userId"}}]}}]}}]}}]} as unknown as DocumentNode<DeleteWorkplaceMemberMutation, DeleteWorkplaceMemberMutationVariables>;
+export const CancelInvitationDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CancelInvitation"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"invitationId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"deleteWorkplaceInvitationByPk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"invitationId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<CancelInvitationMutation, CancelInvitationMutationVariables>;
+export const AcceptInvitationDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"AcceptInvitation"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"userId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"workplaceId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"invitationId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"insertWorkplaceMember"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"objects"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"workplaceId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"workplaceId"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"userId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"affectedRows"}}]}},{"kind":"Field","name":{"kind":"Name","value":"deleteWorkplaceInvitationByPk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"invitationId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<AcceptInvitationMutation, AcceptInvitationMutationVariables>;
+export const InviteUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"InviteUser"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"email"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"workplaceId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"insertWorkplaceInvitation"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"objects"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"email"},"value":{"kind":"Variable","name":{"kind":"Name","value":"email"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"workplaceId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"workplaceId"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"affectedRows"}}]}}]}}]} as unknown as DocumentNode<InviteUserMutation, InviteUserMutationVariables>;
+export const GetWorkplaceOrganizationDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetWorkplaceOrganization"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"workplaceByPk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"ownerId"}},{"kind":"Field","name":{"kind":"Name","value":"organization"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"addressId"}},{"kind":"Field","name":{"kind":"Name","value":"ownerId"}},{"kind":"Field","name":{"kind":"Name","value":"stripeAccountId"}},{"kind":"Field","name":{"kind":"Name","value":"stripeCustomerId"}},{"kind":"Field","name":{"kind":"Name","value":"stripeSubscriptionId"}},{"kind":"Field","name":{"kind":"Name","value":"stripeSubscriptionStatus"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"chargesEnabled"}},{"kind":"Field","name":{"kind":"Name","value":"imageUrl"}}]}}]}}]}}]} as unknown as DocumentNode<GetWorkplaceOrganizationQuery, GetWorkplaceOrganizationQueryVariables>;
+export const DeleteWorkplaceMemberDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"DeleteWorkplaceMember"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"userId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"workplaceId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"deleteWorkplaceMember"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"workplaceId"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"workplaceId"}}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"userId"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"returning"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"userId"}}]}}]}}]}}]} as unknown as DocumentNode<DeleteWorkplaceMemberMutation, DeleteWorkplaceMemberMutationVariables>;
